@@ -1,1 +1,1 @@
-<p class="text-white">This is the photography page!</p>
+<p class="text-white">This is the climbing page!</p>
