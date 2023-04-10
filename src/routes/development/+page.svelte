@@ -1,0 +1,1 @@
+<p class="text-white">This is the photography page!</p>
