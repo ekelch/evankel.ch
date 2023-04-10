@@ -1,6 +1,5 @@
-<p>Coming soon...</p>
-<p>g = {g}</p>
+<p class="m-5">Hello</p>
 
 <script>
-    let g = 5;
 </script>
+
