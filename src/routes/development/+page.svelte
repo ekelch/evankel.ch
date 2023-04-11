@@ -1,1 +1,3 @@
-<p class="text-white">This is the software dev page!</p>
+<div class="container m-auto">
+    <p class="text-center mt-5">hey cutie</p>
+</div>
