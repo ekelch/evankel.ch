@@ -1,1 +1,0 @@
-<p class="text-white">This is the climbing page!</p>

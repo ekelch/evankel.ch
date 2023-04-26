@@ -1,0 +1,6 @@
+name = "worker"
+compatibility_date = "2023-04-12"
+
+kv_namespaces = [
+    { binding = "BLOG", id = "282b832e443049d4ae98c372f8924e63" }
+]
