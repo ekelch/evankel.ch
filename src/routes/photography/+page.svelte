@@ -1,10 +1,13 @@
-<div class="container m-auto grid grid-cols-4 gap-4">
-    {#each imageUrls as url}
-    <div>
-        <img class="rounded-md" src="{url}" alt="{url}">
-    </div>
-    {/each}
+<h2 class="text-white text-center mb-4">Random pictures for the time being!</h2>
+<div class="mx-3 mb-3 md:m-auto">
+    <div class="container m-auto grid grid-cols-2 md:grid-cols-4 gap-4">
+        {#each imageUrls as url}
+        <div>
+            <img class="rounded-md" src="{url}" alt="{url}">
+        </div>
+        {/each}
 
+    </div>
 </div>
 
 <script lang="ts">
@@ -17,6 +20,5 @@
         photoName = ('webTest-' + num + '.jpg')
         imageUrls.push('https://ik.imagekit.io/ekelch/' + photoName + '?tr=w-500%2Ch-340');
     }
-
 </script>
 
