@@ -15,3 +15,7 @@
     </div>
 </div>
 
+<svelte:head>
+    <title>Blog</title>
+    <meta name="Evan Kelch personal website blog page.">
+</svelte:head>

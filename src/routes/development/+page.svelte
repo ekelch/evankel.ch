@@ -9,3 +9,8 @@
 <script lang="ts">
 
 </script>
+
+<svelte:head>
+    <title>Development</title>
+    <meta name="Evan Kelch personal website professional experience and software development and programming skills">
+</svelte:head>
