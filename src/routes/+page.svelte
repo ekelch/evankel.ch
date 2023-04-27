@@ -1,10 +1,10 @@
-<div class="w-5/6 m-auto md:w-1/3">
+<div class="w-5/6 mx-auto mb-5 md:w-1/3">
     <div class=" p-6 rounded-md bg-stone-800 border-2 border-cyan-500 text-center space-y-8">
         <p>Hello, I am Evan, welcome to my amazing website.</p>
         <p>I am not sure what the point if this is yet, but I'll add content as I think of it.</p>
     </div>
 
-    <div class=" p-5 bg-gradient-to-b from-cyan-500 to-orange-500 text-center" style="height: 20vh;"></div>
+    <div class=" p-5 rounded-lg bg-gradient-to-b from-cyan-500 to-orange-500 text-center" style="height: 20vh;"></div>
 
     <div class="p-5 rounded-md bg-stone-800 border-2 border-orange-500 text-center space-y-8">
         <p>enjoy these colorful boxes while I am busy actually making this website</p>
