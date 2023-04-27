@@ -22,3 +22,8 @@
     }
 </script>
 
+<svelte:head>
+    <title>Evan Kelch Photography</title>
+    <meta name="Evan Kelch personal website photography gallery showcase.">
+</svelte:head>
+

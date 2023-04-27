@@ -8,3 +8,8 @@
         <p>Please enjoy this song while I am busy actually making this website.</p>
         <iframe style="border-radius:12px" title="spotify embed" src="https://open.spotify.com/embed/track/7B2DS5uAjGp3QB1gSz1XmP?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>    </div>
 </div>
+
+<svelte:head>
+    <title>Evan Kelch</title>
+    <meta name="Evan Kelch personal project website home page.">
+</svelte:head>
