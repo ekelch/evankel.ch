@@ -5,6 +5,7 @@
             <a href="/blog" class="opacity-80 hover:opacity-100">Blog</a>
             <a href="/development" class="opacity-80 hover:opacity-100">Development</a>
             <a href="/photography" class="opacity-80 hover:opacity-100">Photography</a>
+            <a href="/about" class="opacity-80 hover:opacity-100">About</a>
         </nav>
     </div>
     <div class="h-px m-0 bg-gradient-to-r from-indigo-500 to-red-500"></div>
