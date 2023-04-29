@@ -49,7 +49,7 @@
             <p>{result}</p>
         </div>
         <div>
-            <button on:click={()=>handleKeypress({key: 'Enter'})} class="w-full text-black bg-amber-500 h-24 p-1 my-2 rounded-sm border-2 border-red-500/50">Enter</button>
+            <button on:click={()=>handleKeypress({key: 'Enter'})} class="w-full text-white bg-slate-600 h-24 p-1 my-2 rounded-md">Enter</button>
         </div>
     </div>
 
