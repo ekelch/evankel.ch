@@ -30,7 +30,7 @@
     }
 
     function evaluate() {
-        result = format(parser().evaluate(expression));
+        result = format(parser().evaluate(expression), {precision: 5});
     }
 
     function backspace() {
@@ -39,7 +39,7 @@
 
 </script>
 
-<div class="w-5/6 md:w-1/6 md:mt-6 mx-auto">
+<div class="w-11/12 md:w-1/6 md:mt-6 mx-auto">
     <div class="h-48 p-1 bg-zinc-800 text-white border-2 border-orange-600/60 mt-3 rounded-sm">
         <p>{expression}</p>
     </div>
@@ -56,21 +56,21 @@
     <div class="bg-zinc-800 text-white my-2 rounded-md">
         <div class="grid grid-cols-5 gap-1">
             <button on:click={()=>pushExp('e')} class="calc-op">EE</button>
-            <button on:click={()=>pushExp('1')} class="calc-num">1</button>
-            <button on:click={()=>pushExp('2')} class="calc-num">2</button>
-            <button on:click={()=>pushExp('3')} class="calc-num">3</button>
-            <button on:click={()=>pushExp('-')} class="calc-op">-</button>
+            <button on:click={()=>pushExp('7')} class="calc-num">7</button>
+            <button on:click={()=>pushExp('8')} class="calc-num">8</button>
+            <button on:click={()=>pushExp('9')} class="calc-num">9</button>
+            <button on:click={()=>pushExp('+')} class="calc-op">+</button>
 
             <button class="calc-op">&radic;</button>
             <button on:click={()=>pushExp('4')} class="calc-num">4</button>
             <button on:click={()=>pushExp('5')} class="calc-num">5</button>
             <button on:click={()=>pushExp('6')} class="calc-num">6</button>
-            <button on:click={()=>pushExp('+')} class="calc-op">+</button>
+            <button on:click={()=>pushExp('-')} class="calc-op">-</button>
 
-            <button class="calc-spec">^</button>
-            <button on:click={()=>pushExp('7')} class="calc-num">7</button>
-            <button on:click={()=>pushExp('8')} class="calc-num">8</button>
-            <button on:click={()=>pushExp('9')} class="calc-num">9</button>
+            <button class="calc-op">^</button>
+            <button on:click={()=>pushExp('1')} class="calc-num">1</button>
+            <button on:click={()=>pushExp('2')} class="calc-num">2</button>
+            <button on:click={()=>pushExp('3')} class="calc-num">3</button>
             <button on:click={()=>pushExp('*')} class="calc-op">*</button>
 
             <button on:click={()=>handleKeypress({key:'c'})} class="calc-spec">CLC</button>
