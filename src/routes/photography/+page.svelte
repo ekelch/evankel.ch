@@ -2,7 +2,7 @@
     <h2>I want to add different categories and do some fun CSS things with this page but for now here are 18 random pictures I took and like</h2>
     <div class="img-container">
         <img class="img-prev" src="{imageUrls[prevPos]}" alt="{imageUrls[prevPos]}"/>
-        <img src="{imageUrls[currentPos]}" alt="{imageUrls[currentPos]}"/>
+        <img src="{imageUrls[currentPos]}" alt="idc"/>
         <img class="img-next" src="{imageUrls[nextPos]}" alt="{imageUrls[nextPos]}"/>
         <button on:click={() => previous()} id="photo-left" class="photo-select">&lt</button>
         <button on:click={() => next()} id="photo-right" class="photo-select">&gt</button>
@@ -10,8 +10,8 @@
 </div>
 
 <script lang="ts">
-    let height = 340;
-    let width = 500;
+    let height = 540;
+    let width = 800;
     let photoCount = 18;
 
     let currentPos = 0;
@@ -50,7 +50,7 @@
 
     .img-container {
         position: relative;
-        width: 500px;
+        width: 800px;
         margin: auto;
     }
 
