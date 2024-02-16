@@ -107,7 +107,7 @@
         <p class="mt-2 mb-4 font-bold">Keyboard shortcuts:</p>
         <div class="grid grid-cols-5 gap-3">
             {#each keyMappings as keyMapping}
-                <p class="bg-zinc-800 border-2 border-cyan-500/90 p-1 w-full rounded-md text-center"
+                <p
                    on:click={()=>mockKeypress(keyMapping.key)}
                 >{keyMapping.key}</p>
                 <p class="col-span-4">{keyMapping.desc}</p>

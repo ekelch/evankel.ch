@@ -1,5 +1,5 @@
-<div class="w-5/6 m-auto md:w-1/3">
-    <div class="container mt-5 p-5 rounded-md bg-stone-800 border-2 border-indigo-500">
+<div>
+    <div>
         <p>Some enlightening world war 2 history to entertain you because there is otherwise no content on this page:</p><br>
         <p>The Norwegian heavy water sabotage (Bokmål: Tungtvannsaksjonen; Nynorsk: Tungtvassaksjonen) was a series of
             Allied-led efforts to halt German heavy water production via hydroelectric plants in Nazi Germany-occupied
