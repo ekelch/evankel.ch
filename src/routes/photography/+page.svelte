@@ -4,14 +4,14 @@
         <img class="img-prev" src="{imageUrls[prevPos]}" alt="{imageUrls[prevPos]}"/>
         <img src="{imageUrls[currentPos]}" alt="idc"/>
         <img class="img-next" src="{imageUrls[nextPos]}" alt="{imageUrls[nextPos]}"/>
-        <button on:click={() => previous()} id="photo-left" class="photo-select">&lt</button>
-        <button on:click={() => next()} id="photo-right" class="photo-select">&gt</button>
+        <button on:click={() => next()} id="photo-left" class="photo-select">&lt</button>
+        <button on:click={() => previous()} id="photo-right" class="photo-select">&gt</button>
     </div>
 </div>
 
 <script lang="ts">
-    let height = 540;
-    let width = 800;
+    let height = 440;
+    let width = 640;
     let photoCount = 18;
 
     let currentPos = 0;
@@ -50,8 +50,14 @@
 
     .img-container {
         position: relative;
-        width: 800px;
+        width: 640px;
+        height: 440px;
         margin: auto;
+        overflow: hidden;
+
+        border: 2px solid #5CFFDB60;
+        border-radius: 6px;
+        object-fit: cover;
     }
 
     .img-prev {
