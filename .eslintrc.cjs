@@ -3,10 +3,7 @@ module.exports = {
 	parser: '@typescript-eslint/parser',
 	extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended', 'prettier'],
 	plugins: ['svelte3', '@typescript-eslint'],
-	ignorePatterns: ['*.cjs','@typescript-eslint/no-unused-vars': [
-          'warn',
-          { varsIgnorePattern: '^\\$\\$(Props|Events|Slots)$' },
-        ],],
+	ignorePatterns: ['*.cjs'],
 	overrides: [{ files: ['*.svelte'], processor: 'svelte3/svelte3' }],
 	settings: {
 		'svelte3/typescript': () => require('typescript')
@@ -20,6 +17,4 @@ module.exports = {
 		es2017: true,
 		node: true
 	},
-	// no idea if next line does anything
-
 };
