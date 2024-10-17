@@ -17,27 +17,24 @@
 
 <style>
 	.start-item-container {
+		all: unset;
 		width: 100px;
 		height: 100%;
 		display: flex;
+		border-radius: 0 20px 20px 0 / 69px;
 
 		background-color: #16c424;
-		border: 3px solid;
-		border-image-source: linear-gradient(0deg, #16c424, #0db51a);
-		border-image-slice: 1;
-		border-top-right-radius: 4px;
-		border-bottom-right-radius: 4px;
-		border-left: 0;
-		border-right: 0;
 	}
 	span {
 		margin: 8px auto auto;
 		text-decoration: none;
+		text-shadow: 2px 2px 9px rgba(0, 0, 0, 0.5);
 		font-style: italic;
 		font-weight: bold;
-		font-size: 16px;
+		font-size: 18px;
 	}
 	.hover {
 		background: #16c925;
+		cursor: pointer;
 	}
 </style>

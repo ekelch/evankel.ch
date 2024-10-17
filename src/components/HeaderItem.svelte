@@ -1,11 +1,6 @@
 <script lang="ts">
 	export let item: string;
-	export let route: string;
 	let hovering: boolean;
-
-	const redirect = () => {
-		location.href = route;
-	};
 </script>
 
 <button
@@ -15,8 +10,8 @@
 	on:mouseleave={() => {
 		hovering = false;
 	}}
-	on:click={redirect}
 	class:hover={hovering}
+	on:click
 	class="menu-item-container"
 >
 	<span>{item}</span>
@@ -27,9 +22,9 @@
 		all: unset;
 		display: flex;
 		background-color: #3988f7;
-		margin: 2px;
+		margin: 3px 2px;
 		padding: 4px;
-		border-radius: 1px;
+		border-radius: 4px;
 		display: flex;
 		min-width: 160px;
 	}
@@ -41,5 +36,6 @@
 		background: #1f6ddb;
 		border-radius: 6px;
 		opacity: 100%;
+		cursor: pointer;
 	}
 </style>

@@ -1,0 +1,17 @@
+<script context="module" lang="ts">
+	import About from '../components/about.svelte';
+
+	export type appOptions = 'about' | 'cross';
+
+	export type gridlayout = {
+		i: number;
+		c: appOptions;
+		x: number;
+		y: number;
+		w: number;
+		h: number;
+		show?: boolean;
+	};
+</script>
+
+;
