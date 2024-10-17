@@ -9,28 +9,35 @@
 
 	export let apps: gridlayout[] = [];
 	$: console.log(apps);
-	$: vApps = apps.map((a) => a.c);
 
 	const closeApp = (appName: appOptions) => {
 		dispatch('closeApp', appName);
 	};
+	const focusWindow = (e: CustomEvent) => {
+		e.detail.z = 100;
+		let sorted = apps.sort((a, b) => a.z - b.z);
+		apps = sorted.map((a, v) => {
+			return { ...a, z: apps.length - v };
+		});
+	};
 </script>
 
 <div class="main-contain">
-	{#if vApps.includes('about')}
+	{#each apps as a}
 		<Draggable
+			{a}
+			on:focusWindow={(e) => focusWindow(e)}
 			on:closeApp={() => {
-				closeApp('about');
-			}}><About /></Draggable
+				closeApp(a.c);
+			}}
 		>
-	{/if}
-	{#if vApps.includes('cross')}
-		<Draggable
-			on:closeApp={() => {
-				closeApp('cross');
-			}}><Cross /></Draggable
-		>
-	{/if}
+			{#if a.c === 'about'}
+				<About />
+			{:else if a.c === 'cross'}
+				<Cross />
+			{/if}
+		</Draggable>
+	{/each}
 </div>
 
 <style>

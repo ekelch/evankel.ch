@@ -1,33 +1,60 @@
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte';
+	import { type gridlayout } from '../types.ts/layouts.svelte';
 
 	const dispatch = createEventDispatcher();
 	const close = () => {
 		dispatch('closeApp');
 	};
 
-	let x = 100;
-	let y = 100;
-	let w = 400;
-	let h = 300;
-	let dragging: boolean;
+	const MIN_WIDTH = 250;
+	const MIN_HEIGHT = 200;
+	const HEIGHT_SCALE = 0.95;
 
-	const mouseDown = (e: MouseEvent) => {
+	export let a: gridlayout;
+	let dragging: boolean;
+	let resizing: boolean;
+	let wWidth: number;
+	let wHeight: number;
+
+	const startDrag = (e: MouseEvent) => {
 		dragging = true;
+	};
+	const startResize = (e: MouseEvent) => {
+		resizing = true;
 	};
 	const mouseUp = (e: MouseEvent) => {
 		dragging = false;
+		resizing = false;
+	};
+	const focusWindow = () => {
+		dispatch('focusWindow', a);
 	};
 	const mouseMove = (e: MouseEvent) => {
-		if (dragging) {
-			x += e.movementX;
-			y += e.movementY;
+		if (resizing) {
+			if (a.w + e.movementX >= MIN_WIDTH && a.w + a.x + e.movementX <= wWidth) {
+				a.w += e.movementX;
+			}
+			if (a.h + e.movementY >= MIN_HEIGHT && a.h + a.y + e.movementY <= wHeight * HEIGHT_SCALE) {
+				a.h += e.movementY;
+			}
+		} else if (dragging) {
+			if (a.x + e.movementX > 0 && a.x + a.w + e.movementX < wWidth) {
+				a.x += e.movementX;
+			}
+			if (a.y + e.movementY > 0 && a.y + a.h + e.movementY < wHeight * HEIGHT_SCALE) {
+				a.y += e.movementY;
+			}
 		}
 	};
 </script>
 
-<div class="window" style="left: {x}px; top: {y}px; width: {w}px; height: {h}px">
-	<div class="window-header" on:mousedown={mouseDown}>
+<div
+	class="window"
+	on:mousedown={focusWindow}
+	style="left: {a.x}px; top: {a.y}px; width: {a.w}px; height: {a.h}px"
+>
+	<div class="window-header" on:mousedown={startDrag}>
 		<div class="window-buttons">
 			<button on:click>-</button>
 			<button on:click>o</button>
@@ -37,9 +64,15 @@
 	<div class="window-contents">
 		<slot />
 	</div>
+	<div class="drag-handle" on:mousedown={startResize} />
 </div>
 
-<svelte:window on:mouseup={mouseUp} on:mousemove={mouseMove} />
+<svelte:window
+	on:mouseup={mouseUp}
+	on:mousemove={mouseMove}
+	bind:innerWidth={wWidth}
+	bind:innerHeight={wHeight}
+/>
 
 <style>
 	.window {
@@ -74,5 +107,16 @@
 	.window-contents {
 		all: unset;
 		flex: 1;
+	}
+
+	.drag-handle {
+		height: 8px;
+		width: 8px;
+		position: absolute;
+		bottom: 0;
+		right: 0;
+	}
+	.drag-handle:hover {
+		cursor: nwse-resize;
 	}
 </style>

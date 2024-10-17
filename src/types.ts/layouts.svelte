@@ -10,6 +10,7 @@
 		y: number;
 		w: number;
 		h: number;
+		z: number;
 		show?: boolean;
 	};
 </script>

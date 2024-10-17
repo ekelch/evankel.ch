@@ -19,6 +19,7 @@
 					y: 100,
 					w: 400,
 					h: 400,
+					z: apps.length,
 					show: true
 				}
 			];
