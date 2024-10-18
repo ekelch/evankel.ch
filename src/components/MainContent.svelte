@@ -13,11 +13,10 @@
 		dispatch('closeApp', appName);
 	};
 	const focusWindow = (e: CustomEvent) => {
-		e.detail.z = 100;
-		const sorted = apps.toSorted((a, b) => b.z - a.z);
-		sorted.forEach((a, v) => (a.z = apps.length - v));
-		apps.forEach((a) => (a.z = sorted.find((s) => s.c === a.c)!.z));
-		apps = apps;
+		const zc = e.detail.z;
+		apps = apps.map((a) => {
+			return { ...a, z: a.z === zc ? apps.length : a.z > zc ? a.z - 1 : a.z };
+		});
 	};
 </script>
 
