@@ -13,7 +13,10 @@
 		dispatch('closeApp', appName);
 	};
 	const focusWindow = (e: CustomEvent) => {
-		apps.forEach((a) => (a.z = a.z = a.c === e.detail.c ? apps.length : a.z - 1));
+		e.detail.z = 100;
+		const sorted = apps.toSorted((a, b) => b.z - a.z);
+		sorted.forEach((a, v) => (a.z = apps.length - v));
+		apps.forEach((a) => (a.z = sorted.find((s) => s.c === a.c)!.z));
 		apps = apps;
 	};
 </script>

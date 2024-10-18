@@ -26,14 +26,25 @@ size: ${c.size.value}`;
 
 <div id="cross-container">
 	<div id="left">
-		<div id="view">view model</div>
+		<div
+			id="view"
+			style="background-color: rgba({c.r.value}, {c.g.value}, {c.b.value}, {c.alpha.value});"
+		>
+			view model
+		</div>
 		<textarea readonly id="output">{output}</textarea>
 	</div>
 	<div id="settings">
 		<CrossSlider label="size" bind:e={c.size} />
-		<CrossSlider label="red" bind:e={c.r} />
-		<CrossSlider label="blue" bind:e={c.b} />
-		<CrossSlider label="green" bind:e={c.g} />
+		<CrossSlider label="thickness" bind:e={c.thickness} />
+		<CrossSlider label="gap" bind:e={c.gap} />
+		<CrossSlider label="outline" bind:e={c.outline} />
+		<div id="color-group">
+			<CrossSlider label="red" bind:e={c.r} />
+			<CrossSlider label="blue" bind:e={c.b} />
+			<CrossSlider label="green" bind:e={c.g} />
+			<CrossSlider label="alpha" bind:e={c.alpha} />
+		</div>
 	</div>
 </div>
 
@@ -54,7 +65,6 @@ size: ${c.size.value}`;
 		border: 1px solid rgba(0, 0, 0, 0.5);
 		border-radius: 4px;
 		overflow: clip;
-		background-color: darkcyan;
 	}
 	#settings {
 		margin: 6px;
@@ -62,6 +72,12 @@ size: ${c.size.value}`;
 		display: flex;
 		flex-direction: column;
 		gap: 6px;
+	}
+	#color-group {
+		display: flex;
+		flex-direction: column;
+		gap: 6px;
+		margin-left: 12px;
 	}
 	#output {
 		flex: 1;
