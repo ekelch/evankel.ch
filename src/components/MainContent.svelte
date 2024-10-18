@@ -8,16 +8,13 @@
 	const dispatch = createEventDispatcher();
 
 	export let apps: gridlayout[] = [];
-	$: console.log(apps);
 
 	const closeApp = (appName: appOptions) => {
 		dispatch('closeApp', appName);
 	};
 	const focusWindow = (e: CustomEvent) => {
-		e.detail.z = 100;
-		let sorted = apps.sort((a, b) => a.z - b.z);
-		apps = sorted.map((a, v) => {
-			return { ...a, z: apps.length - v };
+		apps = apps.map((a) => {
+			return { ...a, z: (a.z = a.c === e.detail.c ? apps.length : a.z - 1) };
 		});
 	};
 </script>

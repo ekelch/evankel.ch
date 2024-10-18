@@ -17,17 +17,16 @@
 	let wWidth: number;
 	let wHeight: number;
 
-	const startDrag = (e: MouseEvent) => {
-		dragging = true;
-	};
-	const startResize = (e: MouseEvent) => {
-		resizing = true;
-	};
 	const mouseUp = (e: MouseEvent) => {
 		dragging = false;
 		resizing = false;
 	};
-	const focusWindow = () => {
+	const focusWindow = (e: any) => {
+		if (e.target?.id === 'window-header') {
+			dragging = true;
+		} else if (e.target?.id === 'drag-handle') {
+			resizing = true;
+		}
 		dispatch('focusWindow', a);
 	};
 	const mouseMove = (e: MouseEvent) => {
@@ -52,9 +51,9 @@
 <div
 	class="window"
 	on:mousedown={focusWindow}
-	style="left: {a.x}px; top: {a.y}px; width: {a.w}px; height: {a.h}px"
+	style="left: {a.x}px; top: {a.y}px; width: {a.w}px; height: {a.h}px; z-index: {a.z}"
 >
-	<div class="window-header" on:mousedown={startDrag}>
+	<div id="window-header">
 		<div class="window-buttons">
 			<button on:click>-</button>
 			<button on:click>o</button>
@@ -64,7 +63,7 @@
 	<div class="window-contents">
 		<slot />
 	</div>
-	<div class="drag-handle" on:mousedown={startResize} />
+	<div id="drag-handle" />
 </div>
 
 <svelte:window
@@ -81,7 +80,7 @@
 		display: flex;
 		flex-direction: column;
 
-		background-color: rgba(233, 233, 233, 0.9);
+		background-color: rgba(233, 233, 233, 0.96);
 		border: 1px solid rgba(0, 0, 0, 0.5);
 		border-radius: 4px;
 		box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.3);
@@ -91,7 +90,7 @@
 		overflow: clip;
 	}
 
-	.window-header {
+	#window-header {
 		display: flex;
 		cursor: move;
 		background-color: lightgrey;
@@ -109,14 +108,14 @@
 		flex: 1;
 	}
 
-	.drag-handle {
+	#drag-handle {
 		height: 8px;
 		width: 8px;
 		position: absolute;
 		bottom: 0;
 		right: 0;
 	}
-	.drag-handle:hover {
+	#drag-handle:hover {
 		cursor: nwse-resize;
 	}
 </style>

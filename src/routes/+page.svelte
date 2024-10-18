@@ -8,18 +8,16 @@
 	let apps: gridlayout[] = [];
 
 	const createApp = (name: appOptions) => {
-		let i = 1;
 		if (!apps.map((a) => a.c).includes(name)) {
 			apps = [
 				...apps,
 				{
-					i: i,
 					c: name,
-					x: 100,
-					y: 100,
+					x: 100 + apps.length * 40,
+					y: 100 + apps.length * 40,
 					w: 400,
 					h: 400,
-					z: apps.length,
+					z: apps.length + 1,
 					show: true
 				}
 			];
@@ -38,9 +36,6 @@
 		<div id="nav-border">
 			<HeaderItem item="about" on:click={() => createApp('about')} />
 			<HeaderItem item="cross" on:click={() => createApp('cross')} />
-			<HeaderItem item="item 3" />
-			<HeaderItem item="item 4" />
-			<HeaderItem item="item 5" />
 		</div>
 	</div>
 	<Time />

@@ -4,7 +4,6 @@
 	export type appOptions = 'about' | 'cross';
 
 	export type gridlayout = {
-		i: number;
 		c: appOptions;
 		x: number;
 		y: number;
