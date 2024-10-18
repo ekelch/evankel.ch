@@ -6,6 +6,8 @@
 	import type { appOptions, gridlayout } from '../types.ts/layouts.svelte';
 
 	let apps: gridlayout[] = [];
+	let innerWidth: number;
+	let innerHeight: number;
 
 	const createApp = (name: appOptions) => {
 		if (!apps.map((a) => a.c).includes(name)) {
@@ -13,10 +15,10 @@
 				...apps,
 				{
 					c: name,
-					x: 100 + apps.length * 40,
-					y: 100 + apps.length * 40,
-					w: 400,
-					h: 400,
+					x: 20 + apps.length * 40,
+					y: 20 + apps.length * 40,
+					w: innerWidth * 0.7,
+					h: innerHeight * 0.8,
 					z: apps.length + 1,
 					show: true
 				}
@@ -40,6 +42,8 @@
 	</div>
 	<Time />
 </nav>
+
+<svelte:window bind:innerWidth bind:innerHeight />
 
 <style lang="postcss">
 	:global(html) {

@@ -12,6 +12,26 @@
 		z: number;
 		show?: boolean;
 	};
+
+	export type SliderRange = {
+		value: number;
+		min: number;
+		max: number;
+	};
+
+	export type crosshair = {
+		style: 'default' | 'classic' | 'dynamic';
+		alpha: SliderRange;
+		thickness: SliderRange;
+		size: SliderRange;
+		gap: SliderRange;
+		outline: SliderRange;
+		dot: boolean;
+		color: 'green' | 'yellow' | 'blue' | 'cyan' | 'custom';
+		r: SliderRange;
+		g: SliderRange;
+		b: SliderRange;
+	};
 </script>
 
 ;
