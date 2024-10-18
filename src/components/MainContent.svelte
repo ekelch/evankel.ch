@@ -13,9 +13,8 @@
 		dispatch('closeApp', appName);
 	};
 	const focusWindow = (e: CustomEvent) => {
-		apps = apps.map((a) => {
-			return { ...a, z: (a.z = a.c === e.detail.c ? apps.length : a.z - 1) };
-		});
+		apps.forEach((a) => (a.z = a.z = a.c === e.detail.c ? apps.length : a.z - 1));
+		apps = apps;
 	};
 </script>
 
