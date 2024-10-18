@@ -3,9 +3,6 @@
 	import { type gridlayout } from '../types.ts/layouts.svelte';
 
 	const dispatch = createEventDispatcher();
-	const close = () => {
-		dispatch('closeApp');
-	};
 
 	const MIN_WIDTH = 250;
 	const MIN_HEIGHT = 200;
@@ -16,10 +13,20 @@
 	let resizing: boolean;
 	let wWidth: number;
 	let wHeight: number;
+	let maximize: boolean;
 
 	const mouseUp = (e: MouseEvent) => {
 		dragging = false;
 		resizing = false;
+	};
+	const minimize = () => {
+		a.show = false;
+	};
+	const toggleMax = () => {
+		maximize = !maximize;
+	};
+	const close = () => {
+		dispatch('closeApp');
 	};
 	const focusWindow = (e: any) => {
 		if (e.target?.id === 'window-header') {
@@ -51,12 +58,17 @@
 <div
 	class="window"
 	on:mousedown={focusWindow}
-	style="left: {a.x}px; top: {a.y}px; width: {a.w}px; height: {a.h}px; z-index: {a.z}"
+	style="
+	left: {maximize ? 0 : a.x}px;
+	top: {maximize ? 0 : a.y}px;
+	width: {maximize ? wWidth : a.w}px;
+	height: {maximize ? wHeight * HEIGHT_SCALE : a.h}px;
+	z-index: {a.show ? a.z : -1};}"
 >
 	<div id="window-header">
 		<div class="window-buttons">
-			<button on:click>-</button>
-			<button on:click>o</button>
+			<button on:click={minimize}>-</button>
+			<button on:click={toggleMax}>o</button>
 			<button on:click={close}>x</button>
 		</div>
 	</div>

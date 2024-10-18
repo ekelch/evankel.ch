@@ -11,9 +11,9 @@
 		outline: { min: 0, max: 3, value: 0 },
 		dot: false,
 		color: 'cyan',
-		r: { min: 0, max: 255, value: 200 },
-		g: { min: 0, max: 255, value: 200 },
-		b: { min: 0, max: 255, value: 200 }
+		r: { min: 0, max: 255, value: 30 },
+		g: { min: 0, max: 255, value: 140 },
+		b: { min: 0, max: 255, value: 170 }
 	};
 
 	let c: crosshair = defaultCrosshair;
@@ -41,8 +41,8 @@ size: ${c.size.value}`;
 		<CrossSlider label="outline" bind:e={c.outline} />
 		<div id="color-group">
 			<CrossSlider label="red" bind:e={c.r} />
-			<CrossSlider label="blue" bind:e={c.b} />
 			<CrossSlider label="green" bind:e={c.g} />
+			<CrossSlider label="blue" bind:e={c.b} />
 			<CrossSlider label="alpha" bind:e={c.alpha} />
 		</div>
 	</div>

@@ -17,12 +17,16 @@
 					c: name,
 					x: 20 + apps.length * 40,
 					y: 20 + apps.length * 40,
-					w: innerWidth * 0.7,
-					h: innerHeight * 0.8,
+					w: innerWidth * 0.85,
+					h: innerHeight * 0.85,
 					z: apps.length + 1,
 					show: true
 				}
 			];
+		} else {
+			const a = apps.find((a) => a.c === name);
+			a!.show = !a?.show;
+			apps = apps;
 		}
 	};
 
@@ -31,7 +35,7 @@
 	};
 </script>
 
-<MainContent {apps} on:closeApp={(e) => closeApp(e.detail)} />
+<MainContent bind:apps on:closeApp={(e) => closeApp(e.detail)} />
 <nav id="navOuter">
 	<div id="nav-items">
 		<StartMenuButton />

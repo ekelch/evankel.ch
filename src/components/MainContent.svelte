@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte';
-	import { type appOptions, type gridlayout } from '../types.ts/layouts.svelte';
+	import { type gridlayout } from '../types.ts/layouts.svelte';
 	import About from './about.svelte';
 	import Cross from './cross.svelte';
 	import Draggable from './draggable.svelte';
@@ -9,8 +9,8 @@
 
 	export let apps: gridlayout[] = [];
 
-	const closeApp = (appName: appOptions) => {
-		dispatch('closeApp', appName);
+	const closeApp = (a: gridlayout) => {
+		dispatch('closeApp', a.c);
 	};
 	const focusWindow = (e: CustomEvent) => {
 		const zc = e.detail.z;
@@ -22,13 +22,7 @@
 
 <div class="main-contain">
 	{#each apps as a}
-		<Draggable
-			{a}
-			on:focusWindow={(e) => focusWindow(e)}
-			on:closeApp={() => {
-				closeApp(a.c);
-			}}
-		>
+		<Draggable bind:a on:focusWindow={focusWindow} on:closeApp={() => closeApp(a)}>
 			{#if a.c === 'about'}
 				<About />
 			{:else if a.c === 'cross'}
