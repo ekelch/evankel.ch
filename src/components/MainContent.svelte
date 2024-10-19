@@ -26,7 +26,7 @@
 			{#if a.c === 'about'}
 				<About />
 			{:else if a.c === 'cross'}
-				<Cross />
+				<Cross {a} />
 			{/if}
 		</Draggable>
 	{/each}

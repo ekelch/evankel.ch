@@ -1,13 +1,13 @@
 <script lang="ts">
-	import { type crosshair } from '../types.ts/layouts.svelte';
+	import { type gridlayout, type crosshair } from '../types.ts/layouts.svelte';
 	import CrossSlider from './crossSlider.svelte';
 
 	const defaultCrosshair: crosshair = {
 		style: 'default',
 		alpha: { min: 0, max: 255, value: 200 },
-		thickness: { min: 0, max: 100, value: 10 },
-		size: { min: 0, max: 100, value: 10 },
-		gap: { min: 0, max: 100, value: 10 },
+		thickness: { min: 0, max: 100, value: 4 },
+		size: { min: 0, max: 100, value: 25 },
+		gap: { min: 0, max: 100, value: 5 },
 		outline: { min: 0, max: 3, value: 0 },
 		dot: false,
 		color: 'cyan',
@@ -17,6 +17,26 @@
 	};
 
 	let c: crosshair = defaultCrosshair;
+	let posX: number = 0;
+	let posY: number = 0;
+	let locked: boolean;
+	export let a: gridlayout;
+	let viewmodel: HTMLDivElement;
+
+	const mouseMove = (e: MouseEvent) => {
+		if (!locked) {
+			if (e.clientX - a.x > 0 && e.clientX - a.x < viewmodel.clientWidth) {
+				posX = e.clientX - a.x;
+			}
+			if (e.clientY - a.y > 0 && e.clientY - a.y < viewmodel.clientHeight) {
+				posY = e.clientY - a.y;
+			}
+		}
+	};
+
+	const toggleLock = () => {
+		locked = !locked;
+	};
 
 	$: output = `red: ${c.r.value}
 blue: ${c.g.value}
@@ -26,29 +46,67 @@ size: ${c.size.value}`;
 
 <div id="cross-container">
 	<div id="left">
-		<div id="view" style="background-color: white;">
-			<div id="c-outer">
-				<div
-					class="c-inner"
-					style="height: {c.size.value}; width: {c.thickness.value};background-color: rgba({c.r
-						.value}, {c.g.value}, {c.b.value}, {c.alpha.value});"
-				/>
-				<div
-					class="c-inner"
-					style="height: 10; width: 10;background-color: rgba({c.r.value}, {c.g.value}, {c.b
-						.value}, {c.alpha.value});"
-				/>
-				<div
-					class="c-inner"
-					style="height: {c.thickness.value}; width: {c.size.value};background-color: rgba({c.r
-						.value}, {c.g.value}, {c.b.value}, {c.alpha.value});"
-				/>
-				<div
-					class="c-inner"
-					style="height: {c.thickness.value}; width: {c.size.value};background-color: rgba({c.r
-						.value}, {c.g.value}, {c.b.value}, {c.alpha.value});"
-				/>
-			</div>
+		<div
+			id="view"
+			on:mousemove={mouseMove}
+			on:mousedown={toggleLock}
+			bind:this={viewmodel}
+			style="cursor: {locked ? 'pointer' : 'none'};"
+		>
+			<div
+				id="c-top"
+				style="
+				background-color: rgba({c.r.value}, {c.g.value}, {c.b.value}, {c.alpha.value});
+
+				height: {c.size.value}px;
+				width: {c.thickness.value}px;
+				left: {posX}px;
+				top: {posY}px;
+
+				transform: translateY({c.size.value / 2 + c.gap.value}px);
+				"
+			/>
+			<div
+				id="c-bottom"
+				style="
+				background-color: rgba({c.r.value}, {c.g.value}, {c.b.value}, {c.alpha.value});
+
+				height: {c.size.value}px;
+				width: {c.thickness.value}px;
+				left: {posX}px;
+				top: {posY}px;
+
+				transform: translateY({-(c.size.value / 2 + c.gap.value)}px);
+
+				"
+			/>
+			<div
+				id="c-left"
+				style="
+				background-color: red;
+
+				height: {c.size.value}px;
+				width: {c.thickness.value}px;
+				left: {posX}px;
+				top: {posY}px;
+
+				transform: translateX({-(c.size.value / 2 + c.gap.value)}px) rotate(-90deg);
+				"
+			/>
+			<div
+				id="c-right"
+				style="
+				background-color: rgba({c.r.value}, {c.g.value}, {c.b.value}, {c.alpha.value});
+
+				height: {c.size.value}px;
+				width: {c.thickness.value}px;
+				left: {posX}px;
+				top: {posY}px;
+
+				transform: translateX({c.size.value / 2 + c.gap.value}px) rotate(90deg);
+
+				"
+			/>
 		</div>
 		<textarea readonly id="output">{output}</textarea>
 	</div>
@@ -80,19 +138,13 @@ size: ${c.size.value}`;
 	}
 	#view {
 		height: 70%;
+		background: white;
 		border: 1px solid rgba(0, 0, 0, 0.5);
 		border-radius: 4px;
 		overflow: clip;
 	}
-	#c-outer {
-		background-color: rosybrown;
-		width: 100px;
-		height: 100px;
-	}
-	.c-inner {
+	#view div {
 		position: absolute;
-		left: 0;
-		top: 0;
 	}
 	#settings {
 		margin: 6px;
