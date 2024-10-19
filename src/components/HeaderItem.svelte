@@ -22,9 +22,11 @@
 		all: unset;
 		display: flex;
 		background-color: #3988f7;
-		margin: 3px 2px;
+		margin: 3px;
 		padding: 4px;
-		border-radius: 4px;
+		border: 1px solid rgba(0, 0, 0, 0.1);
+		box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.1);
+		border-radius: 2px;
 		display: flex;
 		min-width: 160px;
 	}

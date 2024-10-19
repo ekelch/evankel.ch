@@ -26,11 +26,29 @@ size: ${c.size.value}`;
 
 <div id="cross-container">
 	<div id="left">
-		<div
-			id="view"
-			style="background-color: rgba({c.r.value}, {c.g.value}, {c.b.value}, {c.alpha.value});"
-		>
-			view model
+		<div id="view" style="background-color: white;">
+			<div id="c-outer">
+				<div
+					class="c-inner"
+					style="height: {c.size.value}; width: {c.thickness.value};background-color: rgba({c.r
+						.value}, {c.g.value}, {c.b.value}, {c.alpha.value});"
+				/>
+				<div
+					class="c-inner"
+					style="height: 10; width: 10;background-color: rgba({c.r.value}, {c.g.value}, {c.b
+						.value}, {c.alpha.value});"
+				/>
+				<div
+					class="c-inner"
+					style="height: {c.thickness.value}; width: {c.size.value};background-color: rgba({c.r
+						.value}, {c.g.value}, {c.b.value}, {c.alpha.value});"
+				/>
+				<div
+					class="c-inner"
+					style="height: {c.thickness.value}; width: {c.size.value};background-color: rgba({c.r
+						.value}, {c.g.value}, {c.b.value}, {c.alpha.value});"
+				/>
+			</div>
 		</div>
 		<textarea readonly id="output">{output}</textarea>
 	</div>
@@ -65,6 +83,16 @@ size: ${c.size.value}`;
 		border: 1px solid rgba(0, 0, 0, 0.5);
 		border-radius: 4px;
 		overflow: clip;
+	}
+	#c-outer {
+		background-color: rosybrown;
+		width: 100px;
+		height: 100px;
+	}
+	.c-inner {
+		position: absolute;
+		left: 0;
+		top: 0;
 	}
 	#settings {
 		margin: 6px;
