@@ -3,6 +3,9 @@
 
 	export let label: string;
 	export let e: SliderRange;
+	let expandedRange: boolean;
+
+	$: console.log(expandedRange);
 </script>
 
 <div class="setting">
@@ -11,11 +14,18 @@
 		id="{label}-range"
 		class="input-range"
 		type="range"
-		min={e.min}
-		max={e.max}
+		min={expandedRange ? e.minExp : e.min}
+		max={expandedRange ? e.maxExp : e.max}
+		step={e.step}
 		bind:value={e.value}
 	/>
 	<span class="value-label">{e.value}</span>
+	{#if e.maxExp}
+		<label>
+			e
+			<input type="checkbox" bind:checked={expandedRange} />
+		</label>
+	{/if}
 </div>
 
 <style>

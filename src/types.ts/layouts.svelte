@@ -17,6 +17,9 @@
 		value: number;
 		min: number;
 		max: number;
+		step: number;
+		minExp?: number;
+		maxExp?: number;
 	};
 
 	export type crosshair = {

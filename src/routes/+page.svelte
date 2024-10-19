@@ -56,7 +56,7 @@
 	:global(body) {
 		margin: 0;
 	}
-	:global(p, a, span) {
+	:global(p, span) {
 		color: #e4e4e7;
 	}
 

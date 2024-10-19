@@ -4,16 +4,16 @@
 
 	const defaultCrosshair: crosshair = {
 		style: 'default',
-		alpha: { min: 0, max: 255, value: 200 },
-		thickness: { min: 0, max: 100, value: 4 },
-		size: { min: 0, max: 100, value: 25 },
-		gap: { min: 0, max: 100, value: 5 },
-		outline: { min: 0, max: 3, value: 0 },
+		thickness: { min: 0, max: 10, minExp: 0, maxExp: 255, step: 0.1, value: 2 },
+		size: { min: 0, max: 100, minExp: 0, maxExp: 500, step: 0.1, value: 25 },
+		gap: { min: 0, max: 20, minExp: 0, maxExp: 255, step: 0.1, value: 5 },
+		outline: { min: 0, max: 3, step: 1, value: 0 },
 		dot: false,
 		color: 'cyan',
-		r: { min: 0, max: 255, value: 30 },
-		g: { min: 0, max: 255, value: 140 },
-		b: { min: 0, max: 255, value: 170 }
+		r: { min: 0, max: 255, step: 1, value: 3 },
+		g: { min: 0, max: 255, step: 1, value: 230 },
+		b: { min: 0, max: 255, step: 1, value: 230 },
+		alpha: { min: 0, max: 255, step: 1, value: 255 }
 	};
 
 	let c: crosshair = defaultCrosshair;
@@ -56,54 +56,54 @@ size: ${c.size.value}`;
 			<div
 				id="c-top"
 				style="
-				background-color: rgba({c.r.value}, {c.g.value}, {c.b.value}, {c.alpha.value});
+				background-color: rgba({c.r.value}, {c.g.value}, {c.b.value}, {c.alpha.value / 255});
 
 				height: {c.size.value}px;
 				width: {c.thickness.value}px;
 				left: {posX}px;
 				top: {posY}px;
 
-				transform: translateY({c.size.value / 2 + c.gap.value}px);
+				transform: translateY({c.size.value / 2 + c.thickness.value / 2 + c.gap.value}px);
 				"
 			/>
 			<div
 				id="c-bottom"
 				style="
-				background-color: rgba({c.r.value}, {c.g.value}, {c.b.value}, {c.alpha.value});
+				background-color: rgba({c.r.value}, {c.g.value}, {c.b.value}, {c.alpha.value / 255});
 
 				height: {c.size.value}px;
 				width: {c.thickness.value}px;
 				left: {posX}px;
 				top: {posY}px;
 
-				transform: translateY({-(c.size.value / 2 + c.gap.value)}px);
+				transform: translateY({-(c.size.value / 2 + c.thickness.value / 2 + c.gap.value)}px);
 
 				"
 			/>
 			<div
 				id="c-left"
 				style="
-				background-color: red;
+				background-color: rgba({c.r.value}, {c.g.value}, {c.b.value}, {c.alpha.value / 255});
 
 				height: {c.size.value}px;
 				width: {c.thickness.value}px;
 				left: {posX}px;
 				top: {posY}px;
 
-				transform: translateX({-(c.size.value / 2 + c.gap.value)}px) rotate(-90deg);
+				transform: translateX({-(c.size.value / 2 + c.thickness.value / 2 + c.gap.value)}px) rotate(-90deg);
 				"
 			/>
 			<div
 				id="c-right"
 				style="
-				background-color: rgba({c.r.value}, {c.g.value}, {c.b.value}, {c.alpha.value});
+				background-color: rgba({c.r.value}, {c.g.value}, {c.b.value}, {c.alpha.value / 255});
 
 				height: {c.size.value}px;
 				width: {c.thickness.value}px;
 				left: {posX}px;
 				top: {posY}px;
 
-				transform: translateX({c.size.value / 2 + c.gap.value}px) rotate(90deg);
+				transform: translateX({c.size.value / 2 + c.thickness.value / 2 + c.gap.value}px) rotate(90deg);
 
 				"
 			/>
@@ -141,7 +141,7 @@ size: ${c.size.value}`;
 		background: white;
 		border: 1px solid rgba(0, 0, 0, 0.5);
 		border-radius: 4px;
-		overflow: clip;
+		overflow: hidden;
 	}
 	#view div {
 		position: absolute;
