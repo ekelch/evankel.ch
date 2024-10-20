@@ -4,24 +4,24 @@
 
 	const defaultCrosshair: crosshair = {
 		style: 'default',
-		thickness: { min: 0, max: 10, minExp: 0, maxExp: 255, step: 0.1, value: 2 },
-		size: { min: 0, max: 100, minExp: 0, maxExp: 500, step: 0.1, value: 25 },
-		gap: { min: 0, max: 20, minExp: 0, maxExp: 255, step: 0.1, value: 5 },
+		size: { min: 0, max: 20, step: 0.1, value: 20 },
+		thickness: { min: -2, max: 20, step: 0.1, value: 5 },
+		gap: { min: -10, max: 10, step: 0.1, value: 1 },
 		outline: { min: 0, max: 3, step: 1, value: 0 },
 		dot: false,
-		color: 'cyan',
-		r: { min: 0, max: 255, step: 1, value: 3 },
+		color: 4,
+		r: { min: 0, max: 255, step: 1, value: 100 },
 		g: { min: 0, max: 255, step: 1, value: 230 },
 		b: { min: 0, max: 255, step: 1, value: 230 },
-		alpha: { min: 0, max: 255, step: 1, value: 255 }
+		alpha: { min: 0, max: 250, step: 1, value: 250 }
 	};
 
+	let viewmodel: HTMLDivElement;
 	let c: crosshair = defaultCrosshair;
 	let posX: number = 0;
 	let posY: number = 0;
 	let locked: boolean;
 	export let a: gridlayout;
-	let viewmodel: HTMLDivElement;
 
 	const mouseMove = (e: MouseEvent) => {
 		if (!locked) {
@@ -34,14 +34,48 @@
 		}
 	};
 
+	const setColor = (color: number) => {
+		if (color === 1) {
+			//green
+			c.color = 1;
+			c.r.value = 0;
+			c.g.value = 255;
+			c.b.value = 0;
+		} else if (color === 2) {
+			//yellow
+			c.color = 2;
+			c.r.value = 255;
+			c.g.value = 255;
+			c.b.value = 0;
+		} else if (color === 3) {
+			//blue
+			c.color = 3;
+			c.r.value = 0;
+			c.g.value = 0;
+			c.b.value = 255;
+		} else if (color === 4) {
+			//cyan
+			c.color = 4;
+			c.r.value = 0;
+			c.g.value = 255;
+			c.b.value = 255;
+		}
+	};
+
 	const toggleLock = () => {
 		locked = !locked;
 	};
 
-	$: output = `red: ${c.r.value}
-blue: ${c.g.value}
-green: ${c.b.value}
-size: ${c.size.value}`;
+	$: translate = c.size.value / 2 + c.thickness.value / 2 + c.gap.value;
+
+	$: output = `cl_crosshairsize ${c.size.value}
+cl_crosshairthickness ${c.thickness.value}
+cl_crosshairdot ${c.dot}
+cl_crosshaircolor_r: ${c.r.value}
+cl_crosshaircolor_g: ${c.g.value}
+cl_crosshaircolor_b: ${c.b.value}
+cl_crosshairalpha ${c.alpha.value}
+`;
 </script>
 
 <div id="cross-container">
@@ -56,54 +90,54 @@ size: ${c.size.value}`;
 			<div
 				id="c-top"
 				style="
-				background-color: rgba({c.r.value}, {c.g.value}, {c.b.value}, {c.alpha.value / 255});
+				background-color: rgba({c.r.value}, {c.g.value}, {c.b.value}, {c.alpha.value / 250});
 
 				height: {c.size.value}px;
 				width: {c.thickness.value}px;
 				left: {posX}px;
 				top: {posY}px;
 
-				transform: translateY({c.size.value / 2 + c.thickness.value / 2 + c.gap.value}px);
+				transform: translateY({translate}px);
 				"
 			/>
 			<div
 				id="c-bottom"
 				style="
-				background-color: rgba({c.r.value}, {c.g.value}, {c.b.value}, {c.alpha.value / 255});
+				background-color: rgba({c.r.value}, {c.g.value}, {c.b.value}, {c.alpha.value / 250});
 
 				height: {c.size.value}px;
 				width: {c.thickness.value}px;
 				left: {posX}px;
 				top: {posY}px;
 
-				transform: translateY({-(c.size.value / 2 + c.thickness.value / 2 + c.gap.value)}px);
+				transform: translateY({-translate}px);
 
 				"
 			/>
 			<div
 				id="c-left"
 				style="
-				background-color: rgba({c.r.value}, {c.g.value}, {c.b.value}, {c.alpha.value / 255});
+				background-color: rgba({c.r.value}, {c.g.value}, {c.b.value}, {c.alpha.value / 250});
 
 				height: {c.size.value}px;
 				width: {c.thickness.value}px;
 				left: {posX}px;
 				top: {posY}px;
 
-				transform: translateX({-(c.size.value / 2 + c.thickness.value / 2 + c.gap.value)}px) rotate(-90deg);
+				transform: translateX({-translate}px) rotate(-90deg);
 				"
 			/>
 			<div
 				id="c-right"
 				style="
-				background-color: rgba({c.r.value}, {c.g.value}, {c.b.value}, {c.alpha.value / 255});
+				background-color: rgba({c.r.value}, {c.g.value}, {c.b.value}, {c.alpha.value / 250});
 
 				height: {c.size.value}px;
 				width: {c.thickness.value}px;
 				left: {posX}px;
 				top: {posY}px;
 
-				transform: translateX({c.size.value / 2 + c.thickness.value / 2 + c.gap.value}px) rotate(90deg);
+				transform: translateX({translate}px) rotate(90deg);
 
 				"
 			/>
@@ -120,6 +154,12 @@ size: ${c.size.value}`;
 			<CrossSlider label="green" bind:e={c.g} />
 			<CrossSlider label="blue" bind:e={c.b} />
 			<CrossSlider label="alpha" bind:e={c.alpha} />
+		</div>
+		<div id="default-colors">
+			<button id="g-btn" on:click={() => setColor(1)}>green</button>
+			<button id="y-btn" on:click={() => setColor(2)}>yellow</button>
+			<button id="b-btn" on:click={() => setColor(3)}>blue</button>
+			<button id="c-btn" on:click={() => setColor(1)}>cyan</button>
 		</div>
 	</div>
 </div>
@@ -138,7 +178,8 @@ size: ${c.size.value}`;
 	}
 	#view {
 		height: 70%;
-		background: white;
+		background-image: url('../lib/assets/cat.jpg');
+		background-size: cover;
 		border: 1px solid rgba(0, 0, 0, 0.5);
 		border-radius: 4px;
 		overflow: hidden;
@@ -157,7 +198,30 @@ size: ${c.size.value}`;
 		display: flex;
 		flex-direction: column;
 		gap: 6px;
-		margin-left: 12px;
+		margin-left: 24px;
+	}
+	#default-colors {
+		display: flex;
+		gap: 8px;
+	}
+	#default-colors button {
+		width: 64px;
+		height: 32px;
+	}
+	#default-colors button:hover {
+		cursor: pointer;
+	}
+	#g-btn {
+		background-color: lime;
+	}
+	#y-btn {
+		background-color: yellow;
+	}
+	#b-btn {
+		background-color: blue;
+	}
+	#c-btn {
+		background-color: cyan;
 	}
 	#output {
 		flex: 1;

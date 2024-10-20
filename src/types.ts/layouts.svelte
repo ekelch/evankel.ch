@@ -30,7 +30,7 @@
 		gap: SliderRange;
 		outline: SliderRange;
 		dot: boolean;
-		color: 'green' | 'yellow' | 'blue' | 'cyan' | 'custom';
+		color: number;
 		r: SliderRange;
 		g: SliderRange;
 		b: SliderRange;

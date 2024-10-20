@@ -4,8 +4,6 @@
 	export let label: string;
 	export let e: SliderRange;
 	let expandedRange: boolean;
-
-	$: console.log(expandedRange);
 </script>
 
 <div class="setting">
