@@ -4,7 +4,7 @@
 
 	const defaultCrosshair: crosshair = {
 		style: 'default',
-		size: { min: 0, max: 20, step: 0.1, value: 20 },
+		size: { min: 0, max: 50, step: 0.1, value: 20 },
 		thickness: { min: -2, max: 20, step: 0.1, value: 5 },
 		gap: { min: -10, max: 10, step: 0.1, value: 1 },
 		outline: { min: 0, max: 3, step: 1, value: 0 },
@@ -97,6 +97,7 @@ cl_crosshairalpha ${c.alpha.value}
 				left: {posX}px;
 				top: {posY}px;
 
+				border: {c.outline.value}px solid black;
 				transform: translateY({translate}px);
 				"
 			/>
@@ -110,6 +111,7 @@ cl_crosshairalpha ${c.alpha.value}
 				left: {posX}px;
 				top: {posY}px;
 
+				border: {c.outline.value}px solid black;
 				transform: translateY({-translate}px);
 
 				"
@@ -124,6 +126,7 @@ cl_crosshairalpha ${c.alpha.value}
 				left: {posX}px;
 				top: {posY}px;
 
+				border: {c.outline.value}px solid black;
 				transform: translateX({-translate}px) rotate(-90deg);
 				"
 			/>
@@ -137,8 +140,8 @@ cl_crosshairalpha ${c.alpha.value}
 				left: {posX}px;
 				top: {posY}px;
 
+				border: {c.outline.value}px solid black;
 				transform: translateX({translate}px) rotate(90deg);
-
 				"
 			/>
 		</div>
@@ -159,7 +162,7 @@ cl_crosshairalpha ${c.alpha.value}
 			<button id="g-btn" on:click={() => setColor(1)}>green</button>
 			<button id="y-btn" on:click={() => setColor(2)}>yellow</button>
 			<button id="b-btn" on:click={() => setColor(3)}>blue</button>
-			<button id="c-btn" on:click={() => setColor(1)}>cyan</button>
+			<button id="c-btn" on:click={() => setColor(4)}>cyan</button>
 		</div>
 	</div>
 </div>
@@ -186,6 +189,7 @@ cl_crosshairalpha ${c.alpha.value}
 	}
 	#view div {
 		position: absolute;
+		box-sizing: border-box;
 	}
 	#settings {
 		margin: 6px;
