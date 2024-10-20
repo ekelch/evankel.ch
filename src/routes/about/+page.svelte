@@ -1,1 +1,5 @@
-<p>empty about routing</p>
+<script>
+	import About from './about.svelte';
+</script>
+
+<About />

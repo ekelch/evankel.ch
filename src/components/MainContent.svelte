@@ -1,9 +1,9 @@
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte';
 	import { type gridlayout } from '../types.ts/layouts.svelte';
-	import About from './about.svelte';
-	import Cross from './cross.svelte';
+	import Cross from '../routes/cross/cross.svelte';
 	import Draggable from './draggable.svelte';
+	import About from '../routes/about/about.svelte';
 
 	const dispatch = createEventDispatcher();
 
@@ -35,7 +35,7 @@
 <style>
 	.main-contain {
 		height: 100%;
-		background-image: url('../lib/assets/windowsxp.jpg');
+		background-image: url('/src/lib/assets/windowsxp.jpg');
 		background-repeat: no-repeat;
 		background-attachment: fixed;
 		background-size: cover;

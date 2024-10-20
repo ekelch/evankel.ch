@@ -1,6 +1,4 @@
 <script context="module" lang="ts">
-	import About from '../components/about.svelte';
-
 	export type appOptions = 'about' | 'cross';
 
 	export type gridlayout = {

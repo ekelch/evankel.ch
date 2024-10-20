@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { type SliderRange } from '../types.ts/layouts.svelte';
+	import { type SliderRange } from '../../types.ts/layouts.svelte';
 
 	export let label: string;
 	export let e: SliderRange;
@@ -33,6 +33,7 @@
 		border: 1px solid rgba(0, 0, 0, 0.3);
 		padding: 6px 0;
 		border-radius: 6px;
+		background-color: white;
 	}
 	.label {
 		flex: 1;
