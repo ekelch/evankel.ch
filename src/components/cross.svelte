@@ -4,10 +4,10 @@
 
 	const defaultCrosshair: crosshair = {
 		style: 'default',
-		size: { min: 0, max: 50, step: 0.1, value: 20 },
-		thickness: { min: -2, max: 20, step: 0.1, value: 5 },
-		gap: { min: -10, max: 10, step: 0.1, value: 1 },
-		outline: { min: 0, max: 3, step: 1, value: 0 },
+		size: { min: 0, max: 50, step: 0.1, value: 6.6 },
+		thickness: { min: -2, max: 20, step: 0.1, value: 4 },
+		gap: { min: -10, max: 10, step: 0.1, value: 0.3 },
+		outline: { min: 0, max: 3, step: 1, value: 1 },
 		dot: false,
 		color: 4,
 		r: { min: 0, max: 255, step: 1, value: 100 },

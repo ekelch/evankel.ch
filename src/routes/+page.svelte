@@ -41,7 +41,7 @@
 		<StartMenuButton />
 		<div id="nav-border">
 			<HeaderItem item="about" on:click={() => createApp('about')} />
-			<HeaderItem item="cross" on:click={() => createApp('cross')} />
+			<HeaderItem item="crosshair" on:click={() => createApp('cross')} />
 		</div>
 	</div>
 	<Time />
