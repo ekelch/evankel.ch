@@ -3,7 +3,9 @@
 	setInterval(() => {
 		td = new Date();
 	}, 1000);
-	$: time = `${td.getHours()}:${td.getMinutes()}:${td.getSeconds()}`;
+	$: time = `${td.getHours() < 10 ? `0${td.getHours()}` : td.getHours()}:${
+		td.getMinutes() < 10 ? `0${td.getMinutes()}` : td.getMinutes()
+	}:${td.getSeconds() < 10 ? `0${td.getSeconds()}` : td.getSeconds()}`;
 </script>
 
 <div class="time-container">

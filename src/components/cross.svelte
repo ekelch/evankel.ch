@@ -152,17 +152,20 @@ cl_crosshairalpha ${c.alpha.value}
 		<CrossSlider label="thickness" bind:e={c.thickness} />
 		<CrossSlider label="gap" bind:e={c.gap} />
 		<CrossSlider label="outline" bind:e={c.outline} />
+		<div id="default-colors">
+			<span>Colors:</span>
+			<button style="background-color: lime;" on:click={() => setColor(1)}>green</button>
+			<button style="background-color: yellow;" on:click={() => setColor(2)}>yellow</button>
+			<button style="background-color: blue; color: white;" on:click={() => setColor(3)}
+				>blue</button
+			>
+			<button style="background-color: cyan;" on:click={() => setColor(4)}>cyan</button>
+		</div>
 		<div id="color-group">
 			<CrossSlider label="red" bind:e={c.r} />
 			<CrossSlider label="green" bind:e={c.g} />
 			<CrossSlider label="blue" bind:e={c.b} />
 			<CrossSlider label="alpha" bind:e={c.alpha} />
-		</div>
-		<div id="default-colors">
-			<button id="g-btn" on:click={() => setColor(1)}>green</button>
-			<button id="y-btn" on:click={() => setColor(2)}>yellow</button>
-			<button id="b-btn" on:click={() => setColor(3)}>blue</button>
-			<button id="c-btn" on:click={() => setColor(4)}>cyan</button>
 		</div>
 	</div>
 </div>
@@ -207,25 +210,21 @@ cl_crosshairalpha ${c.alpha.value}
 	#default-colors {
 		display: flex;
 		gap: 8px;
+		margin-left: 24px;
+	}
+	#default-colors span {
+		color: black;
+		margin: auto 4px;
 	}
 	#default-colors button {
-		width: 64px;
-		height: 32px;
+		all: unset;
+		padding: 6px 14px;
+		border: 1px solid rgba(0, 0, 0, 0.3);
+		border-radius: 4px;
 	}
 	#default-colors button:hover {
 		cursor: pointer;
-	}
-	#g-btn {
-		background-color: lime;
-	}
-	#y-btn {
-		background-color: yellow;
-	}
-	#b-btn {
-		background-color: blue;
-	}
-	#c-btn {
-		background-color: cyan;
+		box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1);
 	}
 	#output {
 		flex: 1;

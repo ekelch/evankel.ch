@@ -6,7 +6,6 @@
 
 	const MIN_WIDTH = 250;
 	const MIN_HEIGHT = 200;
-	const HEIGHT_SCALE = 0.95;
 
 	export let a: gridlayout;
 	let dragging: boolean;
@@ -41,14 +40,14 @@
 			if (a.w + e.movementX >= MIN_WIDTH && a.w + a.x + e.movementX <= wWidth) {
 				a.w += e.movementX;
 			}
-			if (a.h + e.movementY >= MIN_HEIGHT && a.h + a.y + e.movementY <= wHeight * HEIGHT_SCALE) {
+			if (a.h + e.movementY >= MIN_HEIGHT && a.h + a.y + e.movementY <= wHeight) {
 				a.h += e.movementY;
 			}
 		} else if (dragging) {
 			if (a.x + e.movementX > 0 && a.x + a.w + e.movementX < wWidth) {
 				a.x += e.movementX;
 			}
-			if (a.y + e.movementY > 0 && a.y + a.h + e.movementY < wHeight * HEIGHT_SCALE) {
+			if (a.y + e.movementY > 0 && a.y + a.h + e.movementY < wHeight) {
 				a.y += e.movementY;
 			}
 		}
@@ -62,7 +61,7 @@
 	left: {maximize ? 0 : a.x}px;
 	top: {maximize ? 0 : a.y}px;
 	width: {maximize ? wWidth : a.w}px;
-	height: {maximize ? wHeight * HEIGHT_SCALE : a.h}px;
+	height: {maximize ? wHeight : a.h}px;
 	z-index: {a.show ? a.z : -1};}"
 >
 	<div id="window-header">

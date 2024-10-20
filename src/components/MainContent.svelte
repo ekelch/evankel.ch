@@ -34,7 +34,7 @@
 
 <style>
 	.main-contain {
-		height: 95vh;
+		height: 100%;
 		background-image: url('../lib/assets/windowsxp.jpg');
 		background-repeat: no-repeat;
 		background-attachment: fixed;

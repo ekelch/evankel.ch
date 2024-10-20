@@ -35,7 +35,7 @@
 		border-radius: 0 20px 20px 0 / 69px;
 
 		background-image: radial-gradient(#16c424, black 80%);
-		opacity: 40%;
+		opacity: 30%;
 	}
 	span {
 		margin: auto;
@@ -52,7 +52,7 @@
 		cursor: pointer;
 	}
 	.hover .radial-overlay {
-		opacity: 30%;
+		opacity: 22%;
 	}
 	.hover span {
 		-webkit-text-stroke: 0.2px black;

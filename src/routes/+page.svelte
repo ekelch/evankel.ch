@@ -35,17 +35,21 @@
 	};
 </script>
 
-<MainContent bind:apps on:closeApp={(e) => closeApp(e.detail)} />
-<nav id="navOuter">
-	<div id="nav-items">
-		<StartMenuButton />
-		<div id="nav-border">
-			<HeaderItem item="about" on:click={() => createApp('about')} />
-			<HeaderItem item="crosshair" on:click={() => createApp('cross')} />
-		</div>
+<div id="app">
+	<div id="main">
+		<MainContent bind:apps on:closeApp={(e) => closeApp(e.detail)} />
 	</div>
-	<Time />
-</nav>
+	<nav id="navbar">
+		<div id="nav-items">
+			<StartMenuButton />
+			<div id="nav-border">
+				<HeaderItem item="about" on:click={() => createApp('about')} />
+				<HeaderItem item="crosshair" on:click={() => createApp('cross')} />
+			</div>
+		</div>
+		<Time />
+	</nav>
+</div>
 
 <svelte:window bind:innerWidth bind:innerHeight />
 
@@ -60,8 +64,18 @@
 		color: #e4e4e7;
 	}
 
-	#navOuter {
-		height: 5vh;
+	#app {
+		display: flex;
+		flex-direction: column;
+		height: 100vh;
+	}
+
+	#main {
+		flex: 1;
+	}
+
+	#navbar {
+		height: 44px;
 		width: 100%;
 		position: fixed;
 		bottom: 0;
