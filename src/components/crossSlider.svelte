@@ -1,21 +1,14 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
 	import { type SliderRange } from '../types.ts/layouts.svelte';
 
 	export let label: string;
 	export let e: SliderRange;
 	let expandedRange: boolean;
-	let self: HTMLDivElement;
-
-	onMount(() => {
-		self.addEventListener('scroll', function (e) {
-			console.log(e);
-		});
-	});
 </script>
 
-<div class="setting" bind:this={self}>
-	<label class="label" for="">{label}</label>
+<div class="setting">
+	<label class="label" for="{label}-range">{label}</label>
+
 	<input
 		id="{label}-range"
 		class="input-range"
@@ -46,6 +39,7 @@
 	}
 	.input-range {
 		flex: 3;
+		margin: 0 64px;
 	}
 	.value-label {
 		color: black;

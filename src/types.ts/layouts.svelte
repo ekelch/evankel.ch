@@ -26,7 +26,7 @@
 		style: 'default' | 'classic' | 'dynamic';
 		alpha: SliderRange;
 		thickness: SliderRange;
-		size: SliderRange;
+		length: SliderRange;
 		gap: SliderRange;
 		outline: SliderRange;
 		dot: boolean;

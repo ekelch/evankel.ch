@@ -4,12 +4,12 @@
 
 	const defaultCrosshair: crosshair = {
 		style: 'default',
-		size: { min: 0, max: 50, step: 0.1, value: 6.6 },
-		thickness: { min: -2, max: 20, step: 0.1, value: 4 },
-		gap: { min: -10, max: 10, step: 0.1, value: 0.3 },
-		outline: { min: 0, max: 3, step: 1, value: 1 },
-		dot: false,
-		color: 4,
+		length: { min: 0, max: 10, step: 0.1, value: 5 },
+		thickness: { min: 0.1, max: 6, step: 0.1, value: 5 },
+		gap: { min: -5, max: 5, step: 1, value: 0 },
+		outline: { min: 0, max: 3, step: 0.1, value: 1 },
+		dot: true,
+		color: 1,
 		r: { min: 0, max: 255, step: 1, value: 100 },
 		g: { min: 0, max: 255, step: 1, value: 230 },
 		b: { min: 0, max: 255, step: 1, value: 230 },
@@ -66,10 +66,17 @@
 		locked = !locked;
 	};
 
-	$: translate = c.size.value / 2 + c.thickness.value / 2 + c.gap.value;
+	const SCALE_FACTOR = 2;
+	const GAP_OFFSET = 3;
+	$: border = (c.outline.value / 1) | 0;
+	$: scaledLength = SCALE_FACTOR * (c.length.value + border);
+	$: scaledThickness = SCALE_FACTOR * (c.thickness.value + border);
+	$: translate = c.length.value + c.thickness.value + c.gap.value + GAP_OFFSET;
 
-	$: output = `cl_crosshairsize ${c.size.value}
+	$: output = `cl_crosshairsize ${c.length.value}
 cl_crosshairthickness ${c.thickness.value}
+cl_crosshairgap ${c.gap.value}
+cl_crosshairoutline ${c.outline.value}
 cl_crosshairdot ${c.dot}
 cl_crosshaircolor_r: ${c.r.value}
 cl_crosshaircolor_g: ${c.g.value}
@@ -92,13 +99,15 @@ cl_crosshairalpha ${c.alpha.value}
 				style="
 				background-color: rgba({c.r.value}, {c.g.value}, {c.b.value}, {c.alpha.value / 250});
 
-				height: {c.size.value}px;
-				width: {c.thickness.value}px;
+				height: {scaledLength}px;
+				width: {scaledThickness}px;
 				left: {posX}px;
 				top: {posY}px;
 
-				border: {c.outline.value}px solid black;
-				transform: translateY({translate}px);
+				border: {border}px black;
+				border-style: {border ? 'solid' : 'outset'};
+
+				transform: translateY({-translate}px);
 				"
 			/>
 			<div
@@ -106,14 +115,15 @@ cl_crosshairalpha ${c.alpha.value}
 				style="
 				background-color: rgba({c.r.value}, {c.g.value}, {c.b.value}, {c.alpha.value / 250});
 
-				height: {c.size.value}px;
-				width: {c.thickness.value}px;
+				height: {scaledLength}px;
+				width: {scaledThickness}px;
 				left: {posX}px;
 				top: {posY}px;
 
-				border: {c.outline.value}px solid black;
-				transform: translateY({-translate}px);
+				border: {border}px black;
+				border-style: {border ? 'solid' : 'outset'};
 
+				transform: translateY({translate}px);
 				"
 			/>
 			<div
@@ -121,12 +131,14 @@ cl_crosshairalpha ${c.alpha.value}
 				style="
 				background-color: rgba({c.r.value}, {c.g.value}, {c.b.value}, {c.alpha.value / 250});
 
-				height: {c.size.value}px;
-				width: {c.thickness.value}px;
+				height: {scaledLength}px;
+				width: {scaledThickness}px;
 				left: {posX}px;
 				top: {posY}px;
 
-				border: {c.outline.value}px solid black;
+				border: {border}px black;
+				border-style: {border ? 'solid' : 'outset'};
+
 				transform: translateX({-translate}px) rotate(-90deg);
 				"
 			/>
@@ -135,37 +147,57 @@ cl_crosshairalpha ${c.alpha.value}
 				style="
 				background-color: rgba({c.r.value}, {c.g.value}, {c.b.value}, {c.alpha.value / 250});
 
-				height: {c.size.value}px;
-				width: {c.thickness.value}px;
+				height: {scaledLength}px;
+				width: {scaledThickness}px;
 				left: {posX}px;
 				top: {posY}px;
 
-				border: {c.outline.value}px solid black;
+				border: {border}px black;
+				border-style: {border ? 'solid' : 'outset'};
+
 				transform: translateX({translate}px) rotate(90deg);
 				"
 			/>
+			{#if c.dot}
+				<div
+					id="c-dot"
+					style="
+					background-color: rgba({c.r.value}, {c.g.value}, {c.b.value}, {c.alpha.value / 250});
+
+					height: {scaledThickness}px;
+					width: {scaledThickness}px;
+					left: {posX}px;
+    				top: {posY}px;
+
+                    border: {border}px black;
+                    border-style: {border ? 'solid' : 'outset'};
+                    transform: translateY({c.length.value - c.thickness.value}px);
+
+    				"
+				/>
+			{/if}
 		</div>
 		<textarea readonly id="output">{output}</textarea>
 	</div>
 	<div id="settings">
-		<CrossSlider label="size" bind:e={c.size} />
+		<CrossSlider label="length" bind:e={c.length} />
 		<CrossSlider label="thickness" bind:e={c.thickness} />
 		<CrossSlider label="gap" bind:e={c.gap} />
 		<CrossSlider label="outline" bind:e={c.outline} />
 		<div id="default-colors">
-			<span>Colors:</span>
-			<button style="background-color: lime;" on:click={() => setColor(1)}>green</button>
-			<button style="background-color: yellow;" on:click={() => setColor(2)}>yellow</button>
-			<button style="background-color: blue; color: white;" on:click={() => setColor(3)}
-				>blue</button
-			>
-			<button style="background-color: cyan;" on:click={() => setColor(4)}>cyan</button>
+			<span>default colors:</span>
+			<button style="background-color: lime;" on:click={() => setColor(1)} />
+			<button style="background-color: yellow;" on:click={() => setColor(2)} />
+			<button style="background-color: blue;" on:click={() => setColor(3)} />
+			<button style="background-color: cyan;" on:click={() => setColor(4)} />
+			<span>dot:</span>
+			<input type="checkbox" bind:checked={c.dot} />
 		</div>
 		<div id="color-group">
-			<CrossSlider label="red" bind:e={c.r} />
-			<CrossSlider label="green" bind:e={c.g} />
-			<CrossSlider label="blue" bind:e={c.b} />
-			<CrossSlider label="alpha" bind:e={c.alpha} />
+			<CrossSlider label="r" bind:e={c.r} />
+			<CrossSlider label="g" bind:e={c.g} />
+			<CrossSlider label="b" bind:e={c.b} />
+			<CrossSlider label="a" bind:e={c.alpha} />
 		</div>
 	</div>
 </div>
@@ -218,7 +250,8 @@ cl_crosshairalpha ${c.alpha.value}
 	}
 	#default-colors button {
 		all: unset;
-		padding: 6px 14px;
+		width: 32px;
+		height: 24px;
 		border: 1px solid rgba(0, 0, 0, 0.3);
 		border-radius: 4px;
 	}
