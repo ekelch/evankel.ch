@@ -21,6 +21,7 @@
 	let posX: number = 0;
 	let posY: number = 0;
 	let locked: boolean;
+	let copied: boolean;
 	export let a: gridlayout;
 
 	const mouseMove = (e: MouseEvent) => {
@@ -32,6 +33,14 @@
 				posY = e.clientY - a.y;
 			}
 		}
+	};
+
+	const copyOutputToClipboard = () => {
+		navigator.clipboard.writeText(output);
+		copied = true;
+		setTimeout(() => {
+			copied = false;
+		}, 1000);
 	};
 
 	const setColor = (color: number) => {
@@ -67,11 +76,11 @@
 	};
 
 	const SCALE_FACTOR = 2;
-	const GAP_OFFSET = 3;
+	const GAP_OFFSET = 0;
 	$: border = (c.outline.value / 1) | 0;
 	$: scaledLength = SCALE_FACTOR * (c.length.value + border);
 	$: scaledThickness = SCALE_FACTOR * (c.thickness.value + border);
-	$: translate = c.length.value + c.thickness.value + c.gap.value + GAP_OFFSET;
+	$: translate = scaledLength + scaledThickness + c.gap.value + GAP_OFFSET;
 
 	$: output = `cl_crosshairsize ${c.length.value}
 cl_crosshairthickness ${c.thickness.value}
@@ -178,6 +187,9 @@ cl_crosshairalpha ${c.alpha.value}
 			{/if}
 		</div>
 		<textarea readonly id="output">{output}</textarea>
+		<button id="copy-btn" on:click={copyOutputToClipboard}
+			>{copied ? 'copied!' : 'copy text'}</button
+		>
 	</div>
 	<div id="settings">
 		<CrossSlider label="length" bind:e={c.length} />
@@ -237,12 +249,10 @@ cl_crosshairalpha ${c.alpha.value}
 		display: flex;
 		flex-direction: column;
 		gap: 6px;
-		margin-left: 24px;
 	}
 	#default-colors {
 		display: flex;
 		gap: 8px;
-		margin-left: 24px;
 	}
 	#default-colors span {
 		color: black;
@@ -259,9 +269,14 @@ cl_crosshairalpha ${c.alpha.value}
 		cursor: pointer;
 		box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1);
 	}
+
 	#output {
 		flex: 1;
 		resize: unset;
 		overflow-y: scroll;
+	}
+
+	#copy-btn {
+		margin: -10px 0 0 0;
 	}
 </style>

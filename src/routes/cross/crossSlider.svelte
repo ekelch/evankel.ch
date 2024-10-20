@@ -7,7 +7,15 @@
 </script>
 
 <div class="setting">
-	<label class="label" for="{label}-range">{label}</label>
+	<div class="row">
+		<label class="text-label" for="{label}-range">{label}: {e.value}</label>
+		{#if e.maxExp}
+			<label class="expanded-label">
+				e
+				<input type="checkbox" bind:checked={expandedRange} />
+			</label>
+		{/if}
+	</div>
 
 	<input
 		id="{label}-range"
@@ -18,32 +26,29 @@
 		step={e.step}
 		bind:value={e.value}
 	/>
-	<span class="value-label">{e.value}</span>
-	{#if e.maxExp}
-		<label>
-			e
-			<input type="checkbox" bind:checked={expandedRange} />
-		</label>
-	{/if}
 </div>
 
 <style>
 	.setting {
 		display: flex;
+		flex-direction: column;
 		border: 1px solid rgba(0, 0, 0, 0.3);
 		padding: 6px 0;
 		border-radius: 6px;
 		background-color: white;
+		gap: 4px;
 	}
-	.label {
-		flex: 1;
+	.row {
+		display: flex;
+		margin: 0 32px 4px;
+	}
+	.text-label {
+		color: black;
 	}
 	.input-range {
-		flex: 3;
-		margin: 0 64px;
+		margin: 0 32px;
 	}
-	.value-label {
-		color: black;
-		flex: 1;
+	.expanded-label {
+		margin: 0 4px 0 auto;
 	}
 </style>
