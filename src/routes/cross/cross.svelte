@@ -44,27 +44,20 @@
 	};
 
 	const setColor = (color: number) => {
+		c.color = color;
 		if (color === 1) {
-			//green
-			c.color = 1;
 			c.r.value = 0;
 			c.g.value = 255;
 			c.b.value = 0;
 		} else if (color === 2) {
-			//yellow
-			c.color = 2;
 			c.r.value = 255;
 			c.g.value = 255;
 			c.b.value = 0;
 		} else if (color === 3) {
-			//blue
-			c.color = 3;
 			c.r.value = 0;
 			c.g.value = 0;
 			c.b.value = 255;
 		} else if (color === 4) {
-			//cyan
-			c.color = 4;
 			c.r.value = 0;
 			c.g.value = 255;
 			c.b.value = 255;
@@ -80,17 +73,17 @@
 	$: border = (c.outline.value / 1) | 0;
 	$: scaledLength = SCALE_FACTOR * (c.length.value + border);
 	$: scaledThickness = SCALE_FACTOR * (c.thickness.value + border);
-	$: translate = scaledLength + scaledThickness + c.gap.value + GAP_OFFSET;
+	$: translate = scaledLength + scaledThickness + SCALE_FACTOR * c.gap.value + GAP_OFFSET;
 
-	$: output = `cl_crosshairsize ${c.length.value}
-cl_crosshairthickness ${c.thickness.value}
-cl_crosshairgap ${c.gap.value}
-cl_crosshairoutline ${c.outline.value}
-cl_crosshairdot ${c.dot}
-cl_crosshaircolor_r: ${c.r.value}
-cl_crosshaircolor_g: ${c.g.value}
-cl_crosshaircolor_b: ${c.b.value}
-cl_crosshairalpha ${c.alpha.value}
+	$: output = `cl_crosshairsize ${c.length.value};
+cl_crosshairthickness ${c.thickness.value};
+cl_crosshairgap ${c.gap.value};
+cl_crosshairoutline ${c.outline.value};
+cl_crosshairdot ${c.dot};
+cl_crosshaircolor_r: ${c.r.value};
+cl_crosshaircolor_g: ${c.g.value};
+cl_crosshaircolor_b: ${c.b.value};
+cl_crosshairalpha ${c.alpha.value};
 `;
 </script>
 
@@ -106,7 +99,7 @@ cl_crosshairalpha ${c.alpha.value}
 			<div
 				id="c-top"
 				style="
-				background-color: rgba({c.r.value}, {c.g.value}, {c.b.value}, {c.alpha.value / 250});
+				background-color: rgba({c.r.value}, {c.g.value}, {c.b.value}, {c.alpha.value / c.alpha.max});
 
 				height: {scaledLength}px;
 				width: {scaledThickness}px;
@@ -122,7 +115,7 @@ cl_crosshairalpha ${c.alpha.value}
 			<div
 				id="c-bottom"
 				style="
-				background-color: rgba({c.r.value}, {c.g.value}, {c.b.value}, {c.alpha.value / 250});
+				background-color: rgba({c.r.value}, {c.g.value}, {c.b.value}, {c.alpha.value / c.alpha.max});
 
 				height: {scaledLength}px;
 				width: {scaledThickness}px;
@@ -138,7 +131,7 @@ cl_crosshairalpha ${c.alpha.value}
 			<div
 				id="c-left"
 				style="
-				background-color: rgba({c.r.value}, {c.g.value}, {c.b.value}, {c.alpha.value / 250});
+				background-color: rgba({c.r.value}, {c.g.value}, {c.b.value}, {c.alpha.value / c.alpha.max});
 
 				height: {scaledLength}px;
 				width: {scaledThickness}px;
@@ -154,7 +147,7 @@ cl_crosshairalpha ${c.alpha.value}
 			<div
 				id="c-right"
 				style="
-				background-color: rgba({c.r.value}, {c.g.value}, {c.b.value}, {c.alpha.value / 250});
+				background-color: rgba({c.r.value}, {c.g.value}, {c.b.value}, {c.alpha.value / c.alpha.max});
 
 				height: {scaledLength}px;
 				width: {scaledThickness}px;
@@ -171,7 +164,7 @@ cl_crosshairalpha ${c.alpha.value}
 				<div
 					id="c-dot"
 					style="
-					background-color: rgba({c.r.value}, {c.g.value}, {c.b.value}, {c.alpha.value / 250});
+					background-color: rgba({c.r.value}, {c.g.value}, {c.b.value}, {c.alpha.value / c.alpha.max});
 
 					height: {scaledThickness}px;
 					width: {scaledThickness}px;
