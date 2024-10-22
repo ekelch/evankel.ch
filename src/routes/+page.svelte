@@ -56,6 +56,7 @@
 <style lang="postcss">
 	:global(html) {
 		font-family: Verdana, Geneva, Tahoma, sans-serif;
+		overflow: hidden;
 	}
 	:global(body) {
 		margin: 0;
@@ -80,6 +81,7 @@
 		position: fixed;
 		bottom: 0;
 		display: flex;
+		z-index: 5;
 	}
 
 	#nav-items {

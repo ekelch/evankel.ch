@@ -6,6 +6,7 @@
 
 	const MIN_WIDTH = 250;
 	const MIN_HEIGHT = 200;
+	const MAX_OFFSET = 100;
 
 	export let a: gridlayout;
 	let dragging: boolean;
@@ -37,17 +38,17 @@
 	};
 	const mouseMove = (e: MouseEvent) => {
 		if (resizing) {
-			if (a.w + e.movementX >= MIN_WIDTH && a.w + a.x + e.movementX <= wWidth) {
+			if (a.w + e.movementX >= MIN_WIDTH) {
 				a.w += e.movementX;
 			}
-			if (a.h + e.movementY >= MIN_HEIGHT && a.h + a.y + e.movementY <= wHeight) {
+			if (a.h + e.movementY >= MIN_HEIGHT) {
 				a.h += e.movementY;
 			}
 		} else if (dragging) {
-			if (a.x + e.movementX > 0 && a.x + a.w + e.movementX < wWidth) {
+			if (a.x + e.movementX > 0 && a.x + e.movementX + MAX_OFFSET < wWidth) {
 				a.x += e.movementX;
 			}
-			if (a.y + e.movementY > 0 && a.y + a.h + e.movementY < wHeight) {
+			if (a.y + e.movementY > 0 && a.y + e.movementY + MAX_OFFSET < wHeight) {
 				a.y += e.movementY;
 			}
 		}
