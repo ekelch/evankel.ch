@@ -10,7 +10,6 @@
 	let innerHeight: number;
 
 	const createApp = (name: appOptions) => {
-		console.log(name);
 		if (!apps.map((a) => a.c).includes(name)) {
 			apps = [
 				...apps,

@@ -41,6 +41,7 @@
 		display: flex;
 		flex-direction: column;
 		user-select: none;
+		gap: 6px;
 	}
 
 	.dragging {

@@ -23,6 +23,13 @@
 			x: 50,
 			y: 50,
 			openApp: () => openApp('cross')
+		},
+		{
+			imgSrc: '/src/lib/assets/laptop.png',
+			appName: 'about',
+			x: 175,
+			y: 50,
+			openApp: () => openApp('about')
 		}
 	];
 
