@@ -7,12 +7,13 @@
 	const MIN_WIDTH = 250;
 	const MIN_HEIGHT = 200;
 	const MAX_OFFSET = 100;
+	const NAV_HEIGHT = 44;
 
 	export let a: gridlayout;
 	let dragging: boolean;
 	let resizing: boolean;
-	let wWidth: number;
-	let wHeight: number;
+	let windowWidth: number;
+	let windowHeight: number;
 	let maximize: boolean;
 
 	const mouseUp = (e: MouseEvent) => {
@@ -38,17 +39,17 @@
 	};
 	const mouseMove = (e: MouseEvent) => {
 		if (resizing) {
-			if (a.w + e.movementX >= MIN_WIDTH) {
+			if (a.w + e.movementX >= MIN_WIDTH && a.x + a.w + e.movementX < windowWidth) {
 				a.w += e.movementX;
 			}
-			if (a.h + e.movementY >= MIN_HEIGHT) {
+			if (a.h + e.movementY >= MIN_HEIGHT && a.y + a.h + e.movementY < windowHeight - NAV_HEIGHT) {
 				a.h += e.movementY;
 			}
 		} else if (dragging) {
-			if (a.x + e.movementX > 0 && a.x + e.movementX + MAX_OFFSET < wWidth) {
+			if (a.x + e.movementX > MAX_OFFSET - a.w && a.x + e.movementX + MAX_OFFSET < windowWidth) {
 				a.x += e.movementX;
 			}
-			if (a.y + e.movementY > 0 && a.y + e.movementY + MAX_OFFSET < wHeight) {
+			if (a.y + e.movementY > 0 && a.y + e.movementY + MAX_OFFSET < windowHeight) {
 				a.y += e.movementY;
 			}
 		}
@@ -61,8 +62,8 @@
 	style="
 	left: {maximize ? 0 : a.x}px;
 	top: {maximize ? 0 : a.y}px;
-	width: {maximize ? wWidth : a.w}px;
-	height: {maximize ? wHeight : a.h}px;
+	width: {maximize ? windowWidth : a.w}px;
+	height: {maximize ? windowHeight : a.h}px;
 	z-index: {a.show ? a.z : -1};}"
 >
 	<div id="window-header">
@@ -81,8 +82,8 @@
 <svelte:window
 	on:mouseup={mouseUp}
 	on:mousemove={mouseMove}
-	bind:innerWidth={wWidth}
-	bind:innerHeight={wHeight}
+	bind:innerWidth={windowWidth}
+	bind:innerHeight={windowHeight}
 />
 
 <style>

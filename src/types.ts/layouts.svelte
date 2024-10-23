@@ -11,6 +11,14 @@
 		show?: boolean;
 	};
 
+	export type DesktopIconType = {
+		imgSrc: string;
+		appName: string;
+		x: number;
+		y: number;
+		openApp: () => void;
+	};
+
 	export type SliderRange = {
 		value: number;
 		min: number;

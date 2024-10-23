@@ -10,6 +10,7 @@
 	let innerHeight: number;
 
 	const createApp = (name: appOptions) => {
+		console.log(name);
 		if (!apps.map((a) => a.c).includes(name)) {
 			apps = [
 				...apps,
@@ -29,22 +30,19 @@
 			apps = apps;
 		}
 	};
-
-	const closeApp = (appName: string) => {
-		apps = apps.filter((a) => a.c !== appName);
-	};
 </script>
 
 <div id="app">
 	<div id="main">
-		<MainContent bind:apps on:closeApp={(e) => closeApp(e.detail)} />
+		<MainContent bind:apps on:openApp={(e) => createApp(e.detail)} />
 	</div>
 	<nav id="navbar">
 		<div id="nav-items">
 			<StartMenuButton />
 			<div id="nav-border">
-				<HeaderItem item="about" on:click={() => createApp('about')} />
-				<HeaderItem item="crosshair" on:click={() => createApp('cross')} />
+				{#each apps as app}
+					<HeaderItem item={app.c} on:click={() => createApp(app.c)} />
+				{/each}
 			</div>
 		</div>
 		<Time />
