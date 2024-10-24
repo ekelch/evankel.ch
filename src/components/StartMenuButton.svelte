@@ -1,15 +1,12 @@
 <script lang="ts">
 	let hovering: boolean;
-
-	const redirect = () => {
-		location.href = '/';
-	};
 </script>
 
 <button
+	id="start-menu-btn"
 	class="start-item-container"
-	on:click={redirect}
 	class:hover={hovering}
+	on:click
 	on:mouseenter={() => (hovering = true)}
 	on:mouseleave={() => (hovering = false)}
 	><span>start</span>

@@ -15,20 +15,26 @@
 		apps = apps.filter((a) => a.c !== appName);
 	};
 
+	const keydown = (e: KeyboardEvent) => {
+		if (e.key === 'Escape') {
+			apps = apps.filter((a) => a.z !== apps.length);
+		}
+	};
+
 	export let apps: gridlayout[] = [];
 	let desktopIcons: DesktopIconType[] = [
 		{
 			imgSrc: '/src/lib/assets/cat.jpg',
 			appName: 'cs crosshair',
-			x: 50,
-			y: 50,
+			x: 25,
+			y: 25,
 			openApp: () => openApp('cross')
 		},
 		{
 			imgSrc: '/src/lib/assets/laptop.png',
 			appName: 'about',
-			x: 175,
-			y: 50,
+			x: 150,
+			y: 25,
 			openApp: () => openApp('about')
 		}
 	];
@@ -39,6 +45,11 @@
 			return { ...a, z: a.z === zc ? apps.length : a.z > zc ? a.z - 1 : a.z };
 		});
 	};
+
+	const components: any = {
+		about: About,
+		cross: Cross
+	};
 </script>
 
 <div class="main-contain">
@@ -47,14 +58,18 @@
 	{/each}
 	{#each apps as a}
 		<Draggable bind:a on:focusWindow={focusWindow} on:closeApp={() => closeApp(a.c)}>
-			{#if a.c === 'about'}
+			<svelte:component this={components[a.c]} {a} />
+
+			<!-- {#if a.c === 'about'}
 				<About />
 			{:else if a.c === 'cross'}
 				<Cross {a} />
-			{/if}
+			{/if} -->
 		</Draggable>
 	{/each}
 </div>
+
+<svelte:window on:keydown={keydown} />
 
 <style>
 	.main-contain {

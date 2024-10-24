@@ -1,6 +1,7 @@
 <script lang="ts">
 	import HeaderItem from '../components/HeaderItem.svelte';
 	import MainContent from '../components/MainContent.svelte';
+	import StartMenu from '../components/StartMenu.svelte';
 	import StartMenuButton from '../components/StartMenuButton.svelte';
 	import Time from '../components/Time.svelte';
 	import type { appOptions, gridlayout } from '../types.ts/layouts.svelte';
@@ -8,6 +9,18 @@
 	let apps: gridlayout[] = [];
 	let innerWidth: number;
 	let innerHeight: number;
+	let showStart: boolean;
+
+	const toggleStartMenu = () => {
+		showStart = !showStart;
+	};
+
+	const clickEvent = (e: any) => {
+		console.log(e.target);
+		if (e.target?.id !== 'start-menu' && showStart) {
+			showStart = false;
+		}
+	};
 
 	const createApp = (name: appOptions) => {
 		if (!apps.map((a) => a.c).includes(name)) {
@@ -35,9 +48,12 @@
 	<div id="main">
 		<MainContent bind:apps on:openApp={(e) => createApp(e.detail)} />
 	</div>
+	{#if showStart}
+		<StartMenu />
+	{/if}
 	<nav id="navbar">
 		<div id="nav-items">
-			<StartMenuButton />
+			<StartMenuButton on:click={toggleStartMenu} />
 			<div id="nav-border">
 				{#each apps as app}
 					<HeaderItem item={app.c} on:click={() => createApp(app.c)} />
