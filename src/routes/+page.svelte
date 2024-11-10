@@ -4,23 +4,32 @@
 	import StartMenu from '../components/StartMenu.svelte';
 	import StartMenuButton from '../components/StartMenuButton.svelte';
 	import Time from '../components/Time.svelte';
-	import type { appOptions, gridlayout } from '../types.ts/layouts.svelte';
+	import type { appOptions, DesktopIconType, gridlayout } from '../types.ts/layouts.svelte';
 
 	let apps: gridlayout[] = [];
+	let availApps: DesktopIconType[] = [
+		{
+			imgSrc: '/src/lib/assets/cat.jpg',
+			displayName: 'cs crosshair',
+			x: 25,
+			y: 25,
+			openApp: () => {
+				createApp('cross');
+			}
+		},
+		{
+			imgSrc: '/src/lib/assets/laptop.png',
+			displayName: 'about',
+			x: 150,
+			y: 25,
+			openApp: () => {
+				createApp('about');
+			}
+		}
+	];
 	let innerWidth: number;
 	let innerHeight: number;
 	let showStart: boolean;
-
-	const toggleStartMenu = () => {
-		showStart = !showStart;
-	};
-
-	const clickEvent = (e: any) => {
-		console.log(e.target);
-		if (e.target?.id !== 'start-menu' && showStart) {
-			showStart = false;
-		}
-	};
 
 	const createApp = (name: appOptions) => {
 		if (!apps.map((a) => a.c).includes(name)) {
@@ -46,14 +55,15 @@
 
 <div id="app">
 	<div id="main">
-		<MainContent bind:apps on:openApp={(e) => createApp(e.detail)} />
+		<MainContent bind:apps desktopIcons={availApps} on:openApp={(e) => createApp(e.detail)} />
 	</div>
 	{#if showStart}
-		<StartMenu />
+		<StartMenu {availApps} />
 	{/if}
 	<nav id="navbar">
 		<div id="nav-items">
-			<StartMenuButton on:click={toggleStartMenu} />
+			<StartMenuButton />
+
 			<div id="nav-border">
 				{#each apps as app}
 					<HeaderItem item={app.c} on:click={() => createApp(app.c)} />
@@ -64,7 +74,16 @@
 	</nav>
 </div>
 
-<svelte:window bind:innerWidth bind:innerHeight />
+<svelte:window
+	bind:innerWidth
+	bind:innerHeight
+	on:mousedown|nonpassive={(e) => {
+		const t = e.target?.textContent || e.target?.previousElementSibling?.textContent || '';
+		console.log(e.target);
+		if (t === 'start') showStart = !showStart;
+		else if (showStart) showStart = false;
+	}}
+/>
 
 <style lang="postcss">
 	:global(html) {

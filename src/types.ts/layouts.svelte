@@ -13,7 +13,7 @@
 
 	export type DesktopIconType = {
 		imgSrc: string;
-		appName: string;
+		displayName: string;
 		x: number;
 		y: number;
 		openApp: () => void;

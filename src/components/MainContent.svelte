@@ -1,15 +1,9 @@
 <script lang="ts">
-	import { createEventDispatcher } from 'svelte';
 	import { type gridlayout, type DesktopIconType } from '../types.ts/layouts.svelte';
 	import Cross from '../routes/cross/cross.svelte';
 	import Draggable from './draggable.svelte';
 	import About from '../routes/about/about.svelte';
 	import DesktopIcon from './desktopIcon.svelte';
-
-	const dispatch = createEventDispatcher();
-	const openApp = (appName: string) => {
-		dispatch('openApp', appName);
-	};
 
 	const closeApp = (appName: string) => {
 		apps = apps.filter((a) => a.c !== appName);
@@ -22,22 +16,7 @@
 	};
 
 	export let apps: gridlayout[] = [];
-	let desktopIcons: DesktopIconType[] = [
-		{
-			imgSrc: '/src/lib/assets/cat.jpg',
-			appName: 'cs crosshair',
-			x: 25,
-			y: 25,
-			openApp: () => openApp('cross')
-		},
-		{
-			imgSrc: '/src/lib/assets/laptop.png',
-			appName: 'about',
-			x: 150,
-			y: 25,
-			openApp: () => openApp('about')
-		}
-	];
+	export let desktopIcons: DesktopIconType[];
 
 	const focusWindow = (e: CustomEvent) => {
 		const zc = e.detail.z;

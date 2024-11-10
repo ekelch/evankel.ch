@@ -3,10 +3,8 @@
 </script>
 
 <button
-	id="start-menu-btn"
 	class="start-item-container"
 	class:hover={hovering}
-	on:click
 	on:mouseenter={() => (hovering = true)}
 	on:mouseleave={() => (hovering = false)}
 	><span>start</span>

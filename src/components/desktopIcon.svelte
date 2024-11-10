@@ -20,21 +20,24 @@
 	};
 </script>
 
-<div
+<button
 	style="left: {icon.x}px; top: {icon.y}px;"
 	class="icon-wrapper"
 	class:dragging
 	on:mousedown|preventDefault={startDrag}
 	on:dblclick={icon.openApp}
 >
-	<img src={icon.imgSrc} alt={icon.appName} />
-	<span>{icon.appName}</span>
-</div>
+	<img src={icon.imgSrc} alt={icon.displayName} />
+	<span>{icon.displayName}</span>
+</button>
 
 <svelte:window on:mouseup={endDrag} on:mousemove={mouseMove} />
 
 <style>
 	.icon-wrapper {
+		background: rgba(0, 0, 0, 0.05);
+		border: none;
+		border-radius: 12px;
 		position: absolute;
 		width: 100px;
 		padding: 4px;
@@ -42,6 +45,7 @@
 		flex-direction: column;
 		user-select: none;
 		gap: 6px;
+		cursor: pointer;
 	}
 
 	.dragging {
