@@ -4,12 +4,14 @@
 	import StartMenu from '../components/StartMenu.svelte';
 	import StartMenuButton from '../components/StartMenuButton.svelte';
 	import Time from '../components/Time.svelte';
+	import catImg from '/src/lib/assets/cat.jpg';
+	import laptopImg from '/src/lib/assets/laptop.png';
 	import type { appOptions, DesktopIconType, gridlayout } from '../types.ts/layouts.svelte';
 
 	let apps: gridlayout[] = [];
 	let availApps: DesktopIconType[] = [
 		{
-			imgSrc: '/src/lib/assets/cat.jpg',
+			imgSrc: catImg,
 			displayName: 'cs crosshair',
 			x: 25,
 			y: 25,
@@ -18,7 +20,7 @@
 			}
 		},
 		{
-			imgSrc: '/src/lib/assets/laptop.png',
+			imgSrc: laptopImg,
 			displayName: 'about',
 			x: 150,
 			y: 25,

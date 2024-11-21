@@ -1,6 +1,8 @@
 <script lang="ts">
+	import resumePdf from '/src/lib/assets/resume.pdf';
 	const tabs: string[] = ['GITHUB', 'RESUME'];
 	let selected: string = tabs[0];
+	export let a;
 
 	const tabClicked = (clicked: any) => {
 		selected = clicked.target.innerText;
@@ -20,7 +22,7 @@
 				<a target="_blank" href="https://github.com/ekelch/evankel.ch">github/ekelch</a>
 			</div>
 		{:else if selected === tabs[1]}
-			<iframe src="/src/lib/assets/resume.pdf" frameborder="0" title="resume" />
+			<iframe src={resumePdf} frameborder="0" title="resume" />
 		{/if}
 	</div>
 </div>
