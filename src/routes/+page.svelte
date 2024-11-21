@@ -77,9 +77,8 @@
 <svelte:window
 	bind:innerWidth
 	bind:innerHeight
-	on:mousedown|nonpassive={(e) => {
+	on:mousedown={(e) => {
 		const t = e.target?.textContent || e.target?.previousElementSibling?.textContent || '';
-		console.log(e.target);
 		if (t === 'start') showStart = !showStart;
 		else if (showStart) showStart = false;
 	}}
