@@ -1,27 +1,25 @@
 <script lang="ts">
 	import resumePdf from '/src/lib/assets/resume.pdf';
+	import Site from "./site.svelte"
+	import Carplay from "./carplay.svelte"
 	const tabs: string[] = ['GITHUB', 'RESUME'];
 	let selected: string = tabs[0];
-
-	const tabClicked = (clicked: any) => {
-		selected = clicked.target.innerText;
-	};
 </script>
 
 <div id="outer">
 	<div id="tab-container">
 		{#each tabs as tab}
-			<button class="tab" class:selected={tab === selected} on:click={tabClicked}>{tab}</button>
+			<button class="tab" class:selected={tab === selected} on:click={() => selected = tab}>{tab}</button>
 		{/each}
 	</div>
 	<div id="tab-content">
-		{#if selected === tabs[1]}
-			<div>
-				View the source code for this site here:
-				<a target="_blank" href="https://github.com/ekelch/evankel.ch">github/ekelch</a>
+		{#if selected === tabs[0]}
+			<div id="github-projects">
+				<Site />
+				<Carplay />
 			</div>
-		{:else if selected === tabs[0]}
-			<iframe src={resumePdf} frameborder="0" title="resume" />
+		{:else if selected === tabs[1]}
+			<iframe src={resumePdf} title="resume" />
 		{/if}
 	</div>
 </div>
@@ -43,6 +41,11 @@
 	#tab-content > iframe {
 		height: 100%;
 		width: 100%;
+	}
+	#github-projects {
+		display: flex;
+		flex-direction: column;
+		gap: 16px;
 	}
 	.tab {
 		all: unset;

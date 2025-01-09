@@ -64,7 +64,9 @@
 	top: {maximize ? 0 : a.y}px;
 	width: {maximize ? windowWidth : a.w}px;
 	height: {maximize ? windowHeight : a.h}px;
-	z-index: {a.show ? a.z : -1};}"
+	z-index: {a.show ? a.z : -1};
+	user-select: {dragging ? 'none' : 'initial'};
+	"
 >
 	<div id="window-header">
 		<div class="window-buttons">
