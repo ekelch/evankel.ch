@@ -2,7 +2,6 @@
 	import resumePdf from '/src/lib/assets/resume.pdf';
 	const tabs: string[] = ['GITHUB', 'RESUME'];
 	let selected: string = tabs[0];
-	export let a;
 
 	const tabClicked = (clicked: any) => {
 		selected = clicked.target.innerText;
@@ -16,12 +15,12 @@
 		{/each}
 	</div>
 	<div id="tab-content">
-		{#if selected === tabs[0]}
+		{#if selected === tabs[1]}
 			<div>
 				View the source code for this site here:
 				<a target="_blank" href="https://github.com/ekelch/evankel.ch">github/ekelch</a>
 			</div>
-		{:else if selected === tabs[1]}
+		{:else if selected === tabs[0]}
 			<iframe src={resumePdf} frameborder="0" title="resume" />
 		{/if}
 	</div>
@@ -31,7 +30,7 @@
 	#outer {
 		display: flex;
 		flex-direction: column;
-		height: 100%;
+		height: 97vh;
 	}
 	#tab-container {
 		display: flex;

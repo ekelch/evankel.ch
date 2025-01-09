@@ -78,7 +78,8 @@
 	$: output = `cl_crosshairsize ${c.length.value};
 cl_crosshairthickness ${c.thickness.value};
 cl_crosshairgap ${c.gap.value};
-cl_crosshairoutline ${c.outline.value};
+cl_crosshair_drawoutline ${c.outline.value ? 1 : 0};
+cl_crosshair_outlinethickness ${c.outline.value};
 cl_crosshairdot ${c.dot};
 cl_crosshaircolor_r: ${c.r.value};
 cl_crosshaircolor_g: ${c.g.value};

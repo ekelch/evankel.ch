@@ -1,5 +1,5 @@
 <script context="module" lang="ts">
-	export type appOptions = 'about' | 'cross';
+	export type appOptions = 'about' | 'cross' | 'artwork';
 
 	export type gridlayout = {
 		c: appOptions;

@@ -1,11 +1,8 @@
 <script lang="ts">
-	import HeaderItem from '../components/HeaderItem.svelte';
 	import MainContent from '../components/MainContent.svelte';
-	import StartMenu from '../components/StartMenu.svelte';
-	import StartMenuButton from '../components/StartMenuButton.svelte';
-	import Time from '../components/Time.svelte';
 	import catImg from '/src/lib/assets/cat.jpg';
 	import laptopImg from '/src/lib/assets/laptop.png';
+	import omoriImg from '/src/lib/assets/artwork/omoriSide.png';
 	import type { appOptions, DesktopIconType, gridlayout } from '../types.ts/layouts.svelte';
 
 	let apps: gridlayout[] = [];
@@ -26,6 +23,15 @@
 			y: 25,
 			openApp: () => {
 				createApp('about');
+			}
+		},
+		{
+			imgSrc: omoriImg,
+			displayName: 'artwork',
+			x: 275,
+			y: 25,
+			openApp: () => {
+				createApp('artwork');
 			}
 		}
 	];
@@ -59,31 +65,11 @@
 	<div id="main">
 		<MainContent bind:apps desktopIcons={availApps} on:openApp={(e) => createApp(e.detail)} />
 	</div>
-	{#if showStart}
-		<StartMenu {availApps} />
-	{/if}
-	<nav id="navbar">
-		<div id="nav-items">
-			<StartMenuButton />
-
-			<div id="nav-border">
-				{#each apps as app}
-					<HeaderItem item={app.c} on:click={() => createApp(app.c)} />
-				{/each}
-			</div>
-		</div>
-		<Time />
-	</nav>
 </div>
 
 <svelte:window
 	bind:innerWidth
 	bind:innerHeight
-	on:mousedown={(e) => {
-		const t = e.target?.textContent || e.target?.previousElementSibling?.textContent || '';
-		if (t === 'start') showStart = !showStart;
-		else if (showStart) showStart = false;
-	}}
 />
 
 <style lang="postcss">
@@ -106,33 +92,5 @@
 
 	#main {
 		flex: 1;
-	}
-
-	#navbar {
-		height: 44px;
-		width: 100%;
-		position: fixed;
-		bottom: 0;
-		display: flex;
-		z-index: 5;
-	}
-
-	#nav-items {
-		flex: 1;
-		display: flex;
-		background-color: #327bf0;
-		overflow-x: scroll;
-		scrollbar-width: none;
-	}
-
-	#nav-border {
-		border: 4px solid transparent;
-		border-image-source: linear-gradient(0deg, #034fd6, #4f91e8);
-		border-image-slice: 1;
-		border-left: 0;
-		border-right: 0;
-
-		flex: 1;
-		display: flex;
 	}
 </style>

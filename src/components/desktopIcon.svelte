@@ -3,35 +3,44 @@
 
 	export let icon: DesktopIconType;
 	let dragging: boolean;
+	let dragStartPos: {x:number,y:number} = {x: 0, y: 0}
 
-	const startDrag = () => {
+	const handleDragStart = (e: MouseEvent) => {
 		dragging = true;
+		dragStartPos = {x: e.clientX, y: e.clientY}
 	};
 
-	const endDrag = () => {
+	const handleDragEnd = () => {
 		dragging = false;
 	};
 
-	const mouseMove = (e: MouseEvent) => {
+	const handleMouseMove = (e: MouseEvent) => {
 		if (dragging) {
 			icon.x += e.movementX;
 			icon.y += e.movementY;
 		}
 	};
+
+	const handleMouseUp = (e: MouseEvent) => {
+		if (dragStartPos.x === e.clientX && dragStartPos.y === e.clientY) {
+			icon.openApp();
+		}
+	}
 </script>
 
 <button
 	style="left: {icon.x}px; top: {icon.y}px;"
 	class="icon-wrapper"
 	class:dragging
-	on:mousedown|preventDefault={startDrag}
-	on:dblclick={icon.openApp}
+	on:mousedown|preventDefault={handleDragStart}
+	on:click={handleMouseUp}
+	on:dblclick={handleMouseUp}
 >
 	<img src={icon.imgSrc} alt={icon.displayName} />
 	<span>{icon.displayName}</span>
 </button>
 
-<svelte:window on:mouseup={endDrag} on:mousemove={mouseMove} />
+<svelte:window on:mouseup={handleDragEnd} on:mousemove={handleMouseMove} />
 
 <style>
 	.icon-wrapper {

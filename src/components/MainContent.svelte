@@ -4,6 +4,7 @@
 	import Draggable from './draggable.svelte';
 	import About from '../routes/about/about.svelte';
 	import DesktopIcon from './desktopIcon.svelte';
+	import Artwork from '../routes/artwork/artwork.svelte';
 
 	const closeApp = (appName: string) => {
 		apps = apps.filter((a) => a.c !== appName);
@@ -27,7 +28,8 @@
 
 	const components: any = {
 		about: About,
-		cross: Cross
+		cross: Cross,
+		artwork: Artwork
 	};
 </script>
 
@@ -38,12 +40,6 @@
 	{#each apps as a}
 		<Draggable bind:a on:focusWindow={focusWindow} on:closeApp={() => closeApp(a.c)}>
 			<svelte:component this={components[a.c]} {a} />
-
-			<!-- {#if a.c === 'about'}
-				<About />
-			{:else if a.c === 'cross'}
-				<Cross {a} />
-			{/if} -->
 		</Draggable>
 	{/each}
 </div>
