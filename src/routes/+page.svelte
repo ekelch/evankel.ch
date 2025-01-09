@@ -4,6 +4,7 @@
 	import aboutImg from '/src/lib/assets/about/songs.png';
 	import omoriImg from '/src/lib/assets/artwork/omoriSide.png';
 	import type { appOptions, DesktopIconType, gridlayout } from '../types.ts/layouts.svelte';
+	import StartMenuItem from "../components/StartMenuItem.svelte";
 
 	let apps: gridlayout[] = [];
 	let availApps: DesktopIconType[] = [
@@ -64,6 +65,15 @@
 	<div id="main">
 		<MainContent bind:apps desktopIcons={availApps} on:openApp={(e) => createApp(e.detail)} />
 	</div>
+	<nav id="navbar">
+		<div id="nav-items">
+			<div id="nav-border">
+				{#each apps as app}
+					<StartMenuItem item={app.c} on:click={() => createApp(app.c)} />
+				{/each}
+			</div>
+		</div>
+	</nav>
 </div>
 
 <svelte:window
@@ -83,7 +93,30 @@
 	#app {
 		display: flex;
 		flex-direction: column;
-		height: 100vh;
+		height: 96vh;
+	}
+
+	#navbar {
+		height: 44px;
+		width: 100%;
+		position: fixed;
+		bottom: 0;
+		display: flex;
+		z-index: 5;
+	}
+	#nav-items {
+		flex: 1;
+		display: flex;
+		background-color: darkseagreen;
+		overflow-x: scroll;
+		scrollbar-width: none;
+	}
+	#nav-border {
+		border: 4px solid transparent;
+		border-left: 0;
+		border-right: 0;
+		flex: 1;
+		display: flex;
 	}
 
 	#main {
