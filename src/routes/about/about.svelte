@@ -6,7 +6,7 @@
 	let selected: string = tabs[0];
 </script>
 
-<div id="outer">
+<div id="about-outer">
 	<div id="tab-container">
 		{#each tabs as tab}
 			<button class="tab" class:selected={tab === selected} on:click={() => selected = tab}>{tab}</button>
@@ -15,8 +15,8 @@
 	<div id="tab-content">
 		{#if selected === tabs[0]}
 			<div id="github-projects">
-				<Site />
 				<Carplay />
+				<Site />
 			</div>
 		{:else if selected === tabs[1]}
 			<iframe src={resumePdf} title="resume" />
@@ -25,18 +25,20 @@
 </div>
 
 <style>
-	#outer {
+	#about-outer {
 		display: flex;
 		flex-direction: column;
-		height: 97vh;
+		height: 100%;
 	}
 	#tab-container {
 		display: flex;
 		gap: 6px;
-		padding: 4px 8px 8px;
+		padding: 6px 8px;
+		border-bottom: 1px solid rgba(0,0,0,0.4);
 	}
 	#tab-content {
 		flex: 1;
+		overflow-y: auto;
 	}
 	#tab-content > iframe {
 		height: 100%;
@@ -46,6 +48,7 @@
 		display: flex;
 		flex-direction: column;
 		gap: 16px;
+		padding: 0 5%;
 	}
 	.tab {
 		all: unset;

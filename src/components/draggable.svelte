@@ -65,7 +65,7 @@
 	width: {maximize ? windowWidth : a.w}px;
 	height: {maximize ? windowHeight : a.h}px;
 	z-index: {a.show ? a.z : -1};
-	user-select: {dragging ? 'none' : 'initial'};
+	user-select: {dragging || resizing ? 'none' : 'initial'};
 	"
 >
 	<div id="window-header">
@@ -99,10 +99,8 @@
 		border: 1px solid rgba(0, 0, 0, 0.5);
 		border-radius: 4px;
 		box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.3);
-		text-align: center;
 
 		border: 1px solid black;
-		overflow: clip;
 	}
 
 	#window-header {
@@ -121,6 +119,8 @@
 	.window-contents {
 		all: unset;
 		flex: 1;
+		overflow-y: auto;
+		overflow-x: clip;
 	}
 
 	#drag-handle {

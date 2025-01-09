@@ -1,23 +1,14 @@
 <script lang="ts">
 	import MainContent from '../components/MainContent.svelte';
 	import catImg from '/src/lib/assets/cat.jpg';
-	import laptopImg from '/src/lib/assets/laptop.png';
+	import aboutImg from '/src/lib/assets/about/songs.png';
 	import omoriImg from '/src/lib/assets/artwork/omoriSide.png';
 	import type { appOptions, DesktopIconType, gridlayout } from '../types.ts/layouts.svelte';
 
 	let apps: gridlayout[] = [];
 	let availApps: DesktopIconType[] = [
 		{
-			imgSrc: catImg,
-			displayName: 'cs crosshair',
-			x: 25,
-			y: 25,
-			openApp: () => {
-				createApp('cross');
-			}
-		},
-		{
-			imgSrc: laptopImg,
+			imgSrc: aboutImg,
 			displayName: 'about',
 			x: 150,
 			y: 25,
@@ -33,11 +24,19 @@
 			openApp: () => {
 				createApp('artwork');
 			}
-		}
+		},
+		{
+			imgSrc: catImg,
+			displayName: 'cs crosshair',
+			x: 25,
+			y: 25,
+			openApp: () => {
+				createApp('cross');
+			}
+		},
 	];
 	let innerWidth: number;
 	let innerHeight: number;
-	let showStart: boolean;
 
 	const createApp = (name: appOptions) => {
 		if (!apps.map((a) => a.c).includes(name)) {
@@ -79,9 +78,6 @@
 	}
 	:global(body) {
 		margin: 0;
-	}
-	:global(p, span) {
-		color: #e4e4e7;
 	}
 
 	#app {
