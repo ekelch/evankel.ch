@@ -1,4 +1,6 @@
 <script lang="ts">
+    import ImagePlus from "../../components/ImagePlus.svelte";
+
     const jpegs = import.meta.glob("../../lib/assets/artwork/*.jpg")
 
     let index: number = 0;
@@ -20,9 +22,13 @@
 </script>
 
 <div id="artwork-outer">
-    <div id="art-frame">
-        <img src={images[index]} alt={images[index]}/>
-    </div>
+    {#if images[index]}
+        <div id="image-frame">
+            <ImagePlus src={images[index]} alt={images[index]} title="some image title" description="description of that image"/>
+        </div>
+        {:else}
+        <p>left/right arrows (wip)</p>
+    {/if}
 </div>
 
 <svelte:window on:keydown={handleKeydown} />
@@ -32,20 +38,10 @@
 		height: 100%;
 		background-color: beige;
         display: flex;
+        flex-direction: column;
 	}
-
-    #art-frame {
-        width: 80%;
-        height: 80%;
-        margin: auto;
-        display: flex;
-        background-color: white;
-        border: 1px solid black;
-    }
-    #art-frame > img {
-        max-width: 90%;
-        max-height: 90%;
-        margin: auto;
-        object-fit: contain;
+    #image-frame {
+        margin: 32px auto auto;
+        width: 700px;
     }
 </style>

@@ -28,7 +28,6 @@
     }
     img {
         min-height: 0;
-        margin: -16px;
         object-fit: contain;
     }
 </style>

@@ -99,8 +99,7 @@
 		border: 1px solid rgba(0, 0, 0, 0.5);
 		border-radius: 4px;
 		box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.3);
-
-		border: 1px solid black;
+		overflow: clip;
 	}
 
 	#window-header {
