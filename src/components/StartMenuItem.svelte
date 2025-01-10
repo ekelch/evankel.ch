@@ -21,7 +21,7 @@
     .menu-item-container {
         all: unset;
         display: flex;
-        background-color: burlywood;
+        background-color: wheat;
         margin: 1px 2px;
         padding: 0 6px;
         border: 1px solid rgba(0, 0, 0, 0.1);
@@ -37,8 +37,9 @@
         text-decoration: none;
     }
     .hover {
-        background: #1f6ddb;
-        border-radius: 6px;
+        background: bisque;
+        border: 1px solid rgba(0,0,0,0.3);
+        border-radius: 4px;
         opacity: 100%;
         cursor: pointer;
     }

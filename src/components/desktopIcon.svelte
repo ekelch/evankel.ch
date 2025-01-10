@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { type DesktopIconType } from '../types.ts/layouts.svelte';
+	import {abs} from "mathjs";
 
 	export let icon: DesktopIconType;
 	let dragging: boolean;
@@ -22,7 +23,7 @@
 	};
 
 	const handleMouseUp = (e: MouseEvent) => {
-		if (dragStartPos.x === e.clientX && dragStartPos.y === e.clientY) {
+		if (abs(dragStartPos.x - e.clientX) < 5 && abs(dragStartPos.y - e.clientY) < 5) {
 			icon.openApp();
 		}
 	}

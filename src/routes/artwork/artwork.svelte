@@ -16,15 +16,12 @@
         } else if (e.key === 'ArrowRight') {
             index = index + 1 > images.length - 1 ? 0 : index + 1;
         }
-        console.log(images[index])
     }
 </script>
 
 <div id="artwork-outer">
     <div id="art-frame">
-        {#if images.length}
-            <img src={images[index]} alt={images[index]}/>
-        {/if}
+        <img src={images[index]} alt={images[index]}/>
     </div>
 </div>
 
