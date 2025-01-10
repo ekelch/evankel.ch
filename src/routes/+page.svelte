@@ -62,7 +62,7 @@
 </script>
 
 <div id="app">
-	<div id="main">
+	<div id="app-content">
 		<MainContent bind:apps desktopIcons={availApps} on:openApp={(e) => createApp(e.detail)} />
 	</div>
 	<nav id="navbar">
@@ -93,14 +93,16 @@
 	#app {
 		display: flex;
 		flex-direction: column;
-		height: 96vh;
+		height: 100vh;
+	}
+
+	#app-content {
+		flex: 1;
 	}
 
 	#navbar {
 		height: 44px;
 		width: 100%;
-		position: fixed;
-		bottom: 0;
 		display: flex;
 		z-index: 5;
 	}
@@ -117,9 +119,5 @@
 		border-right: 0;
 		flex: 1;
 		display: flex;
-	}
-
-	#main {
-		flex: 1;
 	}
 </style>

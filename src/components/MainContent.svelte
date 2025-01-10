@@ -49,9 +49,6 @@
 <style>
 	.main-contain {
 		height: 100%;
-		background-image: url('/src/lib/assets/windowsxp.jpg');
-		background-repeat: no-repeat;
-		background-attachment: fixed;
-		background-size: cover;
+		background-color: bisque;
 	}
 </style>
