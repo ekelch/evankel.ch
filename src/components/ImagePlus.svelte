@@ -27,7 +27,8 @@
         text-align: center;
     }
     img {
-        min-height: 0;
+        margin: 8px;
+        min-height: 300px;
         object-fit: contain;
     }
 </style>

@@ -3,26 +3,36 @@
 	import Site from "./site.svelte"
 	import Carplay from "./carplay.svelte"
 	const tabs: string[] = ['GITHUB', 'RESUME'];
-	let selected: string = tabs[0];
+	let selectedIndex: number = 0;
+
+	const handleKeydown = (e: KeyboardEvent) => {
+		if (e.key === "ArrowLeft") {
+			selectedIndex = selectedIndex - 1 >= 0 ? selectedIndex - 1: tabs.length - 1
+		} else if (e.key === "ArrowRight") {
+			selectedIndex = selectedIndex + 1 < tabs.length ? selectedIndex + 1 : 0
+		}
+	}
 </script>
 
 <div id="about-outer">
 	<div id="tab-container">
-		{#each tabs as tab}
-			<button class="tab" class:selected={tab === selected} on:click={() => selected = tab}>{tab}</button>
+		{#each tabs as tab, i}
+			<button class="tab" class:selected={tab === tabs[selectedIndex]} on:click={() => selectedIndex = i}>{tab}</button>
 		{/each}
 	</div>
 	<div id="tab-content">
-		{#if selected === tabs[0]}
+		{#if selectedIndex ===0}
 			<div id="github-projects">
 				<Carplay />
 				<Site />
 			</div>
-		{:else if selected === tabs[1]}
-			<iframe src={resumePdf} title="resume" />
+		{:else if selectedIndex === 1}
+			<iframe src={resumePdf} title="resume"/>
 		{/if}
 	</div>
 </div>
+
+<svelte:window on:keydown={handleKeydown} />
 
 <style>
 	#about-outer {

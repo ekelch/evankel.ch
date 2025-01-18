@@ -4,7 +4,6 @@
 	import Draggable from './draggable.svelte';
 	import About from '../routes/about/about.svelte';
 	import DesktopIcon from './desktopIcon.svelte';
-	import Artwork from '../routes/artwork/artwork.svelte';
 
 	const closeApp = (appName: string) => {
 		apps = apps.filter((a) => a.c !== appName);
@@ -15,11 +14,11 @@
 		active: false
 	}
 
-	const keydown = (e: KeyboardEvent) => {
+	const handleKeydown = (e: KeyboardEvent) => {
 		if (e.key === 'Escape') {
 			apps = apps.filter((a) => a.z !== apps.length);
 		}
-		if (konami.index === konami.target.length - 1 && e.key === "a") {
+		if (konami.index === konami.target.length - 1 && e.key === konami.target.slice(-1)[0]) {
 			konami.active = !konami.active;
 		} else if (e.key === konami.target[konami.index]) {
 			konami.index++
@@ -41,7 +40,6 @@
 	const components: any = {
 		about: About,
 		cross: Cross,
-		artwork: Artwork
 	};
 </script>
 
@@ -56,7 +54,7 @@
 	{/each}
 </div>
 
-<svelte:window on:keydown={keydown} />
+<svelte:window on:keydown={handleKeydown} />
 
 <style>
 	.main-contain {

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import MainContent from '../components/MainContent.svelte';
 	import catImg from '/src/lib/assets/cat.jpg';
-	import aboutImg from '/src/lib/assets/about/songs.png';
+	import aboutImg from '/src/lib/assets/about/allSongs.png';
 	import omoriImg from '/src/lib/assets/artwork/omoriSide.png';
 	import placeholderImg from '/src/lib/assets/artwork/aubreyCrying.jpg';
 	import type { appOptions, DesktopIconType, gridlayout } from '../types.ts/layouts.svelte';
@@ -18,24 +18,24 @@
 				createApp('about');
 			}
 		},
-		{
-			imgSrc: omoriImg,
-			displayName: 'artwork',
-			x: 175,
-			y: 25,
-			openApp: () => {
-				createApp('artwork');
-			}
-		},
-		{
-			imgSrc: placeholderImg,
-			displayName: 'guides',
-			x: 325,
-			y: 25,
-			openApp: () => {
-				createApp('guides');
-			}
-		},
+		// {
+		// 	imgSrc: omoriImg,
+		// 	displayName: 'artwork',
+		// 	x: 175,
+		// 	y: 25,
+		// 	openApp: () => {
+		// 		createApp('artwork');
+		// 	}
+		// },
+		// {
+		// 	imgSrc: placeholderImg,
+		// 	displayName: 'guides',
+		// 	x: 325,
+		// 	y: 25,
+		// 	openApp: () => {
+		// 		createApp('guides');
+		// 	}
+		// },
 		{
 			imgSrc: catImg,
 			displayName: 'cs crosshair',
