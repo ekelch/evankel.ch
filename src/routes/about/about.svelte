@@ -2,6 +2,7 @@
 	import resumePdf from '/src/lib/assets/resume.pdf';
 	import Site from "./site.svelte"
 	import Carplay from "./carplay.svelte"
+	import Vulkan from './vulkan.svelte';
 	const tabs: string[] = ['GITHUB', 'RESUME'];
 	let selectedIndex: number = 0;
 
@@ -25,9 +26,12 @@
 			<div id="github-projects">
 				<Carplay />
 				<Site />
+				<Vulkan />
 			</div>
 		{:else if selectedIndex === 1}
-			<iframe src={resumePdf} title="resume"/>
+			<div class="iframe-contain">
+				<iframe src={resumePdf} title="resume"/>
+			</div>
 		{/if}
 	</div>
 </div>
@@ -50,9 +54,13 @@
 		flex: 1;
 		overflow-y: auto;
 	}
-	#tab-content > iframe {
+	.iframe-contain {
+		height: 100%;
+	}
+	.iframe-contain > iframe {
 		height: 100%;
 		width: 100%;
+		overflow-x: hidden;
 	}
 	#github-projects {
 		display: flex;
