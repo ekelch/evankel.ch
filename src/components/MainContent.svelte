@@ -4,6 +4,7 @@
 	import Draggable from './draggable.svelte';
 	import About from '../routes/about/about.svelte';
 	import DesktopIcon from './desktopIcon.svelte';
+	import GodotTest from "../routes/godotTest/GodotTest.svelte";
 
 	const closeApp = (appName: string) => {
 		apps = apps.filter((a) => a.c !== appName);
@@ -40,6 +41,7 @@
 	const components: any = {
 		about: About,
 		cross: Cross,
+		godotTest: GodotTest,
 	};
 </script>
 

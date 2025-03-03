@@ -1,5 +1,5 @@
 <script context="module" lang="ts">
-	export type appOptions = 'about' | 'cross' | 'artwork' | 'guides';
+	export type appOptions = 'about' | 'cross' | 'artwork' | 'godotTest';
 
 	export type gridlayout = {
 		c: appOptions;
