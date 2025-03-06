@@ -1,11 +1,11 @@
 <script lang="ts">
-    import gameImg from "/src/lib/assets/godotGame.png"
+    import gameIndex from "$lib/assets/gameFiles/index.html"
 </script>
 
 <p>
     embedded godot game coming soon! (pressing R won't do anything yet)
 </p>
-<img src={gameImg} alt="game placeholder"/>
+<iframe src={gameIndex} height="100%" width="100%"/>
 
 <style>
     img {
