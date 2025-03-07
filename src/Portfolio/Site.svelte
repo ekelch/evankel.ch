@@ -1,4 +1,4 @@
-<div>
+<div id="site-page-container">
     <h3>2. evankel.ch (Svelte/TS)</h3>
     <p>This website:
         <a target="_blank" href="https://github.com/ekelch/evankel.ch">github/ekelch</a>
@@ -10,3 +10,9 @@
     </p>
     <p>Not exactly sure what the end goal is! Just trying to update as I go and think of things.</p>
 </div>
+
+<style>
+    #site-page-container {
+        margin: 1rem;
+    }
+</style>

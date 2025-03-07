@@ -2,35 +2,41 @@
 	import MainContent from '../components/MainContent.svelte';
 	import catImg from '/src/lib/assets/cat.jpg';
 	import aboutImg from '/src/lib/assets/about/allSongs.png';
-	import godotImg from '/src/lib/assets/godotIcon.png';
-	import type { appOptions, gridlayout } from '../types.ts/layouts.svelte';
+	import godotImg from '/src/lib/assets/icons/godotIcon.png';
+	import svelteImg from '/src/lib/assets/icons/svelte.png'
+	import txtIcon from '/src/lib/assets/icons/txtIcon.png'
+	import {AppOptionsEnum, type gridlayout} from '../types.ts/layouts.svelte';
 	import StartMenuItem from "../components/StartMenuItem.svelte";
-	import {type ComponentType } from "svelte";
-	import About from "../routes/about/about.svelte"
+	import {type ComponentType} from "svelte";
 	import Cross from '../routes/cross/cross.svelte';
 	import GodotTest from "../routes/godotTest/GodotTest.svelte";
+	import Carplay from "../Portfolio/Carplay.svelte";
+	import Site from "../Portfolio/Site.svelte";
+	import Resume from "../Portfolio/Resume.svelte";
 
 	let appIndex = 0;
-	const createApp = (displayName: string, desktopIconImg: any, modCode: appOptions, content: ComponentType): gridlayout => {
+	const createApp = (displayName: string, desktopIconImg: any, modCode: AppOptionsEnum, content: ComponentType): gridlayout => {
 		return {
 			modCode: modCode,
 			displayName: displayName,
 			imgSrc: desktopIconImg,
 			iconX: 25,
 			iconY: 25 + appIndex++ * 125,
-			x: 20,
-			y: 20,
-			w: 800,
-			h: 600,
+			x: 125,
+			y: 50,
+			w: 1000,
+			h: 750,
 			z: 0,
 			show: false,
 			content: content
 		}
 	}
 	let apps: gridlayout[] = [
-			createApp("About", aboutImg, 'about', About),
-			createApp("Godot Test", godotImg, 'godotTest', GodotTest),
-			createApp("CS2 Crosshair Tool", catImg, 'cross', Cross)
+			createApp("Resume", txtIcon, AppOptionsEnum.resume, Resume),
+			createApp("Carplay", aboutImg, AppOptionsEnum.carplay, Carplay),
+			createApp("This Website", svelteImg, AppOptionsEnum.svelte, Site),
+			createApp("Godot Test", godotImg, AppOptionsEnum.godotTest, GodotTest),
+			createApp("CS2 Crosshair Tool", catImg, AppOptionsEnum.cross, Cross)
 	];
 </script>
 
@@ -41,7 +47,7 @@
 	<nav id="navbar">
 		<div id="nav-items">
 			<div id="nav-border">
-				{#each apps as app}
+				{#each apps.filter(a => a.show) as app}
 					<StartMenuItem item={app.displayName} on:click={() => {app.show = true; apps = apps}} />
 				{/each}
 			</div>

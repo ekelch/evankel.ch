@@ -19,7 +19,6 @@
 			let index = 0;
 			let maxZ = 0;
 			apps.forEach((app, i) => {if (app.z > maxZ) {maxZ = app.z; index = i}})
-			console.log(apps[index])
 			if (index >= 0) {
 				apps[index].z = 0
 				apps[index].show = false
@@ -37,17 +36,26 @@
 
 	export let apps: gridlayout[] = [];
 
+	const openWindow = (e: CustomEvent) => {
+		const i = apps.findIndex(a => a.modCode === e.detail.modCode);
+		apps[i].show = true
+		apps[i].z = apps.filter(a => a.show).length
+		apps = apps
+	}
+
 	const focusWindow = (e: CustomEvent) => {
 		const zc = e.detail.z;
 		apps = apps.map((a) => {
-			return { ...a, z: a.z === zc ? apps.filter(f => f.show).length : a.z > zc ? a.z - 1 : a.z };
+			return a.show ?
+					{ ...a, z: a.z === zc ? apps.filter(f => f.show).length : a.z > zc ? a.z - 1 : a.z } :
+					a
 		});
 	};
 </script>
 
 <div class="main-contain" class:konami={konami.active}>
 	{#each apps as app}
-		<DesktopIcon {app} on:openApp={focusWindow} />
+		<DesktopIcon {app} on:openApp={openWindow} />
 	{/each}
 	{#each apps.filter(a => a.show) as app}
 		<Draggable bind:app on:focusWindow={focusWindow} on:closeApp={() => closeApp(app)}>

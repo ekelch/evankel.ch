@@ -1,8 +1,8 @@
 <script lang="ts">
 	import resumePdf from '/src/lib/assets/resume.pdf';
-	import Site from "./site.svelte"
-	import Carplay from "./carplay.svelte"
-	import Vulkan from './vulkan.svelte';
+	import Site from "../../Portfolio/Site.svelte"
+	import Carplay from "../../Portfolio/Carplay.svelte"
+	import Vulkan from '../../Portfolio/Vulkan.svelte';
 	import type {gridlayout} from "../../types.ts/layouts.svelte";
 	const tabs: string[] = ['GITHUB', 'RESUME'];
 	let selectedIndex: number = 0;

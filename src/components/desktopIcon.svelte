@@ -26,7 +26,6 @@
 
 	const handleMouseUp = (e: MouseEvent) => {
 		if (abs(dragStartPos.x - e.clientX) < 5 && abs(dragStartPos.y - e.clientY) < 5) {
-			app.show = true;
 			dispatch('openApp', app);
 		}
 	}

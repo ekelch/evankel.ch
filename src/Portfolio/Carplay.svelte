@@ -1,9 +1,9 @@
 <script lang="ts">
-    import allSongsImg from "../../lib/assets/about/allSongs.png"
-    import artistsImg from "../../lib/assets/about/artists.png"
-    import configImg from "../../lib/assets/about/config.png"
-    import artistSongsImg from "../../lib/assets/about/artistSongs.png"
-    import ImagePlus from "../../components/ImagePlus.svelte";
+    import allSongsImg from "$lib/assets/about/allSongs.png"
+    import artistsImg from "$lib/assets/about/artists.png"
+    import configImg from "$lib/assets/about/config.png"
+    import artistSongsImg from "$lib/assets/about/artistSongs.png"
+    import ImagePlus from "../components/ImagePlus.svelte";
 </script>
 
 <div id="carplay-container">
@@ -52,7 +52,7 @@
 
 <style lang="css">
     #carplay-container {
-        border-bottom: 1px solid black;
+        margin: 1rem;
     }
     p {
         margin-bottom: 16px;

@@ -2,11 +2,18 @@
     import {type ComponentType } from "svelte";
     import About from "../routes/about/about.svelte";
 
-    export type appOptions = 'about' | 'cross' | 'artwork' | 'godotTest';
+    export enum AppOptionsEnum {
+        'about',
+        'cross',
+        'resume',
+        'godotTest',
+        'carplay',
+        'svelte',
+    }
 
 	export type gridlayout = {
         displayName: string;
-		modCode: appOptions;
+		modCode: AppOptionsEnum;
         content: ComponentType;
 		x: number;
 		y: number;
@@ -43,7 +50,7 @@
 	};
 
     export const stubApp: gridlayout = {
-        modCode: "about",
+        modCode: AppOptionsEnum.about,
         displayName: "displayName",
         imgSrc: "desktopIconImg",
         iconX: 0,
