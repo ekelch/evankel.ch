@@ -2,7 +2,10 @@
 	import { type gridlayout } from '../types.ts/layouts.svelte';
 	import Draggable from './draggable.svelte';
 	import DesktopIcon from './desktopIcon.svelte';
+	import {createEventDispatcher} from "svelte";
 
+
+	const dispatch = createEventDispatcher();
 	const closeApp = (app: gridlayout) => {
 		app.show = false;
 		apps = apps;
@@ -44,12 +47,7 @@
 	}
 
 	const focusWindow = (e: CustomEvent) => {
-		const zc = e.detail.z;
-		apps = apps.map((a) => {
-			return a.show ?
-					{ ...a, z: a.z === zc ? apps.filter(f => f.show).length : a.z > zc ? a.z - 1 : a.z } :
-					a
-		});
+		dispatch('focusWindow', e.detail)
 	};
 </script>
 

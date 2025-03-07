@@ -20,8 +20,8 @@
 			modCode: modCode,
 			displayName: displayName,
 			imgSrc: desktopIconImg,
-			iconX: 25,
-			iconY: 25 + appIndex++ * 125,
+			iconX: (appIndex / 3 | 0) * 125 + 25,
+			iconY: appIndex++ % 3 * 125 + 25,
 			x: 125,
 			y: 50,
 			w: 1000,
@@ -31,6 +31,16 @@
 			content: content
 		}
 	}
+
+	const focusWindow = (e: CustomEvent) => {
+		const zc = e.detail.z;
+		apps = apps.map((a) => {
+			return a.show ?
+					{ ...a, z: a.z === zc ? apps.filter(f => f.show).length : a.z > zc ? a.z - 1 : a.z } :
+					a
+		});
+	};
+
 	let apps: gridlayout[] = [
 			createApp("Resume", txtIcon, AppOptionsEnum.resume, Resume),
 			createApp("Carplay", aboutImg, AppOptionsEnum.carplay, Carplay),
@@ -42,13 +52,13 @@
 
 <div id="app">
 	<div id="app-content">
-		<MainContent bind:apps />
+		<MainContent bind:apps on:focusWindow={focusWindow}/>
 	</div>
 	<nav id="navbar">
 		<div id="nav-items">
 			<div id="nav-border">
 				{#each apps.filter(a => a.show) as app}
-					<StartMenuItem item={app.displayName} on:click={() => {app.show = true; apps = apps}} />
+					<StartMenuItem item={app.displayName} on:click={() => {focusWindow({detail: app})}} />
 				{/each}
 			</div>
 		</div>
