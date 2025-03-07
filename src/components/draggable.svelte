@@ -9,19 +9,19 @@
 	const MAX_OFFSET = 100;
 	const NAV_HEIGHT = 44;
 
-	export let a: gridlayout;
+	export let app: gridlayout;
 	let dragging: boolean;
 	let resizing: boolean;
 	let windowWidth: number;
 	let windowHeight: number;
 	let maximize: boolean;
 
-	const mouseUp = (e: MouseEvent) => {
+	const mouseUp = (_e: MouseEvent) => {
 		dragging = false;
 		resizing = false;
 	};
 	const minimize = () => {
-		a.show = false;
+		app.show = false;
 	};
 	const toggleMax = () => {
 		maximize = !maximize;
@@ -35,22 +35,22 @@
 		} else if (e.target?.id === 'drag-handle') {
 			resizing = true;
 		}
-		dispatch('focusWindow', a);
+		dispatch('focusWindow', app);
 	};
 	const mouseMove = (e: MouseEvent) => {
 		if (resizing) {
-			if (a.w + e.movementX >= MIN_WIDTH && a.x + a.w + e.movementX < windowWidth) {
-				a.w += e.movementX;
+			if (app.w + e.movementX >= MIN_WIDTH && app.x + app.w + e.movementX < windowWidth) {
+				app.w += e.movementX;
 			}
-			if (a.h + e.movementY >= MIN_HEIGHT && a.y + a.h + e.movementY < windowHeight - NAV_HEIGHT) {
-				a.h += e.movementY;
+			if (app.h + e.movementY >= MIN_HEIGHT && app.y + app.h + e.movementY < windowHeight - NAV_HEIGHT) {
+				app.h += e.movementY;
 			}
 		} else if (dragging) {
-			if (a.x + e.movementX > MAX_OFFSET - a.w && a.x + e.movementX + MAX_OFFSET < windowWidth) {
-				a.x += e.movementX;
+			if (app.x + e.movementX > MAX_OFFSET - app.w && app.x + e.movementX + MAX_OFFSET < windowWidth) {
+				app.x += e.movementX;
 			}
-			if (a.y + e.movementY > 0 && a.y + e.movementY + MAX_OFFSET < windowHeight) {
-				a.y += e.movementY;
+			if (app.y + e.movementY > 0 && app.y + e.movementY + MAX_OFFSET < windowHeight) {
+				app.y += e.movementY;
 			}
 		}
 	};
@@ -60,11 +60,11 @@
 	class="window"
 	on:mousedown={focusWindow}
 	style="
-	left: {maximize ? 0 : a.x}px;
-	top: {maximize ? 0 : a.y}px;
-	width: {maximize ? windowWidth : a.w}px;
-	height: {maximize ? windowHeight : a.h}px;
-	z-index: {a.show ? a.z : -1};
+	left: {maximize ? 0 : app.x}px;
+	top: {maximize ? 0 : app.y}px;
+	width: {maximize ? windowWidth : app.w}px;
+	height: {maximize ? windowHeight : app.h}px;
+	z-index: {app.show ? app.z : -1};
 	user-select: {dragging || resizing ? 'none' : 'initial'};
 	"
 >

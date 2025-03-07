@@ -3,83 +3,51 @@
 	import catImg from '/src/lib/assets/cat.jpg';
 	import aboutImg from '/src/lib/assets/about/allSongs.png';
 	import godotImg from '/src/lib/assets/godotIcon.png';
-	import type { appOptions, DesktopIconType, gridlayout } from '../types.ts/layouts.svelte';
+	import type { appOptions, gridlayout } from '../types.ts/layouts.svelte';
 	import StartMenuItem from "../components/StartMenuItem.svelte";
+	import {type ComponentType } from "svelte";
+	import About from "../routes/about/about.svelte"
+	import Cross from '../routes/cross/cross.svelte';
+	import GodotTest from "../routes/godotTest/GodotTest.svelte";
 
-	let apps: gridlayout[] = [];
-	let availApps: DesktopIconType[] = [
-		{
-			imgSrc: aboutImg,
-			displayName: 'about',
-			x: 25,
-			y: 25,
-			openApp: () => {
-				createApp('about');
-			}
-		},
-		{
-			imgSrc: godotImg,
-			displayName: 'game test',
-			x: 175,
-			y: 25,
-			openApp: () => {
-				createApp('godotTest');
-			}
-		},
-		{
-			imgSrc: catImg,
-			displayName: 'cs crosshair',
-			x: 25,
-			y: 175,
-			openApp: () => {
-				createApp('cross');
-			}
-		},
-	];
-	let innerWidth: number;
-	let innerHeight: number;
-
-	const createApp = (name: appOptions) => {
-		if (!apps.map((a) => a.c).includes(name)) {
-			apps = [
-				...apps,
-				{
-					c: name,
-					x: 20 + apps.length * 40,
-					y: 20 + apps.length * 40,
-					w: innerWidth * 0.85,
-					h: innerHeight * 0.85,
-					z: apps.length + 1,
-					show: true
-				}
-			];
-		} else {
-			const a = apps.find((a) => a.c === name);
-			a!.show = !a?.show;
-			apps = apps;
+	let appIndex = 0;
+	const createApp = (displayName: string, desktopIconImg: any, modCode: appOptions, content: ComponentType): gridlayout => {
+		return {
+			modCode: modCode,
+			displayName: displayName,
+			imgSrc: desktopIconImg,
+			iconX: 25,
+			iconY: 25 + appIndex++ * 125,
+			x: 20,
+			y: 20,
+			w: 800,
+			h: 600,
+			z: 0,
+			show: false,
+			content: content
 		}
-	};
+	}
+	let apps: gridlayout[] = [
+			createApp("About", aboutImg, 'about', About),
+			createApp("Godot Test", godotImg, 'godotTest', GodotTest),
+			createApp("CS2 Crosshair Tool", catImg, 'cross', Cross)
+	];
 </script>
 
 <div id="app">
 	<div id="app-content">
-		<MainContent bind:apps desktopIcons={availApps} on:openApp={(e) => createApp(e.detail)} />
+		<MainContent bind:apps />
 	</div>
 	<nav id="navbar">
 		<div id="nav-items">
 			<div id="nav-border">
 				{#each apps as app}
-					<StartMenuItem item={app.c} on:click={() => createApp(app.c)} />
+					<StartMenuItem item={app.displayName} on:click={() => {app.show = true; apps = apps}} />
 				{/each}
 			</div>
 		</div>
 	</nav>
 </div>
-
-<svelte:window
-	bind:innerWidth
-	bind:innerHeight
-/>
 
 <style lang="postcss">
 	:global(html) {

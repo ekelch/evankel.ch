@@ -3,8 +3,11 @@
 	import Site from "./site.svelte"
 	import Carplay from "./carplay.svelte"
 	import Vulkan from './vulkan.svelte';
+	import type {gridlayout} from "../../types.ts/layouts.svelte";
 	const tabs: string[] = ['GITHUB', 'RESUME'];
 	let selectedIndex: number = 0;
+
+	export let app: gridlayout;
 
 	const handleKeydown = (e: KeyboardEvent) => {
 		if (e.key === "ArrowLeft") {

@@ -1,8 +1,10 @@
 <script lang="ts">
-	import { type DesktopIconType } from '../types.ts/layouts.svelte';
+	import { type gridlayout } from '../types.ts/layouts.svelte';
 	import {abs} from "mathjs";
+	import {createEventDispatcher} from "svelte";
 
-	export let icon: DesktopIconType;
+	const dispatch = createEventDispatcher();
+	export let app: gridlayout;
 	let dragging: boolean;
 	let dragStartPos: {x:number,y:number} = {x: 0, y: 0}
 
@@ -17,28 +19,29 @@
 
 	const handleMouseMove = (e: MouseEvent) => {
 		if (dragging) {
-			icon.x += e.movementX;
-			icon.y += e.movementY;
+			app.x += e.movementX;
+			app.y += e.movementY;
 		}
 	};
 
 	const handleMouseUp = (e: MouseEvent) => {
 		if (abs(dragStartPos.x - e.clientX) < 5 && abs(dragStartPos.y - e.clientY) < 5) {
-			icon.openApp();
+			app.show = true;
+			dispatch('openApp', app);
 		}
 	}
 </script>
 
 <button
-	style="left: {icon.x}px; top: {icon.y}px;"
+	style="left: {app.iconX}px; top: {app.iconY}px;"
 	class="icon-wrapper"
 	class:dragging
 	on:mousedown|preventDefault={handleDragStart}
 	on:click={handleMouseUp}
 	on:dblclick={handleMouseUp}
 >
-	<img src={icon.imgSrc} alt={icon.displayName} />
-	<span>{icon.displayName}</span>
+	<img src={app.imgSrc} alt={app.displayName} />
+	<span>{app.displayName}</span>
 </button>
 
 <svelte:window on:mouseup={handleDragEnd} on:mousemove={handleMouseMove} />

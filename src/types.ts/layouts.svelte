@@ -1,22 +1,22 @@
 <script context="module" lang="ts">
-	export type appOptions = 'about' | 'cross' | 'artwork' | 'godotTest';
+    import {type ComponentType } from "svelte";
+    import About from "../routes/about/about.svelte";
+
+    export type appOptions = 'about' | 'cross' | 'artwork' | 'godotTest';
 
 	export type gridlayout = {
-		c: appOptions;
+        displayName: string;
+		modCode: appOptions;
+        content: ComponentType;
 		x: number;
 		y: number;
 		w: number;
 		h: number;
 		z: number;
 		show?: boolean;
-	};
-
-	export type DesktopIconType = {
-		imgSrc: string;
-		displayName: string;
-		x: number;
-		y: number;
-		openApp: () => void;
+        imgSrc: string;
+        iconX: number;
+        iconY: number;
 	};
 
 	export type SliderRange = {
@@ -41,6 +41,21 @@
 		g: SliderRange;
 		b: SliderRange;
 	};
+
+    export const stubApp: gridlayout = {
+        modCode: "about",
+        displayName: "displayName",
+        imgSrc: "desktopIconImg",
+        iconX: 0,
+        iconY: 0,
+        x: 0,
+        y: 0,
+        w: 0,
+        h: 0,
+        z: 0,
+        show: false,
+        content: About
+    }
 </script>
 
 ;

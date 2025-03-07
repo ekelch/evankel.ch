@@ -1,14 +1,13 @@
 <script lang="ts">
-	import { type gridlayout, type DesktopIconType } from '../types.ts/layouts.svelte';
-	import Cross from '../routes/cross/cross.svelte';
+	import { type gridlayout } from '../types.ts/layouts.svelte';
 	import Draggable from './draggable.svelte';
-	import About from '../routes/about/about.svelte';
 	import DesktopIcon from './desktopIcon.svelte';
-	import GodotTest from "../routes/godotTest/GodotTest.svelte";
 
-	const closeApp = (appName: string) => {
-		apps = apps.filter((a) => a.c !== appName);
+	const closeApp = (app: gridlayout) => {
+		app.show = false;
+		apps = apps;
 	};
+
 	let konami: {index: number, target: string[], active: boolean} = {
 		index: 0,
 		target: ["ArrowUp","ArrowUp","ArrowDown","ArrowDown","ArrowLeft","ArrowRight","ArrowLeft","ArrowRight","b","a"],
@@ -17,7 +16,15 @@
 
 	const handleKeydown = (e: KeyboardEvent) => {
 		if (e.key === 'Escape') {
-			apps = apps.filter((a) => a.z !== apps.length);
+			let index = 0;
+			let maxZ = 0;
+			apps.forEach((app, i) => {if (app.z > maxZ) {maxZ = app.z; index = i}})
+			console.log(apps[index])
+			if (index >= 0) {
+				apps[index].z = 0
+				apps[index].show = false
+				apps = apps
+			}
 		}
 		if (konami.index === konami.target.length - 1 && e.key === konami.target.slice(-1)[0]) {
 			konami.active = !konami.active;
@@ -29,29 +36,22 @@
 	};
 
 	export let apps: gridlayout[] = [];
-	export let desktopIcons: DesktopIconType[];
 
 	const focusWindow = (e: CustomEvent) => {
 		const zc = e.detail.z;
 		apps = apps.map((a) => {
-			return { ...a, z: a.z === zc ? apps.length : a.z > zc ? a.z - 1 : a.z };
+			return { ...a, z: a.z === zc ? apps.filter(f => f.show).length : a.z > zc ? a.z - 1 : a.z };
 		});
-	};
-
-	const components: any = {
-		about: About,
-		cross: Cross,
-		godotTest: GodotTest,
 	};
 </script>
 
 <div class="main-contain" class:konami={konami.active}>
-	{#each desktopIcons as icon}
-		<DesktopIcon {icon} />
+	{#each apps as app}
+		<DesktopIcon {app} on:openApp={focusWindow} />
 	{/each}
-	{#each apps as a}
-		<Draggable bind:a on:focusWindow={focusWindow} on:closeApp={() => closeApp(a.c)}>
-			<svelte:component this={components[a.c]} {a} />
+	{#each apps.filter(a => a.show) as app}
+		<Draggable bind:app on:focusWindow={focusWindow} on:closeApp={() => closeApp(app)}>
+			<svelte:component this={app.content} {app} />
 		</Draggable>
 	{/each}
 </div>

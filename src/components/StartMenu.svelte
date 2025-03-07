@@ -1,11 +1,11 @@
 <script lang="ts">
-    import { type DesktopIconType } from '../types.ts/layouts.svelte';
+    import { type gridlayout } from '../types.ts/layouts.svelte';
 
-    export let availApps: DesktopIconType[];
+    export let apps: gridlayout[];
 </script>
 
 <div id="start-menu">
-    {#each availApps as app}
+    {#each apps as app}
         <button class="app" on:click={app.openApp}>{app.displayName}</button>
     {/each}
 </div>

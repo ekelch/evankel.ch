@@ -1,6 +1,8 @@
 <script lang="ts">
     import gameImg from "/src/lib/assets/godotGame.png"
+    import {type gridlayout, stubApp} from '../../types.ts/layouts.svelte';
 
+    export let app: gridlayout;
     const gameSrc = "https://itch.io/embed-upload/12999334?color=333333&uuid=c35a06c029c20fb1a0ec9a21d96776ba"
     const openGame = () => {
         window.open(gameSrc, "_blank")

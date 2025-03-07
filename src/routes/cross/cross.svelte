@@ -22,15 +22,15 @@
 	let posY: number = 0;
 	let locked: boolean;
 	let copied: boolean;
-	export let a: gridlayout;
+	export let app: gridlayout;
 
 	const mouseMove = (e: MouseEvent) => {
 		if (!locked) {
-			if (e.clientX - a.x > 0 && e.clientX - a.x < viewmodel.clientWidth) {
-				posX = e.clientX - a.x;
+			if (e.clientX - app.x > 0 && e.clientX - app.x < viewmodel.clientWidth) {
+				posX = e.clientX - app.x;
 			}
-			if (e.clientY - a.y > 0 && e.clientY - a.y < viewmodel.clientHeight) {
-				posY = e.clientY - a.y;
+			if (e.clientY - app.y > 0 && e.clientY - app.y < viewmodel.clientHeight) {
+				posY = e.clientY - app.y;
 			}
 		}
 	};
