@@ -14,6 +14,7 @@
 	import Site from "../Portfolio/Site.svelte";
 	import Resume from "../Portfolio/Resume.svelte";
 
+	$: appsShown = apps.filter(a => a.show)
 	let appIndex = 0;
 	const createApp = (displayName: string, desktopIconImg: any, modCode: AppOptionsEnum, content: ComponentType): gridlayout => {
 		return {
@@ -22,7 +23,7 @@
 			imgSrc: desktopIconImg,
 			iconX: (appIndex / 3 | 0) * 125 + 25,
 			iconY: appIndex++ % 3 * 125 + 25,
-			x: 125,
+			x: 275,
 			y: 50,
 			w: 1000,
 			h: 750,
@@ -36,7 +37,7 @@
 		const zc = e.detail.z;
 		apps = apps.map((a) => {
 			return a.show ?
-					{ ...a, z: a.z === zc ? apps.filter(f => f.show).length : a.z > zc ? a.z - 1 : a.z } :
+					{ ...a, z: a.z === zc ? appsShown.length : a.z > zc ? a.z - 1 : a.z } :
 					a
 		});
 	};
@@ -57,8 +58,8 @@
 	<nav id="navbar">
 		<div id="nav-items">
 			<div id="nav-border">
-				{#each apps.filter(a => a.show) as app}
-					<StartMenuItem item={app.displayName} on:click={() => {focusWindow({detail: app})}} />
+				{#each appsShown as app}
+					<StartMenuItem appName={app.displayName} on:click={() => {focusWindow({detail: app})}} />
 				{/each}
 			</div>
 		</div>

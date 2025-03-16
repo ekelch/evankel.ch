@@ -19,8 +19,8 @@
 
 	const handleMouseMove = (e: MouseEvent) => {
 		if (dragging) {
-			app.x += e.movementX;
-			app.y += e.movementY;
+			app.iconX += e.movementX;
+			app.iconY += e.movementY;
 		}
 	};
 

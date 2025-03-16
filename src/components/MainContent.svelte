@@ -4,7 +4,9 @@
 	import DesktopIcon from './desktopIcon.svelte';
 	import {createEventDispatcher} from "svelte";
 
+	export let apps: gridlayout[] = [];
 
+	$: appsShown = apps.filter(a => a.show)
 	const dispatch = createEventDispatcher();
 	const closeApp = (app: gridlayout) => {
 		app.show = false;
@@ -37,12 +39,10 @@
 		}
 	};
 
-	export let apps: gridlayout[] = [];
-
 	const openWindow = (e: CustomEvent) => {
 		const i = apps.findIndex(a => a.modCode === e.detail.modCode);
 		apps[i].show = true
-		apps[i].z = apps.filter(a => a.show).length
+		apps[i].z = appsShown.length
 		apps = apps
 	}
 
@@ -55,7 +55,7 @@
 	{#each apps as app}
 		<DesktopIcon {app} on:openApp={openWindow} />
 	{/each}
-	{#each apps.filter(a => a.show) as app}
+	{#each appsShown as app}
 		<Draggable bind:app on:focusWindow={focusWindow} on:closeApp={() => closeApp(app)}>
 			<svelte:component this={app.content} {app} />
 		</Draggable>

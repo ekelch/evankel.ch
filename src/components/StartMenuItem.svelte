@@ -1,5 +1,5 @@
 <script lang="ts">
-    export let item: string;
+    export let appName: string;
     let hovering: boolean;
 </script>
 
@@ -14,7 +14,7 @@
         on:click
         class="menu-item-container"
 >
-    <span>{item}</span>
+    <span>{appName}</span>
 </button>
 
 <style>
