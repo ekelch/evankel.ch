@@ -1,5 +1,6 @@
 <script lang="ts">
     import {onMount} from "svelte";
+    import src from "/src/lib/assets/whiteMeadow.mp3"
 
     let audioPlayer: HTMLAudioElement;
 
@@ -11,9 +12,7 @@
 
 <div id="song-container">
     <p>song of the week (wip)</p>
-    <audio controls id="audio-player" bind:this={audioPlayer}>
-        <source src="/src/lib/assets/whiteMeadow.mp3">
-    </audio>
+    <audio controls id="audio-player" bind:this={audioPlayer} {src} />
 </div>
 
 <style lang="css">
