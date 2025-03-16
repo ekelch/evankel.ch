@@ -3,6 +3,7 @@
 	import Draggable from './draggable.svelte';
 	import DesktopIcon from './desktopIcon.svelte';
 	import {createEventDispatcher} from "svelte";
+	import SongOfWeek from "./SongOfWeek.svelte";
 
 	export let apps: gridlayout[] = [];
 
@@ -60,6 +61,7 @@
 			<svelte:component this={app.content} {app} />
 		</Draggable>
 	{/each}
+	<SongOfWeek />
 </div>
 
 <svelte:window on:keydown={handleKeydown} />
