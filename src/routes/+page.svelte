@@ -21,8 +21,8 @@
 			modCode: modCode,
 			displayName: displayName,
 			imgSrc: desktopIconImg,
-			iconX: (appIndex / 3 | 0) * 125 + 25,
-			iconY: appIndex++ % 3 * 125 + 25,
+			iconX: (appIndex / 3 | 0) * 150 + 25,
+			iconY: appIndex++ % 3 * 150 + 25,
 			x: 275,
 			y: 50,
 			w: 1000,
@@ -94,7 +94,8 @@
 	#nav-items {
 		flex: 1;
 		display: flex;
-		background-color: darkseagreen;
+		background-color: rgb(44,44,44);
+		border-top: 1px solid rgba(255, 50, 255, 0.4);
 		overflow-x: scroll;
 		scrollbar-width: none;
 	}

@@ -21,10 +21,10 @@
     .menu-item-container {
         all: unset;
         display: flex;
-        background-color: wheat;
+        background-color: rgb(190,190,190);
         margin: 1px 2px;
         padding: 0 6px;
-        border: 1px solid rgba(0, 0, 0, 0.1);
+        border: 1px solid rgba(0,0,0,0.3);
         box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.1);
         border-radius: 4px;
         min-width: 160px;
@@ -37,7 +37,7 @@
         text-decoration: none;
     }
     .hover {
-        background: bisque;
+        background: rgb(200,200,200);
         border: 1px solid rgba(0,0,0,0.3);
         border-radius: 4px;
         opacity: 100%;

@@ -1,18 +1,9 @@
 <script lang="ts">
-    import {onMount} from "svelte";
-    import src from "/src/lib/assets/whiteMeadow.mp3"
 
-    let audioPlayer: HTMLAudioElement;
-
-    onMount(() => {
-        audioPlayer.load();
-        audioPlayer.volume = 0.1
-    })
 </script>
 
 <div id="song-container">
-    <p>song of the week (wip)</p>
-    <audio controls id="audio-player" bind:this={audioPlayer} {src} />
+    <iframe title="song of the week" style="border: 0; width: 100%; height: 120px;" src="https://bandcamp.com/EmbeddedPlayer/album=2979599960/size=large/bgcol=333333/linkcol=fe7eaf/tracklist=false/artwork=small/track=49760066/transparent=true/" seamless><a href="https://bodymeat.bandcamp.com/album/starchris">Starchris by BODY MEAT</a></iframe>
 </div>
 
 <style lang="css">
@@ -32,9 +23,5 @@
 
         text-align: center;
         padding: 8px;
-    }
-
-    #audio-player {
-        width: 100%;
     }
 </style>

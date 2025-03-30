@@ -48,11 +48,11 @@
 <style>
 	.icon-wrapper {
 		background: rgba(0, 0, 0, 0.05);
-		border: none;
+		border: 1px solid rgba(170, 170, 170, 0.2);
 		border-radius: 12px;
 		position: absolute;
-		width: 100px;
-		padding: 4px;
+		width: 120px;
+		padding: 12px 8px;
 		display: flex;
 		flex-direction: column;
 		user-select: none;
@@ -61,7 +61,7 @@
 	}
 
 	.dragging {
-		border: 1px solid rgba(0, 120, 180, 0.5);
+		border: 1px solid rgba(255, 50, 255, 0.5);
 	}
 
 	.icon-wrapper img {
@@ -72,6 +72,7 @@
 	}
 
 	.icon-wrapper span {
+		color: white;
 		margin: auto;
 		max-width: 100%;
 		white-space: nowrap;

@@ -69,7 +69,7 @@
 <style>
 	.main-contain {
 		height: 100%;
-		background-color: bisque;
+		background-color: rgb(33,33,33);
 	}
 	.konami {
 		background-image: url("../lib/assets/windowsxp.jpg");
