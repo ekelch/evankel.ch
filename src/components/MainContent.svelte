@@ -6,7 +6,9 @@
 	import SongOfWeek from "./SongOfWeek.svelte";
 
 	export let apps: gridlayout[] = [];
-
+	let songWidth = 650;
+	let windowWidth: number;
+	let dragging = false;
 	$: appsShown = apps.filter(a => a.show)
 	const dispatch = createEventDispatcher();
 	const closeApp = (app: gridlayout) => {
@@ -18,6 +20,22 @@
 		index: 0,
 		target: ["ArrowUp","ArrowUp","ArrowDown","ArrowDown","ArrowLeft","ArrowRight","ArrowLeft","ArrowRight","b","a"],
 		active: false
+	}
+
+	const handleMouseUp = () => {
+		dragging = false;
+	}
+
+	const handleMouseMove = (e: MouseEvent) => {
+		if (dragging) {
+			const res = windowWidth - e.x;
+			if (res > 444 && res < 1111) {
+				songWidth = res;
+			}
+		}
+	}
+	const handleMouseDown = () => {
+		dragging = true;
 	}
 
 	const handleKeydown = (e: KeyboardEvent) => {
@@ -52,24 +70,47 @@
 	};
 </script>
 
-<div class="main-contain" class:konami={konami.active}>
-	{#each apps as app}
-		<DesktopIcon {app} on:openApp={openWindow} />
-	{/each}
-	{#each appsShown as app}
-		<Draggable bind:app on:focusWindow={focusWindow} on:closeApp={() => closeApp(app)}>
-			<svelte:component this={app.content} {app} />
-		</Draggable>
-	{/each}
-	<SongOfWeek />
+<div class="main-outer" style="user-select: {dragging ? 'none' : 'initial'}">
+	<div class="main-contain" class:konami={konami.active}>
+		{#each apps as app}
+			<DesktopIcon {app} on:openApp={openWindow}/>
+		{/each}
+		{#each appsShown as app}
+			<Draggable bind:app on:focusWindow={focusWindow} on:closeApp={() => closeApp(app)}>
+				<svelte:component this={app.content} {app}/>
+			</Draggable>
+		{/each}
+	</div>
+	<div style="width: {songWidth}px" class="song-container">
+		<div id="song-resize" on:mousedown={handleMouseDown} />
+		<SongOfWeek />
+	</div>
 </div>
 
-<svelte:window on:keydown={handleKeydown} />
+<svelte:window on:keydown={handleKeydown} on:mousemove={handleMouseMove} on:mouseup={handleMouseUp} bind:innerWidth={windowWidth}/>
 
 <style>
-	.main-contain {
+	.main-outer {
+		display: flex;
 		height: 100%;
+	}
+	.main-contain {
+		flex: 1;
 		background-color: rgb(33,33,33);
+	}
+	.song-container {
+		position: relative;
+		height: 100%;
+		z-index: 10;
+		background-color: rgb(66,66,66);
+	}
+	#song-resize {
+		position: absolute;
+		width: 16px;
+		left: -8px;
+		top: 0;
+		cursor: ew-resize;
+		height: 100%;
 	}
 	.konami {
 		background-image: url("../lib/assets/windowsxp.jpg");
