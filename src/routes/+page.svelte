@@ -95,7 +95,7 @@
 		flex: 1;
 		display: flex;
 		background-color: rgb(44,44,44);
-		border-top: 1px solid rgba(255, 200, 255, 0.4);
+		border-top: 2px solid rgba(255, 200, 255, 0.2);
 		overflow-x: scroll;
 		scrollbar-width: none;
 	}
