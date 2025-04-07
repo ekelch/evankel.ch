@@ -6,7 +6,7 @@
 	import SongOfWeek from "./SongOfWeek.svelte";
 
 	export let apps: gridlayout[] = [];
-	let songWidth = 650;
+	let songWidth = 600;
 	let windowWidth: number;
 	let dragging = false;
 	$: appsShown = apps.filter(a => a.show)

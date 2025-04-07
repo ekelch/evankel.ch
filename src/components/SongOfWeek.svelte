@@ -1,14 +1,21 @@
 <script lang="ts">
-    import playBtn from "/src/lib/assets/icons/play.svg"
+    import playBtn from "/src/lib/assets/icons/play.png"
+    import pauseBtn from "/src/lib/assets/icons/pause.png"
     import songFile from "/src/lib/assets/janeRemover.mp3"
+    import coverSrc from "/src/lib/assets/flashInPan.jpg"
 
     let audioRef: HTMLAudioElement;
-    let volume = 0.3
+    let volume: number = 0.1
+    let duration : number
+    let currentTime: number = 0
+    let paused: boolean = true
+    $: displayTime = `${currentTime / 60 | 0}:${(currentTime % 60 | 0).toString().padStart(2, '0')} / ${duration / 60 | 0}:${(duration % 60 | 0).toString().padStart(2, '0')}`
     function handleImgClick() {
         window.open("https://janeremover.bandcamp.com/music", "_blank")
     }
     function playPause() {
         audioRef.paused ? audioRef.play() : audioRef.pause()
+        paused = audioRef.paused
     }
 
 </script>
@@ -17,21 +24,34 @@
     <div class="song-inner">
         <span>Song of the week : work in progress !!</span>
         <div class="music-container">
-            <img class="album-cover" src="/src/lib/assets/flashInPan.jpg" alt="album cover" on:click={handleImgClick} />
+            <button class="album-cover" on:click={handleImgClick}>
+                <img src={coverSrc} alt="album cover"/>
+            </button>
             <div class="right-contain">
                 <div class="info">
-                    <span class="link-txt">Flash in the Pan</span>
+                    <button on:click={handleImgClick} class="link-txt">Flash in the Pan</button>
                     <span class="secondary-txt">by Jane Remover</span>
                 </div>
                 <div class="controls secondary-txt">
-                    <button class="play-btn" on:click={playPause}><img src={playBtn} alt="play pause music"></button>
+                    <button class="play-btn" on:click={playPause}><img src={paused ? playBtn : pauseBtn} alt="play pause music"></button>
+                    <div class="duration-slider">
+                        <span>{displayTime}</span>
+                        <input
+                                id="scrub-slider"
+                                type="range"
+                                min={0}
+                                max={duration}
+                                step={0.01}
+                                bind:value={currentTime}
+                        />
+                    </div>
                 </div>
             </div>
             <input
                     id="volume-slider"
                     type="range"
                     min={0}
-                    max={1}
+                    max={0.5}
                     step={0.01}
                     bind:value={volume}
             />
@@ -39,7 +59,7 @@
     </div>
 </div>
 
-<audio src={songFile} bind:this={audioRef} bind:volume />
+<audio src={songFile} bind:this={audioRef} bind:volume bind:duration bind:currentTime />
 
 <style lang="css">
     #song-outer {
@@ -71,8 +91,17 @@
     }
 
     .album-cover {
-        width: 160px;
+        padding: 0;
+        border: none;
+        min-width: 160px;
+        max-width: 160px;
         cursor: pointer;
+    }
+
+    .album-cover > img {
+        width: 100%;
+        pointer-events: none;
+        object-fit: fill;
     }
 
     .right-contain {
@@ -95,6 +124,9 @@
     }
 
     .link-txt {
+        all: unset;
+        width: fit-content;
+
         color: #0f91ff;
         cursor: pointer;
     }
@@ -110,6 +142,7 @@
     .controls {
         flex: 1;
         display: flex;
+        gap: 24px;
     }
 
     .play-btn {
@@ -119,17 +152,25 @@
         cursor: pointer;
         padding: 12px;
         clip-path: circle(20px);
+        background: white;
     }
     .play-btn > img {
-        margin-left: 2px;
         width: 100%;
         pointer-events: none;
+    }
+
+    .duration-slider {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        padding: 12px 0;
     }
 
     #volume-slider {
         writing-mode: vertical-lr;
         direction: rtl;
         height: 80%;
-        margin: auto 12px auto 0;
+        margin: auto 12px;
     }
 </style>
