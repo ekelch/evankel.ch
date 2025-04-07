@@ -3,12 +3,14 @@
     import pauseBtn from "/src/lib/assets/icons/pause.png"
     import songFile from "/src/lib/assets/janeRemover.mp3"
     import coverSrc from "/src/lib/assets/flashInPan.jpg"
+    import {createEventDispatcher} from "svelte";
 
     let audioRef: HTMLAudioElement;
     let volume: number = 0.1
     let duration : number
     let currentTime: number = 0
     let paused: boolean = true
+    const dispatcher = createEventDispatcher()
     $: displayTime = `${currentTime / 60 | 0}:${(currentTime % 60 | 0).toString().padStart(2, '0')} / ${duration / 60 | 0}:${(duration % 60 | 0).toString().padStart(2, '0')}`
     function handleImgClick() {
         window.open("https://janeremover.bandcamp.com/music", "_blank")
@@ -18,9 +20,14 @@
         paused = audioRef.paused
     }
 
+    function hide() {
+        dispatcher('hide')
+    }
+
 </script>
 
 <div id="song-outer">
+    <button on:click={hide} class="toggle-song-btn">&rarr;</button>
     <div class="song-inner">
         <span>Song of the week : work in progress !!</span>
         <div class="music-container">
@@ -34,7 +41,7 @@
                 </div>
                 <div class="controls secondary-txt">
                     <button class="play-btn" on:click={playPause}><img src={paused ? playBtn : pauseBtn} alt="play pause music"></button>
-                    <div class="duration-slider">
+                    <div class="duration-slider-container">
                         <span>{displayTime}</span>
                         <input
                                 id="scrub-slider"
@@ -68,6 +75,12 @@
         flex-direction: column;
         text-align: center;
         background: rgb(166,166,200);
+    }
+
+    .toggle-song-btn {
+        position: absolute;
+        right: 0;
+        height: 40px;
     }
 
     .song-inner {
@@ -159,7 +172,7 @@
         pointer-events: none;
     }
 
-    .duration-slider {
+    .duration-slider-container {
         flex: 1;
         display: flex;
         flex-direction: column;
@@ -172,5 +185,10 @@
         direction: rtl;
         height: 80%;
         margin: auto 12px;
+        cursor: pointer;
+    }
+    
+    #scrub-slider {
+        cursor: pointer;
     }
 </style>

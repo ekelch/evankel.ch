@@ -9,6 +9,7 @@
 	let songWidth = 600;
 	let windowWidth: number;
 	let dragging = false;
+	let showSong = true;
 	$: appsShown = apps.filter(a => a.show)
 	const dispatch = createEventDispatcher();
 	const closeApp = (app: gridlayout) => {
@@ -22,11 +23,11 @@
 		active: false
 	}
 
-	const handleMouseUp = () => {
+	function handleMouseUp() {
 		dragging = false;
 	}
 
-	const handleMouseMove = (e: MouseEvent) => {
+	function handleMouseMove (e: MouseEvent) {
 		if (dragging) {
 			const res = windowWidth - e.x;
 			if (res > 444 && res < 1111) {
@@ -34,11 +35,15 @@
 			}
 		}
 	}
-	const handleMouseDown = () => {
+	function handleMouseDown() {
 		dragging = true;
 	}
 
-	const handleKeydown = (e: KeyboardEvent) => {
+	function toggleShowSong() {
+		showSong = !showSong
+	}
+
+	function handleKeydown(e: KeyboardEvent) {
 		if (e.key === 'Escape') {
 			let index = 0;
 			let maxZ = 0;
@@ -81,10 +86,14 @@
 			</Draggable>
 		{/each}
 	</div>
-	<div style="width: {songWidth}px" class="song-container">
-		<div id="song-resize" on:mousedown={handleMouseDown} />
-		<SongOfWeek />
-	</div>
+	{#if showSong}
+		<div style="width: {songWidth}px" class="song-container">
+			<div id="song-resize" on:mousedown={handleMouseDown} />
+			<SongOfWeek on:hide={toggleShowSong} />
+		</div>
+		{:else}
+		<button on:click={toggleShowSong} class="toggle-song-btn">&larr;</button>
+	{/if}
 </div>
 
 <svelte:window on:keydown={handleKeydown} on:mousemove={handleMouseMove} on:mouseup={handleMouseUp} bind:innerWidth={windowWidth}/>
@@ -117,5 +126,10 @@
 		background-repeat: no-repeat;
 		background-attachment: fixed;
 		background-size: cover;
+	}
+	.toggle-song-btn {
+		position: absolute;
+		right: 0;
+		height: 40px;
 	}
 </style>
