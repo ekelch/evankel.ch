@@ -6,7 +6,6 @@
         'about',
         'cross',
         'resume',
-        'godotTest',
         'carplay',
         'svelte',
     }
