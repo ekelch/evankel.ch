@@ -86,14 +86,12 @@
 			</Draggable>
 		{/each}
 	</div>
-	{#if showSong}
-		<div style="width: {songWidth}px" class="song-container">
-			<div id="song-resize" on:mousedown={handleMouseDown} />
-			<SongOfWeek on:hide={toggleShowSong} />
-		</div>
-		{:else}
-		<button on:click={toggleShowSong} class="toggle-song-btn">&larr;</button>
-	{/if}
+	<button on:click={toggleShowSong} class="toggle-song-btn">{showSong ? '->' : '<-'}</button>
+	<div style="width: {songWidth}px; display: {showSong ? 'initial' : 'none'}" class="song-container">
+		<div id="song-resize" on:mousedown={handleMouseDown} />
+		<SongOfWeek />
+	</div>
+
 </div>
 
 <svelte:window on:keydown={handleKeydown} on:mousemove={handleMouseMove} on:mouseup={handleMouseUp} bind:innerWidth={windowWidth}/>
@@ -110,7 +108,7 @@
 	.song-container {
 		position: relative;
 		height: 100%;
-		z-index: 10;
+		z-index: 1;
 		background-color: rgb(66,66,66);
 	}
 	#song-resize {
@@ -129,7 +127,8 @@
 	}
 	.toggle-song-btn {
 		position: absolute;
+		z-index: 2;
 		right: 0;
-		height: 40px;
+		height: 50px;
 	}
 </style>

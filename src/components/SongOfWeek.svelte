@@ -10,7 +10,6 @@
     let duration : number
     let currentTime: number = 0
     let paused: boolean = true
-    const dispatcher = createEventDispatcher()
     $: displayTime = `${currentTime / 60 | 0}:${(currentTime % 60 | 0).toString().padStart(2, '0')} / ${duration / 60 | 0}:${(duration % 60 | 0).toString().padStart(2, '0')}`
     function handleImgClick() {
         window.open("https://janeremover.bandcamp.com/music", "_blank")
@@ -20,14 +19,9 @@
         paused = audioRef.paused
     }
 
-    function hide() {
-        dispatcher('hide')
-    }
-
 </script>
 
 <div id="song-outer">
-    <button on:click={hide} class="toggle-song-btn">&rarr;</button>
     <div class="song-inner">
         <span>Song of the week : work in progress !!</span>
         <div class="music-container">
@@ -75,12 +69,6 @@
         flex-direction: column;
         text-align: center;
         background: rgb(166,166,200);
-    }
-
-    .toggle-song-btn {
-        position: absolute;
-        right: 0;
-        height: 40px;
     }
 
     .song-inner {
