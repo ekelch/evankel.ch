@@ -20,14 +20,13 @@
 <style>
     .menu-item-container {
         all: unset;
-        display: flex;
-        background-color: rgb(190,190,190);
-        margin: 1px 2px;
-        padding: 0 6px;
+        margin: 4px 0;
+        background-color: rgb(200,200,200);
+        font-size: 12px;
         border: 1px solid rgba(0,0,0,0.3);
-        box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.1);
-        border-radius: 4px;
+        border-radius: 2px;
         min-width: 160px;
+        user-select: none;
     }
     .menu-item-container:first-child {
         margin-left: 6px;
@@ -37,10 +36,7 @@
         text-decoration: none;
     }
     .hover {
-        background: rgb(200,200,200);
-        border: 1px solid rgba(0,0,0,0.3);
-        border-radius: 4px;
-        opacity: 100%;
+        background: rgb(222,222,222);
         cursor: pointer;
     }
 </style>

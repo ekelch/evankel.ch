@@ -30,7 +30,7 @@
 	function handleMouseMove (e: MouseEvent) {
 		if (dragging) {
 			const res = windowWidth - e.x;
-			if (res > 444 && res < 1111) {
+			if (res > 488 && res < 888) {
 				songWidth = res;
 			}
 		}
@@ -106,10 +106,9 @@
 		background-color: rgb(33,33,33);
 	}
 	.song-container {
-		position: relative;
-		height: 100%;
+		position: absolute;
+		right: 0;
 		z-index: 1;
-		background-color: rgb(66,66,66);
 	}
 	#song-resize {
 		position: absolute;
@@ -129,6 +128,6 @@
 		position: absolute;
 		z-index: 2;
 		right: 0;
-		height: 50px;
+		height: 40px;
 	}
 </style>

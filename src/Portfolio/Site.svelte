@@ -52,9 +52,6 @@
     .list-wrapper {
         margin: 24px auto 0;
     }
-    .list-wrapper > h4 {
-        margin: 0;
-    }
     .list-wrapper > ul {
         list-style: inside;
     }

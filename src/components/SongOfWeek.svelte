@@ -1,9 +1,8 @@
 <script lang="ts">
     import playBtn from "/src/lib/assets/icons/play.png"
     import pauseBtn from "/src/lib/assets/icons/pause.png"
-    import songFile from "/src/lib/assets/janeRemover.mp3"
-    import coverSrc from "/src/lib/assets/flashInPan.jpg"
-    import {createEventDispatcher} from "svelte";
+    import songFile from "/src/lib/assets/halfAsleep.mp3"
+    import coverSrc from "/src/lib/assets/0cover.jpg"
 
     let audioRef: HTMLAudioElement;
     let volume: number = 0.1
@@ -12,26 +11,30 @@
     let paused: boolean = true
     $: displayTime = `${currentTime / 60 | 0}:${(currentTime % 60 | 0).toString().padStart(2, '0')} / ${duration / 60 | 0}:${(duration % 60 | 0).toString().padStart(2, '0')}`
     function handleImgClick() {
-        window.open("https://janeremover.bandcamp.com/music", "_blank")
+        window.open("https://www.youtube.com/watch?v=VVF0zxw4tuM&list=RDVVF0zxw4tuM&start_radio=1", "_blank")
     }
     function playPause() {
         audioRef.paused ? audioRef.play() : audioRef.pause()
         paused = audioRef.paused
     }
 
+    function handleSliderClick(e: any) {
+        console.log(e)
+    }
+
 </script>
 
 <div id="song-outer">
     <div class="song-inner">
-        <span>Song of the week : work in progress !!</span>
+        <span id="sow-banner-label">Song of the week : work in progress !!</span>
         <div class="music-container">
             <button class="album-cover" on:click={handleImgClick}>
                 <img src={coverSrc} alt="album cover"/>
             </button>
             <div class="right-contain">
                 <div class="info">
-                    <button on:click={handleImgClick} class="link-txt">Flash in the Pan</button>
-                    <span class="secondary-txt">by Jane Remover</span>
+                    <button on:click={handleImgClick} class="link-txt">Half Asleep</button>
+                    <span class="secondary-txt">Low Roar</span>
                 </div>
                 <div class="controls secondary-txt">
                     <button class="play-btn" on:click={playPause}><img src={paused ? playBtn : pauseBtn} alt="play pause music"></button>
@@ -44,6 +47,7 @@
                                 max={duration}
                                 step={0.01}
                                 bind:value={currentTime}
+                                on:click={handleSliderClick}
                         />
                     </div>
                 </div>
@@ -63,28 +67,28 @@
 <audio src={songFile} bind:this={audioRef} bind:volume bind:duration bind:currentTime />
 
 <style lang="css">
+    #sow-banner-label {
+        color: wheat;
+        margin: 12px 0;
+    }
+
     #song-outer {
-        height: 100%;
         display: flex;
         flex-direction: column;
         text-align: center;
-        background: rgb(166,166,200);
+        margin-right: 24px;
     }
 
     .song-inner {
-        margin: 12px;
         height: 100%;
         display: flex;
         flex-direction: column;
-        gap: 24px;
     }
 
     .music-container {
         width: 100%;
-        max-width: 720px;
         border: 0;
         height: 160px;
-        margin: 0 auto;
         border-radius: 12px;
         overflow: hidden;
         background: #333333;

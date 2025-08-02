@@ -31,21 +31,24 @@
 		}
 	}
 
+	let apps: gridlayout[] = [
+		createApp("Resume", txtIcon, AppOptionsEnum.resume, Resume),
+		createApp("Carplay", aboutImg, AppOptionsEnum.carplay, Carplay),
+		createApp("This Website", svelteImg, AppOptionsEnum.svelte, Site),
+		createApp("CS2 Crosshair Tool", catImg, AppOptionsEnum.cross, Cross)
+	];
+
 	const focusWindow = (e: CustomEvent) => {
-		const zc = e.detail.z;
-		apps = apps.map((a) => {
-			return a.show ?
-					{ ...a, z: a.z === zc ? appsShown.length : a.z > zc ? a.z - 1 : a.z } :
-					a
-		});
+		const focusMod = e.detail.modCode;
+		apps = apps.map(a => updateAppZ(a, focusMod));
 	};
 
-	let apps: gridlayout[] = [
-			createApp("Resume", txtIcon, AppOptionsEnum.resume, Resume),
-			createApp("Carplay", aboutImg, AppOptionsEnum.carplay, Carplay),
-			createApp("This Website", svelteImg, AppOptionsEnum.svelte, Site),
-			createApp("CS2 Crosshair Tool", catImg, AppOptionsEnum.cross, Cross)
-	];
+	function updateAppZ(a: gridlayout, top: number) {
+		if (a.show)
+			return { ...a, z: a.modCode === top ? appsShown.length : a.z >= appsShown.length ? a.z - 1 : a.z }
+		return a;
+	}
+
 </script>
 
 <div id="app">
@@ -54,11 +57,9 @@
 	</div>
 	<nav id="navbar">
 		<div id="nav-items">
-			<div id="nav-border">
-				{#each appsShown as app}
-					<StartMenuItem appName={app.displayName} on:click={() => {focusWindow({detail: app})}} />
-				{/each}
-			</div>
+			{#each appsShown as app}
+				<StartMenuItem appName={app.displayName} on:click={() => focusWindow({detail: app})} />
+			{/each}
 		</div>
 	</nav>
 </div>
@@ -88,19 +89,14 @@
 		display: flex;
 		z-index: 5;
 	}
+
 	#nav-items {
 		flex: 1;
 		display: flex;
+		gap: 6px;
 		background-color: rgb(44,44,44);
-		border-top: 2px solid rgba(255, 200, 255, 0.2);
+		border-top: 1px solid rgb(77,77,77);
 		overflow-x: scroll;
 		scrollbar-width: none;
-	}
-	#nav-border {
-		border: 4px solid transparent;
-		border-left: 0;
-		border-right: 0;
-		flex: 1;
-		display: flex;
 	}
 </style>
