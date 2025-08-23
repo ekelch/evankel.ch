@@ -101,7 +101,7 @@
 	}
 	.main-contain {
 		flex: 1;
-		background-image: url("src/lib/assets/idaho.jpg");
+		background-image: url("../lib/assets/idaho.jpg");
 		background-repeat: no-repeat;
 		background-size: 100% 100%;
 	}
