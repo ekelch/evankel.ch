@@ -45,12 +45,10 @@
 
 	function handleKeydown(e: KeyboardEvent) {
 		if (e.key === 'Escape') {
-			let index = 0;
-			let maxZ = 0;
-			apps.forEach((app, i) => {if (app.z > maxZ) {maxZ = app.z; index = i}})
-			if (index >= 0) {
-				apps[index].z = 0
-				apps[index].show = false
+			const sorted = apps.filter(a => a.show).sort((a,b) => b.z - a.z)
+			if (sorted.length) {
+				sorted[0].z = 0;
+				sorted[0].show = false
 				apps = apps
 			}
 		}
@@ -103,7 +101,9 @@
 	}
 	.main-contain {
 		flex: 1;
-		background-color: rgb(33,33,33);
+		background-image: url("src/lib/assets/idaho.jpg");
+		background-repeat: no-repeat;
+		background-size: 100% 100%;
 	}
 	.song-container {
 		position: absolute;

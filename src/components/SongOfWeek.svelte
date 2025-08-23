@@ -1,17 +1,22 @@
 <script lang="ts">
     import playBtn from "/src/lib/assets/icons/play.png"
     import pauseBtn from "/src/lib/assets/icons/pause.png"
-    import songFile from "/src/lib/assets/halfAsleep.mp3"
-    import coverSrc from "/src/lib/assets/0cover.jpg"
+    import songFile from "/src/lib/assets/songOfWeek/song.mp3"
+    import coverSrc from "/src/lib/assets/songOfWeek/cover.png"
 
     let audioRef: HTMLAudioElement;
     let volume: number = 0.1
     let duration : number
     let currentTime: number = 0
     let paused: boolean = true
+
+    const songName = "Gator Gambol"
+    const artistName = "Omori"
+    const songLink = "https://omori.bandcamp.com/album/omori-ost"
+
     $: displayTime = `${currentTime / 60 | 0}:${(currentTime % 60 | 0).toString().padStart(2, '0')} / ${duration / 60 | 0}:${(duration % 60 | 0).toString().padStart(2, '0')}`
     function handleImgClick() {
-        window.open("https://www.youtube.com/watch?v=VVF0zxw4tuM&list=RDVVF0zxw4tuM&start_radio=1", "_blank")
+        window.open(songLink, "_blank")
     }
     function playPause() {
         audioRef.paused ? audioRef.play() : audioRef.pause()
@@ -26,15 +31,14 @@
 
 <div id="song-outer">
     <div class="song-inner">
-        <span id="sow-banner-label">Song of the week : work in progress !!</span>
         <div class="music-container">
             <button class="album-cover" on:click={handleImgClick}>
                 <img src={coverSrc} alt="album cover"/>
             </button>
             <div class="right-contain">
                 <div class="info">
-                    <button on:click={handleImgClick} class="link-txt">Half Asleep</button>
-                    <span class="secondary-txt">Low Roar</span>
+                    <button on:click={handleImgClick} class="link-txt">{songName}</button>
+                    <span class="secondary-txt">{artistName}</span>
                 </div>
                 <div class="controls secondary-txt">
                     <button class="play-btn" on:click={playPause}><img src={paused ? playBtn : pauseBtn} alt="play pause music"></button>

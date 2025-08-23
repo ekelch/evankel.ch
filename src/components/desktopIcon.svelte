@@ -47,12 +47,11 @@
 
 <style>
 	.icon-wrapper {
-		background: rgba(0, 0, 0, 0.05);
-		border: 1px solid rgba(170, 170, 170, 0.2);
-		border-radius: 12px;
+		background: rgb(111,111,111);
+		border-radius: 6px;
 		position: absolute;
 		width: 120px;
-		padding: 12px 8px;
+		padding: 6px 0;
 		display: flex;
 		flex-direction: column;
 		user-select: none;
@@ -66,7 +65,6 @@
 
 	.icon-wrapper img {
 		object-fit: cover;
-		width: 63px;
 		height: 63px;
 		margin: auto;
 	}
@@ -74,10 +72,11 @@
 	.icon-wrapper span {
 		color: white;
 		margin: auto;
-		max-width: 100%;
 		white-space: nowrap;
 		overflow: hidden;
 		text-overflow: ellipsis;
 		text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+		font-family: "Cascadia Mono", Arial, sans-serif;
+		max-width: 90%;
 	}
 </style>

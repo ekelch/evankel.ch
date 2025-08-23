@@ -1,9 +1,10 @@
 <script lang="ts">
 	import MainContent from '../components/MainContent.svelte';
-	import catImg from '/src/lib/assets/cat.jpg';
-	import aboutImg from '/src/lib/assets/about/allSongs.png';
 	import svelteImg from '/src/lib/assets/icons/svelte.png'
-	import txtIcon from '/src/lib/assets/icons/txtIcon.png'
+	import resumeIcon from '/src/lib/assets/icons/resume.png'
+	import carplayIcon from '/src/lib/assets/icons/carplay.png'
+	import bunnyIcon from '/src/lib/assets/icons/bunny.gif'
+	import crosshairIcon from '/src/lib/assets/icons/crosshair.png'
 	import {AppOptionsEnum, type gridlayout} from '../types.ts/layouts.svelte';
 	import StartMenuItem from "../components/StartMenuItem.svelte";
 	import {type ComponentType} from "svelte";
@@ -11,6 +12,7 @@
 	import Carplay from "../Portfolio/Carplay.svelte";
 	import Site from "../Portfolio/Site.svelte";
 	import Resume from "../Portfolio/Resume.svelte";
+	import B1tJam from "../components/B1tJam.svelte";
 
 	$: appsShown = apps.filter(a => a.show)
 	let appIndex = 0;
@@ -32,10 +34,11 @@
 	}
 
 	let apps: gridlayout[] = [
-		createApp("Resume", txtIcon, AppOptionsEnum.resume, Resume),
-		createApp("Carplay", aboutImg, AppOptionsEnum.carplay, Carplay),
+		createApp("Resume", resumeIcon, AppOptionsEnum.resume, Resume),
+		createApp("Carplay", carplayIcon, AppOptionsEnum.carplay, Carplay),
 		createApp("This Website", svelteImg, AppOptionsEnum.svelte, Site),
-		createApp("CS2 Crosshair Tool", catImg, AppOptionsEnum.cross, Cross)
+		createApp("First Godot Game", bunnyIcon, AppOptionsEnum.b1tJam, B1tJam),
+		createApp("CS2 Crosshair Tool", crosshairIcon, AppOptionsEnum.cross, Cross)
 	];
 
 	const focusWindow = (e: CustomEvent) => {

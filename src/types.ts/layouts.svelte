@@ -8,6 +8,7 @@
         'resume',
         'carplay',
         'svelte',
+        'b1tJam'
     }
 
 	export type gridlayout = {
