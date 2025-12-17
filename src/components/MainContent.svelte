@@ -108,7 +108,6 @@
 	.song-container {
 		position: absolute;
 		right: 0;
-		z-index: 1;
 	}
 	#song-resize {
 		position: absolute;

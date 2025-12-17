@@ -71,11 +71,6 @@
 <audio src={songFile} bind:this={audioRef} bind:volume bind:duration bind:currentTime />
 
 <style lang="css">
-    #sow-banner-label {
-        color: wheat;
-        margin: 12px 0;
-    }
-
     #song-outer {
         display: flex;
         flex-direction: column;

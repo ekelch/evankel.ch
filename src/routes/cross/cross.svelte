@@ -222,7 +222,7 @@ cl_crosshairalpha ${c.alpha.value};
 	}
 	#view {
 		height: 70%;
-		background-image: url('/src/lib/assets/cat.jpg');
+		background-image: url('/src/lib/assets/windowsxp.jpg');
 		background-size: cover;
 		border: 1px solid rgba(0, 0, 0, 0.5);
 		border-radius: 4px;
