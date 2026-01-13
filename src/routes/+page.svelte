@@ -21,8 +21,8 @@
 			modCode: modCode,
 			displayName: displayName,
 			imgSrc: desktopIconImg,
-			iconX: (appIndex / 6 | 0) * 150 + 25,
-			iconY: appIndex++ % 6 * 150 + 25,
+			iconX: (appIndex / 6 | 0) * 130 + 16,
+			iconY: appIndex++ % 6 * 130 + 16,
 			x: 275,
 			y: 50,
 			w: 1000,
@@ -37,8 +37,8 @@
 		createApp("Resume", resumeIcon, AppOptionsEnum.resume, Resume),
 		createApp("Carplay", carplayIcon, AppOptionsEnum.carplay, Carplay),
 		createApp("This Website", svelteImg, AppOptionsEnum.svelte, Site),
-		createApp("First Godot Game", bunnyIcon, AppOptionsEnum.b1tJam, B1tJam),
-		createApp("CS2 Crosshair Tool", crosshairIcon, AppOptionsEnum.cross, Cross)
+		createApp("Godot Jam", bunnyIcon, AppOptionsEnum.b1tJam, B1tJam),
+		createApp("CS2 Crosshair", crosshairIcon, AppOptionsEnum.cross, Cross)
 	];
 
 	const focusWindow = (e: CustomEvent) => {
@@ -61,7 +61,7 @@
 	<nav id="navbar">
 		<div id="nav-items">
 			{#each appsShown as app}
-				<StartMenuItem appName={app.displayName} on:click={() => focusWindow({detail: app})} />
+				<StartMenuItem {app} on:click={() => focusWindow({detail: app})} />
 			{/each}
 		</div>
 	</nav>

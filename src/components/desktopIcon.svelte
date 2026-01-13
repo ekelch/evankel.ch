@@ -47,7 +47,7 @@
 
 <style>
 	.icon-wrapper {
-		background: rgb(111,111,111);
+		all: unset;
 		border-radius: 6px;
 		position: absolute;
 		width: 120px;
@@ -59,8 +59,15 @@
 		cursor: pointer;
 	}
 
+	.icon-wrapper:hover {
+		background: rgba(150,150,150,.3);
+		border-width: 1px;
+		border-style: solid;
+		border-color: rgba(0,0,0,0.3);
+	}
+
 	.dragging {
-		border: 1px solid rgba(255, 50, 255, 0.5);
+		border: 2px solid rgba(255, 50, 255, 0.35) !important;
 	}
 
 	.icon-wrapper img {

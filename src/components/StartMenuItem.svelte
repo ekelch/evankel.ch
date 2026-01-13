@@ -1,42 +1,55 @@
 <script lang="ts">
-    export let appName: string;
+    import type {gridlayout} from "../types.ts/layouts.svelte";
+
+    export let app: gridlayout;
     let hovering: boolean;
+
+    function mouseenter() {
+        hovering = true
+    }
+    function mouseexit() {
+        hovering = false
+    }
 </script>
 
 <button
-        on:mouseenter={() => {
-		hovering = true;
-	}}
-        on:mouseleave={() => {
-		hovering = false;
-	}}
+        on:mouseenter={mouseenter}
+        on:mouseleave={mouseexit}
         class:hover={hovering}
         on:click
         class="menu-item-container"
 >
-    <span>{appName}</span>
+    <img src={app.imgSrc} alt={app.displayName} class="menu-item-icon"/>
+    <span>{app.displayName}</span>
 </button>
 
 <style>
     .menu-item-container {
         all: unset;
-        margin: 4px 0;
-        background-color: rgb(200,200,200);
-        font-size: 12px;
+        height: 77%;
+        margin: auto 0;
+        padding: 0 8px;
+        background-color: rgb(222,222,222);
         border: 1px solid rgba(0,0,0,0.3);
-        border-radius: 2px;
-        min-width: 160px;
-        user-select: none;
+        border-radius: 10px;
+        min-width: 140px;
+        display: flex;
+    }
+    .menu-item-icon {
+        height: 85%;
+        margin: auto;
     }
     .menu-item-container:first-child {
-        margin-left: 6px;
+        margin-left: 8px;
     }
     span {
-        margin: auto auto auto 6px;
-        text-decoration: none;
+        flex: 1;
+        font-size: 14px;
+        margin: auto 8px;
     }
     .hover {
-        background: rgb(222,222,222);
+        background: rgb(211,211,211);
+        border: 1px solid black;
         cursor: pointer;
     }
 </style>

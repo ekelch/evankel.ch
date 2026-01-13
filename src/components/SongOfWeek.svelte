@@ -3,16 +3,18 @@
     import pauseBtn from "/src/lib/assets/icons/pause.png"
     import songFile from "/src/lib/assets/songOfWeek/song.mp3"
     import coverSrc from "/src/lib/assets/songOfWeek/cover.png"
+    import {createEventDispatcher} from "svelte";
 
     let audioRef: HTMLAudioElement;
     let volume: number = 0.1
     let duration : number
     let currentTime: number = 0
     let paused: boolean = true
+    const dispatch = createEventDispatcher()
 
-    const songName = "Gator Gambol"
-    const artistName = "Omori"
-    const songLink = "https://omori.bandcamp.com/album/omori-ost"
+    const songName = "Can You Take Me To The Hospital?"
+    const artistName = "Barn Scrap"
+    const songLink = "https://www.youtube.com/watch?v=UTJTXzga340&list=RDUTJTXzga340&start_radio=1"
 
     $: displayTime = `${currentTime / 60 | 0}:${(currentTime % 60 | 0).toString().padStart(2, '0')} / ${duration / 60 | 0}:${(duration % 60 | 0).toString().padStart(2, '0')}`
     function handleImgClick() {
@@ -64,6 +66,8 @@
                     step={0.01}
                     bind:value={volume}
             />
+            <button on:click={() => dispatch('closeSong')} class="toggle-song-btn">&rarr;</button>
+
         </div>
     </div>
 </div>
@@ -75,7 +79,6 @@
         display: flex;
         flex-direction: column;
         text-align: center;
-        margin-right: 24px;
     }
 
     .song-inner {

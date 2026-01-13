@@ -29,7 +29,7 @@
                 component (with styles, scripts, etc) is completely decoupled from the child content, and each child is just 'slotted'
                 under it's parent component.
             </li>
-            <li>See this example, it will make more sense! : <a target="_blank" href="https://github.com/ekelch/evankel.ch/blob/main/src/components/draggable.svelte">draggable</a></li>
+            <li>see example: <a target="_blank" href="https://github.com/ekelch/evankel.ch/blob/main/src/components/draggable.svelte">draggable</a></li>
         </ul>
     </div>
     <div class="list-wrapper">

@@ -76,7 +76,7 @@
         data structures in higher level languages (that are implemented about 100x better). This is especially true for SDL2
         (a building block of Source engine and some other older game engines). I've more recently been learning
         Godot (game engine) and I can much better appreciate how much heavy lifting it is doing for me with well written abstractions. Finally, I know some design decisions
-        to keep in mind for similar projects going forward <em>...use a database...</em>
+        to keep in mind for similar projects going forward (<em>use a database</em>)
     </p>
 
     <p>Github project:

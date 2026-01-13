@@ -84,10 +84,10 @@
 			</Draggable>
 		{/each}
 	</div>
-	<button on:click={toggleShowSong} class="toggle-song-btn">{showSong ? '->' : '<-'}</button>
+	<button style="display: {showSong ? 'none' : 'initial'}" on:click={toggleShowSong} class="toggle-song-btn">&larr;</button>
 	<div style="width: {songWidth}px; display: {showSong ? 'initial' : 'none'}" class="song-container">
 		<div id="song-resize" on:mousedown={handleMouseDown} />
-		<SongOfWeek />
+		<SongOfWeek on:closeSong={toggleShowSong} />
 	</div>
 
 </div>
@@ -107,7 +107,8 @@
 	}
 	.song-container {
 		position: absolute;
-		right: 0;
+		right: 6px;
+		top: 6px;
 	}
 	#song-resize {
 		position: absolute;
