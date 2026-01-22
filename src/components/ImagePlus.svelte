@@ -3,11 +3,12 @@
     export let alt: string;
     export let title: string;
     export let description: string | undefined = undefined;
+    export let minY: number = 300
 </script>
 
 <div class="img-plus-container">
     <h3>{title}</h3>
-    <img {src} {alt}/>
+    <img {src} {alt} style="min-height: {minY}px"/>
     {#if description}
         <p>{description}</p>
     {/if}
@@ -21,6 +22,7 @@
         margin: -4px 32px 0;
     }
     .img-plus-container {
+        flex: 1;
         min-width: 0;
         display: flex;
         flex-direction: column;
@@ -28,7 +30,6 @@
     }
     img {
         margin: 8px;
-        min-height: 300px;
         object-fit: contain;
     }
 </style>
