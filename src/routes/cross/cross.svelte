@@ -72,7 +72,7 @@
 	};
 
 	const SCALE_FACTOR = 2;
-	const GAP_OFFSET = 3;
+	const GAP_OFFSET = 4;
 	$: border = (c.outline.value / 1) | 0;
 	$: scaledLength = SCALE_FACTOR * (c.length.value + border);
 	$: scaledThickness = SCALE_FACTOR * (c.thickness.value + border);
