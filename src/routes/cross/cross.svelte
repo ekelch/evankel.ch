@@ -1,20 +1,9 @@
 <script lang="ts">
-	import { type gridlayout, type crosshair } from '../../types.ts/layouts.svelte';
+	import {type gridlayout, type crosshair, type crosshair_values} from '../../types.ts/layouts.svelte';
 	import CrossSlider from './crossSlider.svelte';
+	import {crosshair_default, crosshair_preset_1, crosshair_preset_2, crosshair_preset_3} from "./defaultCrosshairs";
 
-	const defaultCrosshair: crosshair = {
-		style: 'default',
-		length: { min: 0, max: 10, step: 0.1, value: 1 },
-		thickness: { min: 0.1, max: 6, step: 0.1, value: 1 },
-		gap: { min: -5, max: 5, step: 1, value: -2 },
-		outline: { min: 0, max: 3, step: 0.1, value: 1 },
-		dot: false,
-		color: 1,
-		r: { min: 0, max: 255, step: 1, value: 100 },
-		g: { min: 0, max: 255, step: 1, value: 230 },
-		b: { min: 0, max: 255, step: 1, value: 230 },
-		alpha: { min: 0, max: 250, step: 1, value: 250 }
-	};
+	const defaultCrosshair: crosshair = crosshair_default;
 
 	let viewmodel: HTMLDivElement;
 	let c: crosshair = defaultCrosshair;
@@ -23,6 +12,20 @@
 	let locked: boolean;
 	let copied: boolean;
 	export let app: gridlayout;
+
+	const setCrosshairValues = (target: crosshair_values) => {
+		c.style = target.style
+		c.length.value = target.length
+		c.thickness.value = target.thickness
+		c.gap.value = target.gap
+		c.outline.value = target.outline
+		c.dot = target.dot
+		c.color = target.color
+		c.r.value = target.r
+		c.g.value = target.g
+		c.b.value = target.b
+		c.alpha.value = target.alpha
+	}
 
 	const mouseMove = (e: MouseEvent) => {
 		if (!locked) {
@@ -69,22 +72,24 @@
 	};
 
 	const SCALE_FACTOR = 2;
-	const GAP_OFFSET = 0;
+	const GAP_OFFSET = 3;
 	$: border = (c.outline.value / 1) | 0;
 	$: scaledLength = SCALE_FACTOR * (c.length.value + border);
 	$: scaledThickness = SCALE_FACTOR * (c.thickness.value + border);
-	$: translate = scaledLength + scaledThickness + SCALE_FACTOR * c.gap.value + GAP_OFFSET;
+	$: translate = scaledLength + scaledThickness + c.gap.value + GAP_OFFSET
 
 	$: output = `cl_crosshairsize ${c.length.value};
 cl_crosshairthickness ${c.thickness.value};
-cl_crosshairgap ${c.gap.value};
+cl_crosshairgap ${c.gap.value + GAP_OFFSET};
 cl_crosshair_drawoutline ${c.outline.value ? 1 : 0};
 cl_crosshair_outlinethickness ${c.outline.value};
 cl_crosshairdot ${c.dot};
-cl_crosshaircolor_r: ${c.r.value};
-cl_crosshaircolor_g: ${c.g.value};
-cl_crosshaircolor_b: ${c.b.value};
+cl_crosshaircolor_r ${c.r.value};
+cl_crosshaircolor_g ${c.g.value};
+cl_crosshaircolor_b ${c.b.value};
 cl_crosshairalpha ${c.alpha.value};
+cl_crosshair_recoil false;
+cl_crosshairstyle 4;
 `;
 </script>
 
@@ -186,6 +191,11 @@ cl_crosshairalpha ${c.alpha.value};
 		>
 	</div>
 	<div id="settings">
+		<div id="cross-presets">
+			<button class="cross-preset" on:click={() => setCrosshairValues(crosshair_preset_1)}>default 1</button>
+			<button class="cross-preset" on:click={() => setCrosshairValues(crosshair_preset_2)}>default 2</button>
+			<button class="cross-preset" on:click={() => setCrosshairValues(crosshair_preset_3)}>default 3</button>
+		</div>
 		<CrossSlider label="length" bind:e={c.length} />
 		<CrossSlider label="thickness" bind:e={c.thickness} />
 		<CrossSlider label="gap" bind:e={c.gap} />
@@ -222,8 +232,7 @@ cl_crosshairalpha ${c.alpha.value};
 	}
 	#view {
 		height: 70%;
-		background-image: url('/src/lib/assets/windowsxp.jpg');
-		background-size: cover;
+		background-color: white;
 		border: 1px solid rgba(0, 0, 0, 0.5);
 		border-radius: 4px;
 		overflow: hidden;
@@ -238,6 +247,14 @@ cl_crosshairalpha ${c.alpha.value};
 		display: flex;
 		flex-direction: column;
 		gap: 6px;
+	}
+	#cross-presets {
+		display: flex;
+		height: 40px;
+		gap: 8px;
+	}
+	.cross-preset {
+		flex: 1;
 	}
 	#color-group {
 		display: flex;

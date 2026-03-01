@@ -49,6 +49,20 @@
 		b: SliderRange;
 	};
 
+    export type crosshair_values = {
+        style: 'default' | 'classic' | 'dynamic';
+        alpha: number;
+        thickness: number;
+        length: number;
+        gap: number;
+        outline: number;
+        dot: boolean;
+        color: number;
+        r: number;
+        g: number;
+        b: number;
+    }
+
     export const stubApp: gridlayout = {
         modCode: AppOptionsEnum.about,
         displayName: "displayName",
