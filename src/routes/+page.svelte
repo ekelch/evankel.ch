@@ -15,14 +15,13 @@
 	import B1tJam from "../components/B1tJam.svelte";
 
 	$: appsShown = apps.filter(a => a.show)
-	let appIndex = 0;
-	const createApp = (displayName: string, desktopIconImg: any, modCode: AppOptionsEnum, content: ComponentType): gridlayout => {
+	const createApp = (displayName: string, desktopIconImg: any, modCode: AppOptionsEnum, content: ComponentType, x: number, y: number): gridlayout => {
 		return {
 			modCode: modCode,
 			displayName: displayName,
 			imgSrc: desktopIconImg,
-			iconX: (appIndex / 6 | 0) * 130 + 16,
-			iconY: appIndex++ % 6 * 130 + 16,
+			iconX: x * 130 + 16,
+			iconY: y * 130 + 16,
 			x: 275,
 			y: 50,
 			w: 1000,
@@ -34,11 +33,12 @@
 	}
 
 	let apps: gridlayout[] = [
-		createApp("Resume", resumeIcon, AppOptionsEnum.resume, Resume),
-		createApp("Carplay", carplayIcon, AppOptionsEnum.carplay, Carplay),
-		createApp("This Website", svelteImg, AppOptionsEnum.svelte, Site),
-		createApp("Godot Jam", bunnyIcon, AppOptionsEnum.b1tJam, B1tJam),
-		createApp("CS2 Crosshair", crosshairIcon, AppOptionsEnum.cross, Cross)
+		createApp("Resume", resumeIcon, AppOptionsEnum.resume, Resume, 0, 0),
+		createApp("Carplay", carplayIcon, AppOptionsEnum.carplay, Carplay, 0, 1),
+		createApp("evankel.ch", svelteImg, AppOptionsEnum.svelte, Site, 0, 2),
+		createApp("Godot Jam", bunnyIcon, AppOptionsEnum.b1tJam, B1tJam, 0, 3),
+		createApp("Crosshair", crosshairIcon, AppOptionsEnum.cross, Cross, 0, 4),
+		createApp("Testing123", crosshairIcon, AppOptionsEnum.cross, Cross, 1, 0),
 	];
 
 	const focusWindow = (e: CustomEvent) => {
