@@ -122,6 +122,10 @@
 		overflow-x: clip;
 	}
 
+	.window-contents > slot :global(>:first-child){
+		pointer-events: none;
+	}
+
 	#drag-handle {
 		height: 8px;
 		width: 8px;
