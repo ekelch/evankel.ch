@@ -3,7 +3,7 @@ import resumePdf from "$lib/assets/resume.pdf";
 </script>
 
 <div class="iframe-contain">
-    <iframe src={resumePdf} title="resume"/>
+    <iframe src={resumePdf} title="resume"></iframe>
 </div>
 
 <style>

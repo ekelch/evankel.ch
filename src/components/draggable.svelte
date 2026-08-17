@@ -9,12 +9,17 @@
 	const MAX_OFFSET = 100;
 	const NAV_HEIGHT = 44;
 
-	export let app: gridlayout;
-	let dragging: boolean;
-	let resizing: boolean;
-	let windowWidth: number;
-	let windowHeight: number;
-	let maximize: boolean;
+	interface Props {
+		app: gridlayout;
+		children?: import('svelte').Snippet;
+	}
+
+	let { app = $bindable(), children }: Props = $props();
+	let dragging: boolean = $state();
+	let resizing: boolean = $state();
+	let windowWidth: number = $state();
+	let windowHeight: number = $state();
+	let maximize: boolean = $state();
 
 	const mouseUp = (_e: MouseEvent) => {
 		dragging = false;
@@ -58,7 +63,7 @@
 
 <div
 	class="window"
-	on:mousedown={focusWindow}
+	onmousedown={focusWindow}
 	style="
 	left: {maximize ? 0 : app.x}px;
 	top: {maximize ? 0 : app.y}px;
@@ -70,20 +75,20 @@
 >
 	<div id="window-header">
 		<div class="window-buttons">
-			<button on:click={minimize}>-</button>
-			<button on:click={toggleMax}>o</button>
-			<button on:click={close}>x</button>
+			<button onclick={minimize}>-</button>
+			<button onclick={toggleMax}>o</button>
+			<button onclick={close}>x</button>
 		</div>
 	</div>
 	<div class="window-contents">
-		<slot />
+		{@render children?.()}
 	</div>
-	<div id="drag-handle" />
+	<div id="drag-handle"></div>
 </div>
 
 <svelte:window
-	on:mouseup={mouseUp}
-	on:mousemove={mouseMove}
+	onmouseup={mouseUp}
+	onmousemove={mouseMove}
 	bind:innerWidth={windowWidth}
 	bind:innerHeight={windowHeight}
 />

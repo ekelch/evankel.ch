@@ -5,9 +5,13 @@
 	import Vulkan from '../../Portfolio/Vulkan.svelte';
 	import type {gridlayout} from "../../types.ts/layouts.svelte";
 	const tabs: string[] = ['GITHUB', 'RESUME'];
-	let selectedIndex: number = 0;
+	let selectedIndex: number = $state(0);
 
-	export let app: gridlayout;
+	interface Props {
+		app: gridlayout;
+	}
+
+	let { app }: Props = $props();
 
 	const handleKeydown = (e: KeyboardEvent) => {
 		if (e.key === "ArrowLeft") {
@@ -21,7 +25,7 @@
 <div id="about-outer">
 	<div id="tab-container">
 		{#each tabs as tab, i}
-			<button class="tab" class:selected={tab === tabs[selectedIndex]} on:click={() => selectedIndex = i}>{tab}</button>
+			<button class="tab" class:selected={tab === tabs[selectedIndex]} onclick={() => selectedIndex = i}>{tab}</button>
 		{/each}
 	</div>
 	<div id="tab-content">
@@ -33,13 +37,13 @@
 			</div>
 		{:else if selectedIndex === 1}
 			<div class="iframe-contain">
-				<iframe src={resumePdf} title="resume"/>
+				<iframe src={resumePdf} title="resume"></iframe>
 			</div>
 		{/if}
 	</div>
 </div>
 
-<svelte:window on:keydown={handleKeydown} />
+<svelte:window onkeydown={handleKeydown} />
 
 <style>
 	#about-outer {

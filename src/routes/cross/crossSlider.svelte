@@ -1,9 +1,13 @@
 <script lang="ts">
 	import { type SliderRange } from '../../types.ts/layouts.svelte';
 
-	export let label: string;
-	export let e: SliderRange;
-	let expandedRange: boolean;
+	interface Props {
+		label: string;
+		e: SliderRange;
+	}
+
+	let { label, e = $bindable() }: Props = $props();
+	let expandedRange: boolean = $state();
 </script>
 
 <div class="setting">

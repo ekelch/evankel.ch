@@ -5,23 +5,27 @@
 	import {createEventDispatcher} from "svelte";
 	import SongOfWeek from "./SongOfWeek.svelte";
 
-	export let apps: gridlayout[] = [];
-	let songWidth = 444;
-	let windowWidth: number;
-	let dragging = false;
-	let showSong = true;
-	$: appsShown = apps.filter(a => a.show)
+	interface Props {
+		apps?: gridlayout[];
+	}
+
+	let { apps = $bindable([]) }: Props = $props();
+	let songWidth = $state(444);
+	let windowWidth: number = $state();
+	let dragging = $state(false);
+	let showSong = $state(true);
+	let appsShown = $derived(apps.filter(a => a.show))
 	const dispatch = createEventDispatcher();
 	const closeApp = (app: gridlayout) => {
 		app.show = false;
 		apps = apps;
 	};
 
-	let konami: {index: number, target: string[], active: boolean} = {
+	let konami: {index: number, target: string[], active: boolean} = $state({
 		index: 0,
 		target: ["ArrowUp","ArrowUp","ArrowDown","ArrowDown","ArrowLeft","ArrowRight","ArrowLeft","ArrowRight","b","a"],
 		active: false
-	}
+	})
 
 	function handleMouseUp() {
 		dragging = false;
@@ -80,19 +84,19 @@
 		{/each}
 		{#each appsShown as app}
 			<Draggable bind:app on:focusWindow={focusWindow} on:closeApp={() => closeApp(app)}>
-				<svelte:component this={app.content} {app}/>
+				<app.content {app}/>
 			</Draggable>
 		{/each}
 	</div>
-	<button style="display: {showSong ? 'none' : 'initial'}" on:click={toggleShowSong} class="toggle-song-btn">&larr;</button>
+	<button style="display: {showSong ? 'none' : 'initial'}" onclick={toggleShowSong} class="toggle-song-btn">&larr;</button>
 	<div style="width: {songWidth}px; display: {showSong ? 'initial' : 'none'}" class="song-container">
-		<div id="song-resize" on:mousedown={handleMouseDown} />
+		<div id="song-resize" onmousedown={handleMouseDown}></div>
 		<SongOfWeek on:closeSong={toggleShowSong} />
 	</div>
 
 </div>
 
-<svelte:window on:keydown={handleKeydown} on:mousemove={handleMouseMove} on:mouseup={handleMouseUp} bind:innerWidth={windowWidth}/>
+<svelte:window onkeydown={handleKeydown} onmousemove={handleMouseMove} onmouseup={handleMouseUp} bind:innerWidth={windowWidth}/>
 
 <style>
 	.main-outer {

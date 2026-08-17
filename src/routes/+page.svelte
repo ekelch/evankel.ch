@@ -14,7 +14,6 @@
 	import Resume from "../Portfolio/Resume.svelte";
 	import B1tJam from "../components/B1tJam.svelte";
 
-	$: appsShown = apps.filter(a => a.show)
 	let appIndex = 0;
 	const createApp = (displayName: string, desktopIconImg: any, modCode: AppOptionsEnum, content: ComponentType): gridlayout => {
 		return {
@@ -33,13 +32,13 @@
 		}
 	}
 
-	let apps: gridlayout[] = [
+	let apps: gridlayout[] = $state([
 		createApp("Resume", resumeIcon, AppOptionsEnum.resume, Resume),
 		createApp("Carplay", carplayIcon, AppOptionsEnum.carplay, Carplay),
 		createApp("This Website", svelteImg, AppOptionsEnum.svelte, Site),
 		createApp("Godot Jam", bunnyIcon, AppOptionsEnum.b1tJam, B1tJam),
 		createApp("CS2 Crosshair", crosshairIcon, AppOptionsEnum.cross, Cross)
-	];
+	]);
 
 	const focusWindow = (e: CustomEvent) => {
 		const focusMod = e.detail.modCode;
@@ -52,6 +51,7 @@
 		return a;
 	}
 
+	let appsShown = $derived(apps.filter(a => a.show))
 </script>
 
 <div id="app">

@@ -5,18 +5,18 @@
     import coverSrc from "/src/lib/assets/songOfWeek/cover.png"
     import {createEventDispatcher} from "svelte";
 
-    let audioRef: HTMLAudioElement;
-    let volume: number = 0.1
-    let duration : number
-    let currentTime: number = 0
-    let paused: boolean = true
+    let audioRef: HTMLAudioElement = $state();
+    let volume: number = $state(0.1)
+    let duration : number = $state()
+    let currentTime: number = $state(0)
+    let paused: boolean = $state(true)
     const dispatch = createEventDispatcher()
 
     const songName = "Can You Take Me To The Hospital?"
     const artistName = "Barn Scrap"
     const songLink = "https://www.youtube.com/watch?v=UTJTXzga340&list=RDUTJTXzga340&start_radio=1"
 
-    $: displayTime = `${currentTime / 60 | 0}:${(currentTime % 60 | 0).toString().padStart(2, '0')} / ${duration / 60 | 0}:${(duration % 60 | 0).toString().padStart(2, '0')}`
+    let displayTime = $derived(`${currentTime / 60 | 0}:${(currentTime % 60 | 0).toString().padStart(2, '0')} / ${duration / 60 | 0}:${(duration % 60 | 0).toString().padStart(2, '0')}`)
     function handleImgClick() {
         window.open(songLink, "_blank")
     }
@@ -34,16 +34,16 @@
 <div id="song-outer">
     <div class="song-inner">
         <div class="music-container">
-            <button class="album-cover" on:click={handleImgClick}>
+            <button class="album-cover" onclick={handleImgClick}>
                 <img src={coverSrc} alt="album cover"/>
             </button>
             <div class="right-contain">
                 <div class="info">
-                    <button on:click={handleImgClick} class="link-txt">{songName}</button>
+                    <button onclick={handleImgClick} class="link-txt">{songName}</button>
                     <span class="secondary-txt">{artistName}</span>
                 </div>
                 <div class="controls secondary-txt">
-                    <button class="play-btn" on:click={playPause}><img src={paused ? playBtn : pauseBtn} alt="play pause music"></button>
+                    <button class="play-btn" onclick={playPause}><img src={paused ? playBtn : pauseBtn} alt="play pause music"></button>
                     <div class="duration-slider-container">
                         <span>{displayTime}</span>
                         <input
@@ -53,7 +53,7 @@
                                 max={duration}
                                 step={0.01}
                                 bind:value={currentTime}
-                                on:click={handleSliderClick}
+                                onclick={handleSliderClick}
                         />
                     </div>
                 </div>
@@ -66,13 +66,13 @@
                     step={0.01}
                     bind:value={volume}
             />
-            <button on:click={() => dispatch('closeSong')} class="toggle-song-btn">&rarr;</button>
+            <button onclick={() => dispatch('closeSong')} class="toggle-song-btn">&rarr;</button>
 
         </div>
     </div>
 </div>
 
-<audio src={songFile} bind:this={audioRef} bind:volume bind:duration bind:currentTime />
+<audio src={songFile} bind:this={audioRef} bind:volume bind:duration bind:currentTime></audio>
 
 <style lang="css">
     #song-outer {

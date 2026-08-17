@@ -1,8 +1,15 @@
 <script lang="ts">
+    import { createBubbler } from 'svelte/legacy';
+
+    const bubble = createBubbler();
     import type {gridlayout} from "../types.ts/layouts.svelte";
 
-    export let app: gridlayout;
-    let hovering: boolean;
+    interface Props {
+        app: gridlayout;
+    }
+
+    let { app }: Props = $props();
+    let hovering: boolean = $state();
 
     function mouseenter() {
         hovering = true
@@ -13,10 +20,10 @@
 </script>
 
 <button
-        on:mouseenter={mouseenter}
-        on:mouseleave={mouseexit}
+        onmouseenter={mouseenter}
+        onmouseleave={mouseexit}
         class:hover={hovering}
-        on:click
+        onclick={bubble('click')}
         class="menu-item-container"
 >
     <img src={app.imgSrc} alt={app.displayName} class="menu-item-icon"/>

@@ -1,11 +1,17 @@
 <script lang="ts">
+	import { preventDefault } from 'svelte/legacy';
+
 	import { type gridlayout } from '../types.ts/layouts.svelte';
 	import {abs} from "mathjs";
 	import {createEventDispatcher} from "svelte";
 
 	const dispatch = createEventDispatcher();
-	export let app: gridlayout;
-	let dragging: boolean;
+	interface Props {
+		app: gridlayout;
+	}
+
+	let { app = $bindable() }: Props = $props();
+	let dragging: boolean = $state();
 	let dragStartPos: {x:number,y:number} = {x: 0, y: 0}
 
 	const handleDragStart = (e: MouseEvent) => {
@@ -35,15 +41,15 @@
 	style="left: {app.iconX}px; top: {app.iconY}px;"
 	class="icon-wrapper"
 	class:dragging
-	on:mousedown|preventDefault={handleDragStart}
-	on:click={handleMouseUp}
-	on:dblclick={handleMouseUp}
+	onmousedown={preventDefault(handleDragStart)}
+	onclick={handleMouseUp}
+	ondblclick={handleMouseUp}
 >
 	<img src={app.imgSrc} alt={app.displayName} />
 	<span>{app.displayName}</span>
 </button>
 
-<svelte:window on:mouseup={handleDragEnd} on:mousemove={handleMouseMove} />
+<svelte:window onmouseup={handleDragEnd} onmousemove={handleMouseMove} />
 
 <style>
 	.icon-wrapper {
