@@ -2,7 +2,6 @@
     import resumePdf from '/src/lib/assets/resume.pdf';
     import Site from "../self/+page.svelte"
     import Carplay from "../carplay/+page.svelte"
-    import Vulkan from '../../Portfolio/Vulkan.svelte';
     const tabs: string[] = ['GITHUB', 'RESUME'];
     let selectedIndex: number = $state(0);
 
@@ -26,7 +25,6 @@
             <div id="github-projects">
                 <Carplay />
                 <Site />
-                <Vulkan />
             </div>
         {:else if selectedIndex === 1}
             <div class="iframe-contain">
