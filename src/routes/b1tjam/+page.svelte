@@ -1,5 +1,5 @@
 <script>
-import ImagePlus from "./ImagePlus.svelte";
+import ImagePlus from "../../components/ImagePlus.svelte";
 import jamCover from "$lib/assets/godotJam/godotJam.png"
 import pickup from "$lib/assets/godotJam/pickup.gif"
 import platform from "$lib/assets/godotJam/platform.gif"

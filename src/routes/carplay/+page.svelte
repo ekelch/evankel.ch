@@ -3,7 +3,7 @@
     import artistsImg from "$lib/assets/about/artists.png"
     import configImg from "$lib/assets/about/config.png"
     import artistSongsImg from "$lib/assets/about/artistSongs.png"
-    import ImagePlus from "../components/ImagePlus.svelte";
+    import ImagePlus from "../../components/ImagePlus.svelte";
 </script>
 
 <div id="carplay-container">

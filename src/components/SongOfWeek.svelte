@@ -3,14 +3,12 @@
     import pauseBtn from "/src/lib/assets/icons/pause.png"
     import songFile from "/src/lib/assets/songOfWeek/song.mp3"
     import coverSrc from "/src/lib/assets/songOfWeek/cover.png"
-    import {createEventDispatcher} from "svelte";
 
-    let audioRef: HTMLAudioElement = $state();
+    let audioRef: HTMLAudioElement|undefined = $state(undefined);
     let volume: number = $state(0.1)
-    let duration : number = $state()
+    let duration : number = $state(0)
     let currentTime: number = $state(0)
     let paused: boolean = $state(true)
-    const dispatch = createEventDispatcher()
 
     const songName = "Can You Take Me To The Hospital?"
     const artistName = "Barn Scrap"
@@ -21,8 +19,10 @@
         window.open(songLink, "_blank")
     }
     function playPause() {
-        audioRef.paused ? audioRef.play() : audioRef.pause()
-        paused = audioRef.paused
+        if (audioRef) {
+            audioRef.paused ? audioRef.play() : audioRef.pause()
+            paused = audioRef.paused
+        }
     }
 
     function handleSliderClick(e: any) {
@@ -66,8 +66,6 @@
                     step={0.01}
                     bind:value={volume}
             />
-            <button onclick={() => dispatch('closeSong')} class="toggle-song-btn">&rarr;</button>
-
         </div>
     </div>
 </div>
@@ -76,6 +74,7 @@
 
 <style lang="css">
     #song-outer {
+        flex: 1;
         display: flex;
         flex-direction: column;
         text-align: center;
@@ -90,7 +89,7 @@
     .music-container {
         width: 100%;
         border: 0;
-        height: 100px;
+        height: 100%;
         overflow: hidden;
         background: #333333;
         display: flex;

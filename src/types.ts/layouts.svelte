@@ -1,29 +1,11 @@
 <script module lang="ts">
-    import {type ComponentType } from "svelte";
-    import About from "../routes/about/about.svelte";
 
-    export enum AppOptionsEnum {
-        'about',
-        'cross',
-        'resume',
-        'carplay',
-        'svelte',
-        'b1tJam'
-    }
-
-	export type gridlayout = {
+	export type icon = {
         displayName: string;
-		modCode: AppOptionsEnum;
-        content: ComponentType;
-		x: number;
-		y: number;
-		w: number;
-		h: number;
-		z: number;
-		show?: boolean;
         imgSrc: string;
         iconX: number;
         iconY: number;
+        route: string;
 	};
 
 	export type SliderRange = {
@@ -61,21 +43,6 @@
         r: number;
         g: number;
         b: number;
-    }
-
-    export const stubApp: gridlayout = {
-        modCode: AppOptionsEnum.about,
-        displayName: "displayName",
-        imgSrc: "desktopIconImg",
-        iconX: 0,
-        iconY: 0,
-        x: 0,
-        y: 0,
-        w: 0,
-        h: 0,
-        z: 0,
-        show: false,
-        content: About
     }
 </script>
 

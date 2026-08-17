@@ -1,23 +1,25 @@
 <script lang="ts">
-	import { preventDefault } from 'svelte/legacy';
-
-	import { type gridlayout } from '../types.ts/layouts.svelte';
+	import { type icon } from '../types.ts/layouts.svelte';
 	import {abs} from "mathjs";
-	import {createEventDispatcher} from "svelte";
+	import {goto} from "$app/navigation";
 
-	const dispatch = createEventDispatcher();
 	interface Props {
-		app: gridlayout;
+		app: icon;
 	}
 
 	let { app = $bindable() }: Props = $props();
-	let dragging: boolean = $state();
+	let dragging: boolean = $state(false);
 	let dragStartPos: {x:number,y:number} = {x: 0, y: 0}
 
 	const handleDragStart = (e: MouseEvent) => {
+		e.preventDefault()
 		dragging = true;
 		dragStartPos = {x: e.clientX, y: e.clientY}
 	};
+
+	function openApp() {
+		goto(app.route)
+	}
 
 	const handleDragEnd = () => {
 		dragging = false;
@@ -32,7 +34,7 @@
 
 	const handleMouseUp = (e: MouseEvent) => {
 		if (abs(dragStartPos.x - e.clientX) < 5 && abs(dragStartPos.y - e.clientY) < 5) {
-			dispatch('openApp', app);
+			openApp();
 		}
 	}
 </script>
@@ -41,7 +43,7 @@
 	style="left: {app.iconX}px; top: {app.iconY}px;"
 	class="icon-wrapper"
 	class:dragging
-	onmousedown={preventDefault(handleDragStart)}
+	onmousedown={handleDragStart}
 	onclick={handleMouseUp}
 	ondblclick={handleMouseUp}
 >

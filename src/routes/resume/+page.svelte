@@ -8,11 +8,15 @@ import resumePdf from "$lib/assets/resume.pdf";
 
 <style>
     .iframe-contain {
-        height: 100%;
+        height: 100vh;
+        width: 100vw;
+        margin: auto;
+        background-color: #fceaff;
     }
     .iframe-contain > iframe {
         height: 100%;
-        width: 100%;
+        width: 50%;
+        margin: 0 25%;
         overflow-x: hidden;
     }
 </style>
