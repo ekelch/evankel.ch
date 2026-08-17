@@ -6,7 +6,7 @@
 	import SongOfWeek from "./SongOfWeek.svelte";
 
 	export let apps: gridlayout[] = [];
-	let songWidth = 600;
+	let songWidth = 444;
 	let windowWidth: number;
 	let dragging = false;
 	let showSong = true;
@@ -30,7 +30,7 @@
 	function handleMouseMove (e: MouseEvent) {
 		if (dragging) {
 			const res = windowWidth - e.x;
-			if (res > 488 && res < 888) {
+			if (res > 300 && res < 888) {
 				songWidth = res;
 			}
 		}
@@ -101,9 +101,7 @@
 	}
 	.main-contain {
 		flex: 1;
-		background-image: url("../lib/assets/idaho.jpg");
-		background-repeat: no-repeat;
-		background-size: 100% 100%;
+		background-color: #77718b;
 	}
 	.song-container {
 		position: absolute;

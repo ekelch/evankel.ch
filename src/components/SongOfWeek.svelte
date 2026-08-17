@@ -90,8 +90,7 @@
     .music-container {
         width: 100%;
         border: 0;
-        height: 160px;
-        border-radius: 12px;
+        height: 100px;
         overflow: hidden;
         background: #333333;
         display: flex;
@@ -99,24 +98,21 @@
 
     .album-cover {
         padding: 0;
-        border: none;
-        min-width: 160px;
-        max-width: 160px;
+        width: 100px;
         cursor: pointer;
     }
 
     .album-cover > img {
         width: 100%;
         pointer-events: none;
-        object-fit: fill;
     }
 
     .right-contain {
         flex: 1;
         display: flex;
         flex-direction: column;
-        padding: 12px;
-        gap: 12px;
+        padding: 4px 8px;
+        gap: 2px;
     }
 
     span {
@@ -124,16 +120,15 @@
     }
 
     .info {
-        height: 40px;
         display: flex;
         flex-direction: column;
-        gap: 4px;
+        gap: 1px;
     }
 
     .link-txt {
         all: unset;
+        font-size: 12px;
         width: fit-content;
-
         color: #0f91ff;
         cursor: pointer;
     }
@@ -143,22 +138,23 @@
     }
 
     .secondary-txt {
+        font-size: 10px;
         color: rgb(170,170,170);
     }
 
     .controls {
         flex: 1;
         display: flex;
-        gap: 24px;
+        gap: 12px;
     }
 
     .play-btn {
-        width: 48px;
-        height: 48px;
+        width: 40px;
+        height: 40px;
         margin: auto 0;
         cursor: pointer;
-        padding: 12px;
-        clip-path: circle(20px);
+        padding: 10px;
+        clip-path: circle(14px);
         background: white;
     }
     .play-btn > img {
