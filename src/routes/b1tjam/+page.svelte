@@ -44,7 +44,8 @@ import gameplay from "$lib/assets/godotJam/gameplay.gif"
 
 <style>
     .b1t-main {
-        padding: 4px;
+        padding: 1rem 15vw;
+        background-color: #A4969B;
     }
 
     .b1t-header {

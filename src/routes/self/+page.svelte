@@ -46,7 +46,9 @@
 
 <style>
     #site-page-container {
-        margin: 1rem;
+        padding: 1rem;
+        background-color: #96BDC6;
+        height: calc(100vh - 70px);
     }
 
     .list-wrapper {

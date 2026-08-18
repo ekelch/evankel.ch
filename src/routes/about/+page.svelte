@@ -21,7 +21,7 @@
         {/each}
     </div>
     <div id="tab-content">
-        {#if selectedIndex ===0}
+        {#if selectedIndex === 0}
             <div id="github-projects">
                 <Carplay />
                 <Site />

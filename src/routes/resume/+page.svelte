@@ -1,5 +1,5 @@
 <script>
-import resumePdf from "$lib/assets/resume.pdf";
+    import resumePdf from "$lib/assets/resume.pdf";
 </script>
 
 <div class="iframe-contain">

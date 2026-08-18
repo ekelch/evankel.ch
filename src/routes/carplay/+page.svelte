@@ -86,7 +86,8 @@
 
 <style lang="css">
     #carplay-container {
-        margin: 1rem;
+        padding: 1rem;
+        background-color: #81968F;
     }
     p {
         margin-bottom: 16px;

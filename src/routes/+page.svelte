@@ -10,18 +10,18 @@
     import norway from "/src/lib/assets/images/norway.jpg"
 
 	let icons: icon[] = $state([
-		{displayName: "Resume", iconX: 25, iconY: 50, imgSrc: resumeIcon, route: "/resume"},
-		{displayName: "Carplay", iconX: 25, iconY: 175, imgSrc: carplayIcon, route: "/carplay"},
-		{displayName: "This Website", iconX: 25, iconY: 300, imgSrc: svelteImg, route: "/self"},
-		{displayName: "Godot Jam", iconX: 25, iconY: 425, imgSrc: bunnyIcon, route: "/b1tjam"},
-		{displayName: "CS2 Crosshair", iconX: 25, iconY: 550, imgSrc: crosshairIcon, route: "/crosshair"},
+		{displayName: "Resume", iconX: 25, iconY: 325, imgSrc: resumeIcon, route: "/resume"},
+		{displayName: "Carplay", iconX: 25, iconY: 450, imgSrc: carplayIcon, route: "/carplay"},
+		{displayName: "This Website", iconX: 150, iconY: 450, imgSrc: svelteImg, route: "/self"},
+		{displayName: "Godot Jam", iconX: 275, iconY: 450, imgSrc: bunnyIcon, route: "/b1tjam"},
+		{displayName: "CS2 Crosshair", iconX: 25, iconY: 575, imgSrc: crosshairIcon, route: "/crosshair"},
 	])
 
     let showSong: boolean = $state(true)
     let coords = $state({x: 0, y: 0})
     let winW = $state(1920)
     let winH = $state(1080)
-    let objPos = $derived(`${coords.x/winW * winW/10 - winW/10}px ${coords.y/winH * winH/10 - winH/10}px`) //todo need to clean this up
+    let objPos = $derived(`${coords.x/winW * 100 - 100}px ${coords.y/winH * 50 - 100}px`) //todo need to clean this up
 
     function handleMouseMove(event: any) {
         coords.x = event.clientX
@@ -59,13 +59,14 @@
     .bg-img-cnt {
         width: 100vw;
         height: 100vh;
+        overflow: hidden;
     }
+
     .bg-img {
         object-fit: cover;
         width: 100%;
         height: 100%;
         transform: scale(1.3);
-        overflow: hidden;
     }
 
     .song-container-main {
