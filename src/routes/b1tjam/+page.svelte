@@ -1,5 +1,5 @@
 <script>
-import ImagePlus from "./ImagePlus.svelte";
+import ImagePlus from "../../components/ImagePlus.svelte";
 import jamCover from "$lib/assets/godotJam/godotJam.png"
 import pickup from "$lib/assets/godotJam/pickup.gif"
 import platform from "$lib/assets/godotJam/platform.gif"
@@ -44,7 +44,8 @@ import gameplay from "$lib/assets/godotJam/gameplay.gif"
 
 <style>
     .b1t-main {
-        padding: 4px;
+        padding: 1rem 15vw;
+        background-color: #A4969B;
     }
 
     .b1t-header {

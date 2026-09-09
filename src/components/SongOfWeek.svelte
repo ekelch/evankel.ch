@@ -3,26 +3,26 @@
     import pauseBtn from "/src/lib/assets/icons/pause.png"
     import songFile from "/src/lib/assets/songOfWeek/song.mp3"
     import coverSrc from "/src/lib/assets/songOfWeek/cover.png"
-    import {createEventDispatcher} from "svelte";
 
-    let audioRef: HTMLAudioElement;
-    let volume: number = 0.1
-    let duration : number
-    let currentTime: number = 0
-    let paused: boolean = true
-    const dispatch = createEventDispatcher()
+    let audioRef: HTMLAudioElement|undefined = $state(undefined);
+    let volume: number = $state(0.1)
+    let duration : number = $state(0)
+    let currentTime: number = $state(0)
+    let paused: boolean = $state(true)
 
     const songName = "Can You Take Me To The Hospital?"
     const artistName = "Barn Scrap"
     const songLink = "https://www.youtube.com/watch?v=UTJTXzga340&list=RDUTJTXzga340&start_radio=1"
 
-    $: displayTime = `${currentTime / 60 | 0}:${(currentTime % 60 | 0).toString().padStart(2, '0')} / ${duration / 60 | 0}:${(duration % 60 | 0).toString().padStart(2, '0')}`
+    let displayTime = $derived(`${currentTime / 60 | 0}:${(currentTime % 60 | 0).toString().padStart(2, '0')} / ${duration / 60 | 0}:${(duration % 60 | 0).toString().padStart(2, '0')}`)
     function handleImgClick() {
         window.open(songLink, "_blank")
     }
     function playPause() {
-        audioRef.paused ? audioRef.play() : audioRef.pause()
-        paused = audioRef.paused
+        if (audioRef) {
+            audioRef.paused ? audioRef.play() : audioRef.pause()
+            paused = audioRef.paused
+        }
     }
 
     function handleSliderClick(e: any) {
@@ -34,16 +34,16 @@
 <div id="song-outer">
     <div class="song-inner">
         <div class="music-container">
-            <button class="album-cover" on:click={handleImgClick}>
+            <button class="album-cover" onclick={handleImgClick}>
                 <img src={coverSrc} alt="album cover"/>
             </button>
             <div class="right-contain">
                 <div class="info">
-                    <button on:click={handleImgClick} class="link-txt">{songName}</button>
+                    <button onclick={handleImgClick} class="link-txt">{songName}</button>
                     <span class="secondary-txt">{artistName}</span>
                 </div>
                 <div class="controls secondary-txt">
-                    <button class="play-btn" on:click={playPause}><img src={paused ? playBtn : pauseBtn} alt="play pause music"></button>
+                    <button class="play-btn" onclick={playPause}><img src={paused ? playBtn : pauseBtn} alt="play pause music"></button>
                     <div class="duration-slider-container">
                         <span>{displayTime}</span>
                         <input
@@ -53,7 +53,7 @@
                                 max={duration}
                                 step={0.01}
                                 bind:value={currentTime}
-                                on:click={handleSliderClick}
+                                onclick={handleSliderClick}
                         />
                     </div>
                 </div>
@@ -66,16 +66,15 @@
                     step={0.01}
                     bind:value={volume}
             />
-            <button on:click={() => dispatch('closeSong')} class="toggle-song-btn">&rarr;</button>
-
         </div>
     </div>
 </div>
 
-<audio src={songFile} bind:this={audioRef} bind:volume bind:duration bind:currentTime />
+<audio src={songFile} bind:this={audioRef} bind:volume bind:duration bind:currentTime></audio>
 
 <style lang="css">
     #song-outer {
+        flex: 1;
         display: flex;
         flex-direction: column;
         text-align: center;
@@ -90,8 +89,7 @@
     .music-container {
         width: 100%;
         border: 0;
-        height: 160px;
-        border-radius: 12px;
+        height: 100%;
         overflow: hidden;
         background: #333333;
         display: flex;
@@ -99,24 +97,21 @@
 
     .album-cover {
         padding: 0;
-        border: none;
-        min-width: 160px;
-        max-width: 160px;
+        width: 100px;
         cursor: pointer;
     }
 
     .album-cover > img {
         width: 100%;
         pointer-events: none;
-        object-fit: fill;
     }
 
     .right-contain {
         flex: 1;
         display: flex;
         flex-direction: column;
-        padding: 12px;
-        gap: 12px;
+        padding: 4px 8px;
+        gap: 2px;
     }
 
     span {
@@ -124,16 +119,15 @@
     }
 
     .info {
-        height: 40px;
         display: flex;
         flex-direction: column;
-        gap: 4px;
+        gap: 1px;
     }
 
     .link-txt {
         all: unset;
+        font-size: 12px;
         width: fit-content;
-
         color: #0f91ff;
         cursor: pointer;
     }
@@ -143,22 +137,23 @@
     }
 
     .secondary-txt {
+        font-size: 10px;
         color: rgb(170,170,170);
     }
 
     .controls {
         flex: 1;
         display: flex;
-        gap: 24px;
+        gap: 12px;
     }
 
     .play-btn {
-        width: 48px;
-        height: 48px;
+        width: 40px;
+        height: 40px;
         margin: auto 0;
         cursor: pointer;
-        padding: 12px;
-        clip-path: circle(20px);
+        padding: 10px;
+        clip-path: circle(14px);
         background: white;
     }
     .play-btn > img {

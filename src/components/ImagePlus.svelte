@@ -1,9 +1,19 @@
 <script lang="ts">
-    export let src: any;
-    export let alt: string;
-    export let title: string;
-    export let description: string | undefined = undefined;
-    export let minY: number = 300
+    interface Props {
+        src: any;
+        alt: string;
+        title: string;
+        description?: string | undefined;
+        minY?: number;
+    }
+
+    let {
+        src,
+        alt,
+        title,
+        description = undefined,
+        minY = 300
+    }: Props = $props();
 </script>
 
 <div class="img-plus-container">

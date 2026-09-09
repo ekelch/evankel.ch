@@ -1,105 +1,83 @@
 <script lang="ts">
-	import MainContent from '../components/MainContent.svelte';
 	import svelteImg from '/src/lib/assets/icons/svelte.png'
 	import resumeIcon from '/src/lib/assets/icons/resume.png'
 	import carplayIcon from '/src/lib/assets/icons/carplay.png'
 	import bunnyIcon from '/src/lib/assets/icons/bunny.gif'
 	import crosshairIcon from '/src/lib/assets/icons/crosshair.png'
-	import {AppOptionsEnum, type gridlayout} from '../types.ts/layouts.svelte';
-	import StartMenuItem from "../components/StartMenuItem.svelte";
-	import {type ComponentType} from "svelte";
-	import Cross from '../routes/cross/cross.svelte';
-	import Carplay from "../Portfolio/Carplay.svelte";
-	import Site from "../Portfolio/Site.svelte";
-	import Resume from "../Portfolio/Resume.svelte";
-	import B1tJam from "../components/B1tJam.svelte";
+	import {type icon} from "../types.ts/layouts.svelte";
+    import DesktopIcon from "../components/DesktopIcon.svelte";
+    import SongOfWeek from "../components/SongOfWeek.svelte";
+    import norway from "/src/lib/assets/images/norway.jpg"
 
-	$: appsShown = apps.filter(a => a.show)
-	const createApp = (displayName: string, desktopIconImg: any, modCode: AppOptionsEnum, content: ComponentType, x: number, y: number): gridlayout => {
-		return {
-			modCode: modCode,
-			displayName: displayName,
-			imgSrc: desktopIconImg,
-			iconX: x * 130 + 16,
-			iconY: y * 130 + 16,
-			x: 275,
-			y: 50,
-			w: 1000,
-			h: 750,
-			z: 0,
-			show: false,
-			content: content
-		}
-	}
+	let icons: icon[] = $state([
+		{displayName: "Resume", iconX: 25, iconY: 325, imgSrc: resumeIcon, route: "/resume"},
+		{displayName: "Carplay", iconX: 25, iconY: 450, imgSrc: carplayIcon, route: "/carplay"},
+		{displayName: "This Website", iconX: 150, iconY: 450, imgSrc: svelteImg, route: "/self"},
+		{displayName: "Godot Jam", iconX: 275, iconY: 450, imgSrc: bunnyIcon, route: "/b1tjam"},
+		{displayName: "CS2 Crosshair", iconX: 25, iconY: 575, imgSrc: crosshairIcon, route: "/crosshair"},
+	])
 
-	let apps: gridlayout[] = [
-		createApp("Resume", resumeIcon, AppOptionsEnum.resume, Resume, 0, 0),
-		createApp("Carplay", carplayIcon, AppOptionsEnum.carplay, Carplay, 0, 1),
-		createApp("evankel.ch", svelteImg, AppOptionsEnum.svelte, Site, 0, 2),
-		createApp("Godot Jam", bunnyIcon, AppOptionsEnum.b1tJam, B1tJam, 0, 3),
-		createApp("Crosshair", crosshairIcon, AppOptionsEnum.cross, Cross, 0, 4),
-		createApp("Testing123", crosshairIcon, AppOptionsEnum.cross, Cross, 1, 0),
-	];
+    let showSong: boolean = $state(true)
+    let coords = $state({x: 0, y: 0})
+    let winW = $state(1920)
+    let winH = $state(1080)
+    let objPos = $derived(`${coords.x/winW * 100 - 100}px ${coords.y/winH * 50 - 100}px`) //todo need to clean this up
 
-	const focusWindow = (e: CustomEvent) => {
-		const focusMod = e.detail.modCode;
-		apps = apps.map(a => updateAppZ(a, focusMod));
-	};
-
-	function updateAppZ(a: gridlayout, top: number) {
-		if (a.show)
-			return { ...a, z: a.modCode === top ? appsShown.length : a.z >= appsShown.length ? a.z - 1 : a.z }
-		return a;
-	}
-
+    function handleMouseMove(event: any) {
+        coords.x = event.clientX
+        coords.y = event.clientY
+    }
+    function toggleShowSong() {
+        showSong = !showSong
+    }
 </script>
 
+<svelte:window onmousemove={handleMouseMove} bind:innerWidth={winW} bind:innerHeight={winH} />
+
 <div id="app">
-	<div id="app-content">
-		<MainContent bind:apps on:focusWindow={focusWindow}/>
-	</div>
-	<nav id="navbar">
-		<div id="nav-items">
-			{#each appsShown as app}
-				<StartMenuItem {app} on:click={() => focusWindow({detail: app})} />
-			{/each}
-		</div>
-	</nav>
+    <div class="bg-img-cnt">
+        <img src={norway} alt="norway bg" class="bg-img" style:object-position={objPos} />
+    </div>
+    {#each icons as icon}
+        <DesktopIcon app={icon} />
+    {/each}
+
+    <div class="song-container-main">
+        {#if showSong}
+            <SongOfWeek on:closeSong={toggleShowSong} />
+        {/if}
+        <button onclick={toggleShowSong} class="toggle-song-btn">{#if showSong}&rarr;{:else}&larr;{/if}</button>
+    </div>
 </div>
 
 <style lang="postcss">
-	:global(html) {
-		font-family: Verdana, Geneva, Tahoma, sans-serif;
-		overflow: hidden;
-	}
-	:global(body) {
-		margin: 0;
-	}
-
 	#app {
-		display: flex;
-		flex-direction: column;
-		height: 100vh;
+        position: absolute;
+        inset: 0;
 	}
 
-	#app-content {
-		flex: 1;
-	}
+    .bg-img-cnt {
+        width: 100vw;
+        height: 100vh;
+        overflow: hidden;
+    }
 
-	#navbar {
-		height: 44px;
-		width: 100%;
-		display: flex;
-		z-index: 5;
-	}
+    .bg-img {
+        object-fit: cover;
+        width: 100%;
+        height: 100%;
+        transform: scale(1.3);
+    }
 
-	#nav-items {
-		flex: 1;
-		display: flex;
-		gap: 6px;
-		background-color: rgb(44,44,44);
-		border-top: 1px solid rgb(77,77,77);
-		overflow-x: scroll;
-		scrollbar-width: none;
-	}
+    .song-container-main {
+        display: flex;
+        position: absolute;
+        right: 4px;
+        top: 6px;
+        width: 440px;
+        height: 100px;
+    }
+    .toggle-song-btn {
+        margin-left: auto;
+    }
 </style>

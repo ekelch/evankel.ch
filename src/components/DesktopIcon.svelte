@@ -1,17 +1,25 @@
 <script lang="ts">
-	import { type gridlayout } from '../types.ts/layouts.svelte';
+	import { type icon } from '../types.ts/layouts.svelte';
 	import {abs} from "mathjs";
-	import {createEventDispatcher} from "svelte";
+	import {goto} from "$app/navigation";
 
-	const dispatch = createEventDispatcher();
-	export let app: gridlayout;
-	let dragging: boolean;
+	interface Props {
+		app: icon;
+	}
+
+	let { app = $bindable() }: Props = $props();
+	let dragging: boolean = $state(false);
 	let dragStartPos: {x:number,y:number} = {x: 0, y: 0}
 
 	const handleDragStart = (e: MouseEvent) => {
+		e.preventDefault()
 		dragging = true;
 		dragStartPos = {x: e.clientX, y: e.clientY}
 	};
+
+	function openApp() {
+		goto(app.route)
+	}
 
 	const handleDragEnd = () => {
 		dragging = false;
@@ -26,7 +34,7 @@
 
 	const handleMouseUp = (e: MouseEvent) => {
 		if (abs(dragStartPos.x - e.clientX) < 5 && abs(dragStartPos.y - e.clientY) < 5) {
-			dispatch('openApp', app);
+			openApp();
 		}
 	}
 </script>
@@ -35,15 +43,15 @@
 	style="left: {app.iconX}px; top: {app.iconY}px;"
 	class="icon-wrapper"
 	class:dragging
-	on:mousedown|preventDefault={handleDragStart}
-	on:click={handleMouseUp}
-	on:dblclick={handleMouseUp}
+	onmousedown={handleDragStart}
+	onclick={handleMouseUp}
+	ondblclick={handleMouseUp}
 >
 	<img src={app.imgSrc} alt={app.displayName} />
 	<span>{app.displayName}</span>
 </button>
 
-<svelte:window on:mouseup={handleDragEnd} on:mousemove={handleMouseMove} />
+<svelte:window onmouseup={handleDragEnd} onmousemove={handleMouseMove} />
 
 <style>
 	.icon-wrapper {

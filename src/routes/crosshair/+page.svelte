@@ -1,17 +1,14 @@
 <script lang="ts">
-	import {type gridlayout, type crosshair, type crosshair_values} from '../../types.ts/layouts.svelte';
+	import { type crosshair, type crosshair_values} from '../../types.ts/layouts.svelte';
 	import CrossSlider from './crossSlider.svelte';
 	import {crosshair_default, crosshair_preset_1, crosshair_preset_2, crosshair_preset_3} from "./defaultCrosshairs";
 
-	const defaultCrosshair: crosshair = crosshair_default;
-
-	let viewmodel: HTMLDivElement;
-	let c: crosshair = defaultCrosshair;
-	let posX: number = 0;
-	let posY: number = 0;
-	let locked: boolean;
-	let copied: boolean;
-	export let app: gridlayout;
+	let c: crosshair = $state(crosshair_default);
+	let posX: number = $state(0);
+	let posY: number = $state(0);
+	let locked: boolean = $state(false);
+	let copied: boolean = $state(false);
+	let viewmodel = $state();
 
 	const setCrosshairValues = (target: crosshair_values) => {
 		c.style = target.style
@@ -29,12 +26,8 @@
 
 	const mouseMove = (e: MouseEvent) => {
 		if (!locked) {
-			if (e.clientX - app.x > 0 && e.clientX - app.x < viewmodel.clientWidth) {
-				posX = e.clientX - app.x;
-			}
-			if (e.clientY - app.y > 0 && e.clientY - app.y < viewmodel.clientHeight) {
-				posY = e.clientY - app.y;
-			}
+			posX = e.clientX;
+			posY = e.clientY;
 		}
 	};
 
@@ -73,12 +66,12 @@
 
 	const SCALE_FACTOR = 2;
 	const GAP_OFFSET = 4;
-	$: border = (c.outline.value / 1) | 0;
-	$: scaledLength = SCALE_FACTOR * (c.length.value + border);
-	$: scaledThickness = SCALE_FACTOR * (c.thickness.value + border);
-	$: translate = scaledLength + scaledThickness + c.gap.value + GAP_OFFSET
+	let border = $derived((c.outline.value / 1) | 0);
+	let scaledLength = $derived(SCALE_FACTOR * (c.length.value + border));
+	let scaledThickness = $derived(SCALE_FACTOR * (c.thickness.value + border));
+	let translate = $derived(scaledLength + scaledThickness + c.gap.value + GAP_OFFSET)
 
-	$: output = `cl_crosshairsize ${c.length.value};
+	let output = $derived(`cl_crosshairsize ${c.length.value};
 cl_crosshairthickness ${c.thickness.value};
 cl_crosshairgap ${c.gap.value + GAP_OFFSET};
 cl_crosshair_drawoutline ${c.outline.value ? 1 : 0};
@@ -90,21 +83,22 @@ cl_crosshaircolor_b ${c.b.value};
 cl_crosshairalpha ${c.alpha.value};
 cl_crosshair_recoil false;
 cl_crosshairstyle 4;
-`;
+`);
 </script>
 
 <div id="cross-container">
 	<div id="left">
+		<!-- svelte-ignore a11y_click_events_have_key_events -->
 		<div
-			id="view"
-			on:mousemove={mouseMove}
-			on:mousedown={toggleLock}
-			bind:this={viewmodel}
-			style="cursor: {locked ? 'pointer' : 'none'};"
+				id="view"
+				onmousemove={mouseMove}
+				onmousedown={toggleLock}
+				bind:this={viewmodel}
+				style="cursor: {locked ? 'pointer' : 'none'};"
 		>
 			<div
-				id="c-top"
-				style="
+					id="c-top"
+					style="
 				background-color: rgba({c.r.value}, {c.g.value}, {c.b.value}, {c.alpha.value / c.alpha.max});
 
 				height: {scaledLength}px;
@@ -117,10 +111,10 @@ cl_crosshairstyle 4;
 
 				transform: translateY({-translate}px);
 				"
-			/>
+			></div>
 			<div
-				id="c-bottom"
-				style="
+					id="c-bottom"
+					style="
 				background-color: rgba({c.r.value}, {c.g.value}, {c.b.value}, {c.alpha.value / c.alpha.max});
 
 				height: {scaledLength}px;
@@ -133,10 +127,10 @@ cl_crosshairstyle 4;
 
 				transform: translateY({translate}px);
 				"
-			/>
+			></div>
 			<div
-				id="c-left"
-				style="
+					id="c-left"
+					style="
 				background-color: rgba({c.r.value}, {c.g.value}, {c.b.value}, {c.alpha.value / c.alpha.max});
 
 				height: {scaledLength}px;
@@ -149,10 +143,10 @@ cl_crosshairstyle 4;
 
 				transform: translateX({-translate}px) rotate(-90deg);
 				"
-			/>
+			></div>
 			<div
-				id="c-right"
-				style="
+					id="c-right"
+					style="
 				background-color: rgba({c.r.value}, {c.g.value}, {c.b.value}, {c.alpha.value / c.alpha.max});
 
 				height: {scaledLength}px;
@@ -165,11 +159,11 @@ cl_crosshairstyle 4;
 
 				transform: translateX({translate}px) rotate(90deg);
 				"
-			/>
+			></div>
 			{#if c.dot}
 				<div
-					id="c-dot"
-					style="
+						id="c-dot"
+						style="
 					background-color: rgba({c.r.value}, {c.g.value}, {c.b.value}, {c.alpha.value / c.alpha.max});
 
 					height: {scaledThickness}px;
@@ -182,19 +176,19 @@ cl_crosshairstyle 4;
                     transform: translateY({c.length.value - c.thickness.value}px);
 
     				"
-				/>
+				></div>
 			{/if}
 		</div>
 		<textarea readonly id="output">{output}</textarea>
-		<button id="copy-btn" on:click={copyOutputToClipboard}
-			>{copied ? 'copied!' : 'copy text'}</button
+		<button id="copy-btn" onclick={copyOutputToClipboard}
+		>{copied ? 'copied!' : 'copy text'}</button
 		>
 	</div>
 	<div id="settings">
 		<div id="cross-presets">
-			<button class="cross-preset" on:click={() => setCrosshairValues(crosshair_preset_1)}>default 1</button>
-			<button class="cross-preset" on:click={() => setCrosshairValues(crosshair_preset_2)}>default 2</button>
-			<button class="cross-preset" on:click={() => setCrosshairValues(crosshair_preset_3)}>default 3</button>
+			<button class="cross-preset" onclick={() => setCrosshairValues(crosshair_preset_1)}>default 1</button>
+			<button class="cross-preset" onclick={() => setCrosshairValues(crosshair_preset_2)}>default 2</button>
+			<button class="cross-preset" onclick={() => setCrosshairValues(crosshair_preset_3)}>default 3</button>
 		</div>
 		<CrossSlider label="length" bind:e={c.length} />
 		<CrossSlider label="thickness" bind:e={c.thickness} />
@@ -202,10 +196,10 @@ cl_crosshairstyle 4;
 		<CrossSlider label="outline" bind:e={c.outline} />
 		<div id="default-colors">
 			<span>default colors:</span>
-			<button style="background-color: lime;" on:click={() => setColor(1)} />
-			<button style="background-color: yellow;" on:click={() => setColor(2)} />
-			<button style="background-color: blue;" on:click={() => setColor(3)} />
-			<button style="background-color: cyan;" on:click={() => setColor(4)} />
+			<button title="set color lime" style="background-color: lime;" onclick={() => setColor(1)}></button>
+			<button title="set color yellow" style="background-color: yellow;" onclick={() => setColor(2)}></button>
+			<button title="set color blue" style="background-color: blue;" onclick={() => setColor(3)}></button>
+			<button title="set color cyan" style="background-color: cyan;" onclick={() => setColor(4)}></button>
 			<span>dot:</span>
 			<input type="checkbox" bind:checked={c.dot} />
 		</div>
