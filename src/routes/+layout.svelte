@@ -24,6 +24,8 @@
         "/crosshair",
         "/resume",
         "/self",
+        "/sites/bradley",
+        "/sites/fiona",
     ]
 
     function gotoRandom() {
