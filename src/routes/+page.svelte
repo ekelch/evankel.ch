@@ -10,6 +10,7 @@
     import norway from "/src/lib/assets/images/norway.jpg"
     import br from "/src/lib/assets/icons/b.png"
     import fi from "/src/lib/assets/icons/f.jpg"
+    import webIcon from "/src/lib/assets/icons/web.png"
 
 	let icons: icon[] = $state([
 		{displayName: "Resume", iconX: 25, iconY: 325, imgSrc: resumeIcon, route: "/resume"},
@@ -17,8 +18,9 @@
 		{displayName: "This Website", iconX: 150, iconY: 450, imgSrc: svelteImg, route: "/self"},
 		{displayName: "Godot Jam", iconX: 275, iconY: 450, imgSrc: bunnyIcon, route: "/b1tjam"},
 		{displayName: "CS2 Crosshair", iconX: 25, iconY: 575, imgSrc: crosshairIcon, route: "/crosshair"},
-		{displayName: "bradley", iconX: 525, iconY: 450, imgSrc: br, route: "/sites/bradley"},
-		{displayName: "fiona", iconX: 525, iconY: 575, imgSrc: fi, route: "/sites/fiona"},
+		{displayName: "sites", iconX: 650, iconY: 450, imgSrc: webIcon, route: "/sites"},
+		{displayName: "bradley", iconX: 600, iconY: 575, imgSrc: br, route: "/sites/bradley"},
+		{displayName: "fiona", iconX: 700, iconY: 575, imgSrc: fi, route: "/sites/fiona"},
 	])
 
     let showSong: boolean = $state(true)
