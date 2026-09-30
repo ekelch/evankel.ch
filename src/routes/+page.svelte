@@ -13,14 +13,15 @@
     import webIcon from "/src/lib/assets/icons/web.png"
 
 	let icons: icon[] = $state([
-		{displayName: "Resume", iconX: 25, iconY: 325, imgSrc: resumeIcon, route: "/resume"},
+		{displayName: "About Me", iconX: 25, iconY: 325, imgSrc: resumeIcon, route: "/about"},
+		{displayName: "Resume", iconX: 150, iconY: 325, imgSrc: resumeIcon, route: "/resume"},
 		{displayName: "Carplay", iconX: 25, iconY: 450, imgSrc: carplayIcon, route: "/carplay"},
-		{displayName: "This Website", iconX: 150, iconY: 450, imgSrc: svelteImg, route: "/self"},
 		{displayName: "Godot Jam", iconX: 275, iconY: 450, imgSrc: bunnyIcon, route: "/b1tjam"},
 		{displayName: "CS2 Crosshair", iconX: 25, iconY: 575, imgSrc: crosshairIcon, route: "/crosshair"},
-		{displayName: "sites", iconX: 650, iconY: 450, imgSrc: webIcon, route: "/sites"},
-		{displayName: "bradley", iconX: 600, iconY: 575, imgSrc: br, route: "/sites/bradley"},
-		{displayName: "fiona", iconX: 700, iconY: 575, imgSrc: fi, route: "/sites/fiona"},
+        {displayName: "This Website", iconX: 650, iconY: 450, imgSrc: svelteImg, route: "/self"},
+		// {displayName: "sites", iconX: 650, iconY: 450, imgSrc: webIcon, route: "/sites"},
+		{displayName: "bradley's website", iconX: 600, iconY: 575, imgSrc: br, route: "/sites/bradley"},
+		{displayName: "fiona's website", iconX: 700, iconY: 575, imgSrc: fi, route: "/sites/fiona"},
 	])
 
     let showSong: boolean = $state(true)
