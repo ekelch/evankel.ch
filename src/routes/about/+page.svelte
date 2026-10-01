@@ -13,14 +13,17 @@
         to dedicate my life to making missiles for the department of defense. I still liked space and science,
         so I transferred to Planetary Science. I spent a lot less time with aerodynamics and differential equations,
         and more time rock climbing and writing papers about outer planets and moons like
-        <a href="/src/lib/assets/pdfs/methane.pdf" target="_blank" class="link">Titan.</a>
+        <a href="src/lib/assets/pdfs/methane.pdf" target="_blank" class="link">Titan.</a>
         </p>
         <p>
             I took one semester off school in fall 2021 to live and work at Miguel's Pizza in the Red River Gorge, KY.
-            I didn't have money for tuition, and living in a big climbing destination in my Subaru Forester was a lot more
-            appealing than staying in Ohio or Indiana. I worked 8 hours every morning and climbed as much as my body let me.
-            I spent my downtime watching Jeopardy and anime with my coworkers and studying ionizing radiation online (there's an entire MIT lecture
-            set on youtube for free). I went back to school and was set to graduate in spring of 2022.
+            I didn't have money for tuition, and living in a climbing area in my Subaru Forester was a lot more
+            appealing than staying in Ohio or Indiana. I worked every morning and climbed as every evening.
+            I spent my downtime watching Jeopardy with my coworkers and studying nuclear physics online (there's an entire MIT lecture
+            set on youtube for free).
+        </p>
+        <p>
+            I went back to school and was set to graduate in spring of 2022.
             While arguably more interesting and certainly less unethical, the career paths in Planetary are essentially NASA
             and academia, both requiring a graduate degree and finishing school around the age of 30. I was not particularly
             interested in this, so had to once again pivot after graduation.
@@ -29,19 +32,24 @@
     <div class="indent">
         <h3>2022 - 2025 JP Morgan</h3>
         <p>After getting my degree, I spent some time
-        living in my car and rock climbing again. This time was in Lander, Wyoming for about a month. I was unemployed and running out of money, so one morning decided
-        to learn software engineering so I could get a decent job. I studied for
-        10 hours per day at the Lander Public Library and some coffee shops and applied to work with a contractor. They trained me for a few
-        months and by the end of the year I was on a 2 year contract at Chase in Columbus, OH. They bought me out of the
-        contract by the following October and I stayed there for 2 years. Wanting to get out of Ohio once again, I applied to
-        transfer to teams in Chicago and New York. I got an offer from the the Chicago office and moved in July 2025.
+        living in my car and rock climbing again. This time was in Lander, WY for about a month.
+        I was unemployed and running out of money, so one morning decided
+        to learn software engineering to work toward something. I studied for
+        all day at libraries and coffee shops and applied to work with a contractor. They hired me and trained me for a few
+        months and by the end of the year I was on a 2 year contract at Chase in Columbus, OH.
+        </p>
+        <p>
+        They bought me out of the
+        contract by the following October and I stayed there for 2 years. Wanting to get out of Ohio once again,
+        I transferred to another team in the Chicago office in July 2025.
         This ended up not being a great fit and I quit by November. I spent half a year unemployed until a friend
         invited me to work with them at a music venue.
         </p>
     </div>
     <div class="indent">
         <h3>Current</h3>
-        <p>Since May 2026 I've been working at the Salt Shed in Chicago.
+        <p>Since May 2026 I've been working at the Salt Shed in Chicago. Taking a long break from corporate
+        and making friends in the city has been a good experience.
         </p>
     </div>
 
@@ -49,10 +57,10 @@
 
 <style>
     #about-container {
-        padding: 1rem;
+        padding: 1rem 30vw 1rem 1rem;
         color: hsl(0 0% 85%);
-        font-family: "Palatino", serif;
-        background-color: hsl(333 5% 25%);
+        font-family: "Nadeem", serif;
+        background-color: hsl(100 5% 33%);
         min-height: calc(100vh - 37px - 2rem);
     }
     .header {
@@ -73,7 +81,7 @@
         font-size: 24px;
     }
     p {
-        font-size: 16px;
+        font-size: 17px;
     }
     .link {
         color: hsl(180 50% 60%);

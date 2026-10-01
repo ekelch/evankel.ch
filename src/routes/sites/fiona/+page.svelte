@@ -6,8 +6,11 @@
     <div id="fiona-center">
         <h2>Fiona's website</h2>
 
+        <p>There is no content on this site yet!</p>
+        <p>Check back later :)</p>
+
         <div class="img-container">
-            <p>click preview below to enter site!</p>
+            <p>click preview below to enter site:</p>
             <button onclick={() => open("https://fi.evankel.ch/")} class="img-btn">
                 <img  src={brPrev} alt="preview of fiona website" />
             </button>
