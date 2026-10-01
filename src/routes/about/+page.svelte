@@ -13,7 +13,7 @@
         to dedicate my life to making missiles for the department of defense. I still liked space and science,
         so I transferred to Planetary Science. I spent a lot less time with aerodynamics and differential equations,
         and more time rock climbing and writing papers about outer planets and moons like
-        <a href="src/lib/assets/pdfs/methane.pdf" target="_blank" class="link">Titan.</a>
+        <a href="/pdfs/methane.pdf" target="_blank" class="link">Titan.</a>
         </p>
         <p>
             I took one semester off school in fall 2021 to live and work at Miguel's Pizza in the Red River Gorge, KY.
