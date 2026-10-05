@@ -1,8 +1,6 @@
 <div id="site-page-container">
     <h3>2. evankel.ch (Svelte/TS) <a target="_blank" href="https://github.com/ekelch/evankel.ch">(github/ekelch)</a> </h3>
 
-    <p>This website is being made for some fun & creativity. So far it is neither fun nor creative but I have ambitions.</p>
-
     <h3>Svelte</h3>
     <p>I am developing this website with the js/ts framework Svelte. I have used Angular and React at work, so wanted to try something
     new. So far, I really enjoy it and have not faced any issues with it. As with any framework, there is somewhat of a learning curve
