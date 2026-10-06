@@ -3,9 +3,8 @@
 	export type icon = {
         displayName: string;
         imgSrc: string;
-        iconX: number;
-        iconY: number;
         route: string;
+        menu: 'about' | 'tech' | 'art' | 'other'
 	};
 
 	export type SliderRange = {

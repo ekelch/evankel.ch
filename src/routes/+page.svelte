@@ -5,28 +5,57 @@
 	import bunnyIcon from '/src/lib/assets/icons/bunny.gif'
 	import crosshairIcon from '/src/lib/assets/icons/crosshair.png'
 	import {type icon} from "../types.ts/layouts.svelte";
-    import SongOfWeek from "../components/SongOfWeek.svelte";
     import bgMovie from "/src/lib/assets/images/norge480.mp4"
     import br from "/src/lib/assets/icons/b.png"
     import fi from "/src/lib/assets/icons/f.jpg"
-    import HomeListIcon from "../components/HomeListIcon.svelte";
+    import {onMount} from "svelte";
+    import HomeListButton from "../components/HomeListButton.svelte";
+    import HomeListExpanded from "../components/HomeListExpanded.svelte";
+
 
 	let icons: icon[] = $state([
-		{displayName: "about", iconX: 25, iconY: 325, imgSrc: resumeIcon, route: "/about"},
-		{displayName: "resume", iconX: 150, iconY: 325, imgSrc: resumeIcon, route: "/resume"},
-		{displayName: "carplay", iconX: 25, iconY: 450, imgSrc: carplayIcon, route: "/carplay"},
-		{displayName: "godot jam", iconX: 275, iconY: 450, imgSrc: bunnyIcon, route: "/b1tjam"},
-		{displayName: "crosshair", iconX: 25, iconY: 575, imgSrc: crosshairIcon, route: "/crosshair"},
-        {displayName: "this website", iconX: 650, iconY: 450, imgSrc: svelteImg, route: "/self"},
-		{displayName: "bradley", iconX: 600, iconY: 575, imgSrc: br, route: "/sites/bradley"},
-		{displayName: "fiona", iconX: 700, iconY: 575, imgSrc: fi, route: "/sites/fiona"},
+		{displayName: "about", imgSrc: resumeIcon, route: "/about", menu: "about"},
+		{displayName: "resume", imgSrc: resumeIcon, route: "/resume", menu: "about"},
+		{displayName: "carplay", imgSrc: carplayIcon, route: "/carplay", menu: "tech"},
+		{displayName: "godot jam", imgSrc: bunnyIcon, route: "/b1tjam", menu: "tech"},
+		{displayName: "crosshair", imgSrc: crosshairIcon, route: "/crosshair", menu: "tech"},
+        {displayName: "this website", imgSrc: svelteImg, route: "/self", menu: "tech"},
+		{displayName: "bradley", imgSrc: br, route: "/sites/bradley", menu: "tech"},
+		{displayName: "fiona", imgSrc: fi, route: "/sites/fiona", menu: "tech"},
+		{displayName: "inspiration", imgSrc: fi, route: "/inspiration", menu: "other"},
 	])
 
-    let showSong: boolean = $state(true)
+    const shadowLength: number = .1;
+    const shadowStrength: number = 8000;
+    let textComponent: any = $state()
+    let openedMenu: string = $state('')
+    let textWidth: number = $state(0)
+    let textHeight: number = $state(0)
+    let mouseCoords: {x: number, y: number} = $state({x: 0, y: 0})
+    let textCoords: {x: number, y: number} = $state({x: 0, y: 0})
+    let displacement: {x: number, y: number} = $state({x: 0, y: 0})
+    let textShadow = $derived(`${displacement.x * shadowLength}px ${displacement.y * shadowLength}px ${(displacement.x * displacement.x + displacement.y + displacement.y) / shadowStrength}px hsl(290 20% 10%)`)
 
-    function toggleShowSong() {
-        showSong = !showSong
+    onMount(() => {
+        if (textComponent) {
+            const rect = textComponent.getBoundingClientRect();
+            textCoords = {x: rect.left + textWidth / 2, y: rect.top + textHeight / 2}
+        }
+    })
+
+    function handleMouseMove(e: MouseEvent) {
+        mouseCoords = {x: e.clientX, y: e.clientY}
+        displacement = {x: textCoords.x - mouseCoords.x, y: textCoords.y - mouseCoords.y}
     }
+
+    function handleMenuItemClicked(item: 'about' | 'tech' | 'art' | 'other') {
+        if (openedMenu === item) {
+            openedMenu = ''
+        } else {
+            openedMenu = item
+        }
+    }
+
 </script>
 
 <div id="app">
@@ -38,22 +67,30 @@
 
     <div class="wide-box">
         <div class="app-icons">
-            {#each icons as icon}
-                <HomeListIcon item={icon}/>
-            {/each}
+            <div class="icons-inner">
+                <HomeListButton txt="About" expanded={openedMenu === 'about'} clicked={() => handleMenuItemClicked('about')} />
+                <HomeListButton txt="Tech Projects" expanded={openedMenu === 'tech'} clicked={() => handleMenuItemClicked('tech')} />
+                <HomeListButton txt="Art Projects" expanded={openedMenu === 'art'} clicked={() => handleMenuItemClicked('art')} />
+                <HomeListButton txt="More" expanded={openedMenu === 'other'} clicked={() => handleMenuItemClicked('other')} />
+            </div>
+        </div>
+        <div class="expanded-icons">
+            {#if openedMenu}
+                <HomeListExpanded apps={icons.filter(i => i.menu === openedMenu)} />
+            {/if}
         </div>
         <div class="name-banner">
-            <h1 class="name-banner-txt">evankel.ch</h1>
+            <h1 class="name-banner-txt"
+                style:text-shadow={textShadow}
+                bind:this={textComponent}
+                bind:clientWidth={textWidth}
+                bind:clientHeight={textHeight}
+            >evankel.ch</h1>
         </div>
     </div>
-
-<!--    <div class="song-container-main">-->
-<!--        {#if showSong}-->
-<!--            <SongOfWeek on:closeSong={toggleShowSong} />-->
-<!--        {/if}-->
-<!--        <button onclick={toggleShowSong} class="toggle-song-btn">{#if showSong}&rarr;{:else}&larr;{/if}</button>-->
-<!--    </div>-->
 </div>
+
+<svelte:window on:mousemove={handleMouseMove} />
 
 <style lang="postcss">
 	#app {
@@ -80,27 +117,35 @@
         position: absolute;
         top: 120px;
         width: 100vw;
-        height: 204px;
-        background-color: hsl(150 6% 40%/96%);
+        height: 260px;
+        background-image: linear-gradient(to right, hsl(30 6% 40%/97%), hsl(220 20% 40%/80%), hsl(330 6% 40%/97%) 70%);
         padding: 20px 0;
-
         display: flex;
         flex-direction: row;
     }
 
     .app-icons {
         display: flex;
-        flex-direction: column;
-        flex-wrap: wrap;
-        align-content: flex-start;
-        gap: 12px 24px;
         flex: 1;
-        margin: auto auto auto 24px;
-        height: 100%;
+        margin: 0 0 0 120px;
+        max-width: 360px;
+    }
+
+    .icons-inner {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        flex: 1;
+        margin: auto 12px;
+    }
+
+    .expanded-icons {
+        flex: 1;
     }
 
     .name-banner {
         margin-right: 36px;
+        flex: 3;
         display: flex;
     }
 
@@ -108,9 +153,9 @@
         margin: auto;
         text-align: center;
         font-size: 108px;
-        font-family: "JetBrains Mono", monospace;
-        color: hsl(290 15% 77%);
-        text-shadow: 4px 4px 2px hsl(290 20% 10%);
+        font-family: "ui-monospace", monospace;
+        color: hsl(290 20% 85%);
+        user-select: none;
     }
 
     .song-container-main {
