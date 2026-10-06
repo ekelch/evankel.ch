@@ -33,5 +33,6 @@
 
     .item-txt {
         margin: auto;
+        font-family: monospace;
     }
 </style>

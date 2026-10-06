@@ -6,10 +6,10 @@
     <div id="bradley-center">
         <h2>Bradley's website</h2>
 
-        <p>I am making this website for my friend Bradley. He's in art school at Depaul and this is his portfolio
-        site to show his work. The two main sections are for music production and for art projects like sculptures.
-        The music page hosts a music player meant to show music he creates. The art page will have a gallery of images
-        and descriptions of work. Both are still a work in progress.
+        <p>I am making this website for Bradley. There will be pages for music production and for art projects like
+        sculptures and screen printing.
+        The music page will have a music player and maybe some information about how tracks were created or worked on.
+        The art page will have a gallery of images and descriptions of work. Both are pretty far from done.
         </p>
 
         <div class="img-container">

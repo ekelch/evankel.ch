@@ -12,14 +12,14 @@
     import HomeListIcon from "../components/HomeListIcon.svelte";
 
 	let icons: icon[] = $state([
-		{displayName: "About Me", iconX: 25, iconY: 325, imgSrc: resumeIcon, route: "/about"},
-		{displayName: "Resume", iconX: 150, iconY: 325, imgSrc: resumeIcon, route: "/resume"},
-		{displayName: "Carplay", iconX: 25, iconY: 450, imgSrc: carplayIcon, route: "/carplay"},
-		{displayName: "Godot Jam", iconX: 275, iconY: 450, imgSrc: bunnyIcon, route: "/b1tjam"},
-		{displayName: "CS2 Crosshair", iconX: 25, iconY: 575, imgSrc: crosshairIcon, route: "/crosshair"},
-        {displayName: "This Website", iconX: 650, iconY: 450, imgSrc: svelteImg, route: "/self"},
-		{displayName: "bradley's website", iconX: 600, iconY: 575, imgSrc: br, route: "/sites/bradley"},
-		{displayName: "fiona's website", iconX: 700, iconY: 575, imgSrc: fi, route: "/sites/fiona"},
+		{displayName: "about", iconX: 25, iconY: 325, imgSrc: resumeIcon, route: "/about"},
+		{displayName: "resume", iconX: 150, iconY: 325, imgSrc: resumeIcon, route: "/resume"},
+		{displayName: "carplay", iconX: 25, iconY: 450, imgSrc: carplayIcon, route: "/carplay"},
+		{displayName: "godot jam", iconX: 275, iconY: 450, imgSrc: bunnyIcon, route: "/b1tjam"},
+		{displayName: "crosshair", iconX: 25, iconY: 575, imgSrc: crosshairIcon, route: "/crosshair"},
+        {displayName: "this website", iconX: 650, iconY: 450, imgSrc: svelteImg, route: "/self"},
+		{displayName: "bradley", iconX: 600, iconY: 575, imgSrc: br, route: "/sites/bradley"},
+		{displayName: "fiona", iconX: 700, iconY: 575, imgSrc: fi, route: "/sites/fiona"},
 	])
 
     let showSong: boolean = $state(true)
@@ -34,13 +34,17 @@
         <video autoplay loop muted playsinline class="bg-video">
             <source src={bgMovie} type="video/mp4" />
         </video>
-<!--        <img src={bgMovie} alt="norway bg" class="bg-img" style:object-position={objPos} />-->
     </div>
 
     <div class="wide-box">
-        {#each icons as icon}
-            <HomeListIcon item={icon}/>
-        {/each}
+        <div class="app-icons">
+            {#each icons as icon}
+                <HomeListIcon item={icon}/>
+            {/each}
+        </div>
+        <div class="name-banner">
+            <h1 class="name-banner-txt">evankel.ch</h1>
+        </div>
     </div>
 
 <!--    <div class="song-container-main">-->
@@ -55,11 +59,13 @@
 	#app {
         position: absolute;
         inset: 0;
+        overflow-x: hidden;
 	}
 
     .bg-img-cnt {
         position: relative;
-        width: 100vw;
+        width: 104vw;
+        margin: 0 -28px;
         height: 100vh;
         overflow: hidden;
     }
@@ -75,14 +81,36 @@
         top: 120px;
         width: 100vw;
         height: 204px;
-        background-color: hsl(200 20% 55%/90%);
-        padding: 20px 16px;
+        background-color: hsl(150 6% 40%/96%);
+        padding: 20px 0;
 
+        display: flex;
+        flex-direction: row;
+    }
+
+    .app-icons {
         display: flex;
         flex-direction: column;
         flex-wrap: wrap;
         align-content: flex-start;
-        gap: 12px 48px;
+        gap: 12px 24px;
+        flex: 1;
+        margin: auto auto auto 24px;
+        height: 100%;
+    }
+
+    .name-banner {
+        margin-right: 36px;
+        display: flex;
+    }
+
+    .name-banner-txt {
+        margin: auto;
+        text-align: center;
+        font-size: 108px;
+        font-family: "JetBrains Mono", monospace;
+        color: hsl(290 15% 77%);
+        text-shadow: 4px 4px 2px hsl(290 20% 10%);
     }
 
     .song-container-main {
