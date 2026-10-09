@@ -16,21 +16,6 @@
             window.location.href = "/"
         goto(paths.slice(0, pathIndex + 1).join('/'))
     }
-
-    const routes = [
-        "/about",
-        "/b1tjam",
-        "/carplay",
-        "/crosshair",
-        "/resume",
-        "/self",
-        "/sites/bradley",
-        "/sites/fiona",
-    ]
-
-    function gotoRandom() {
-        goto(routes[Math.random() * routes.length | 0])
-    }
 </script>
 
 <svelte:head>
@@ -43,11 +28,9 @@
     <div class="nav-header">
         <div class="nav-paths">
             {#each paths as path, i}
-                <span class="path" onclick={() => handlePathClick(i)}>{i ? path : 'home'}</span>
+                <button class="path" onclick={() => handlePathClick(i)}>{i ? path : 'home'}</button>
             {/each}
         </div>
-
-        <button class="nav-rnd-btn" onclick={gotoRandom}>random page</button>
     </div>
 {/if}
 
@@ -75,13 +58,11 @@
         gap: 1px;
     }
 
-    .nav-rnd-btn {
-        height: 31px;
-    }
-
     .path {
+        all: unset;
+        color: hsl(200 50% 80%);
         font-weight: normal;
-        text-shadow: 2px 2px 2px black;
+        text-shadow: 1px 1px 1px black;
         font-size: 22px;
         user-select: none;
     }
@@ -96,7 +77,11 @@
     }
 
     .path:after {
-        content: "/"
+        content: "/";
+    }
+
+    .path:after:hover {
+        text-decoration: none;
     }
 
     .path:last-child:after {

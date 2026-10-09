@@ -1,65 +1,65 @@
 <script>
-    import resumePdf from "$lib/assets/resume.pdf";
+    import climb from "/src/lib/assets/images/climb.jpg"
+    import wildIris from "/src/lib/assets/images/wildIris.jpg"
+    import tetons from "/src/lib/assets/images/tetons.jpg"
+    import ImagePlus from "../../components/ImagePlus.svelte";
 </script>
 
 <div id="about-container">
-    <div class="about-left">
+    <div class="about-inner">
         <h2 class="header">about</h2>
         <div>
             <h3>1999 - 2017 Oberlin</h3>
-            <p>I grew up in Oberlin, Ohio, home of Oberlin College.</p>
+            <p>I was born in 1999 and grew up in Oberlin, Ohio. I left for college at 17.</p>
         </div>
         <div>
             <h3>2017 - 2022 Purdue</h3>
-            <p>I studied Aerospace Engineering at Purdue for 2 years. However, by my junior year, I decided I did not want
-                to dedicate my life to making missiles for the department of defense. I still liked space and science,
-                so I transferred to Planetary Science. I spent a lot less time with aerodynamics and differential equations,
-                and more time rock climbing and writing papers about outer planets and moons like
-                <a href="/pdfs/methane.pdf" target="_blank" class="link">Titan.</a>
+            <p>I studied aerospace engineering at Purdue for 2 years. By my junior year, I decided not
+                to dedicate my life to making missiles for the department of defense. I still liked space and science
+                so I transferred to planetary science. I spent a lot less time with aerodynamics and differential equations
+                and more time rock climbing and writing papers about outer planets and moons.
+            </p>
+            <ImagePlus src={climb} alt="cold hard bitch" title="climbing cold hard bitch in KY" />
+            <p>
+                I took a semester off school in fall 2021 to live in the red river gorge in Kentucky because I
+                I didn't have money for tuition. I lived in my 2009 subaru forester and worked full time at miguel's pizza.
+                I worked breakfast and lunch and then climbed in the evenings.
+                I spent my downtime watching jeopardy with coworkers and studying nuclear physics on youtube and wikipedia.
             </p>
             <p>
-                I took one semester off school in fall 2021 to live and work at Miguel's Pizza in the Red River Gorge, KY.
-                I didn't have money for tuition, and living in a climbing area in my Subaru Forester was a lot more
-                appealing than staying in Ohio or Indiana. I worked every morning and climbed as every evening.
-                I spent my downtime watching Jeopardy with my coworkers and studying nuclear physics online (there's an entire MIT lecture
-                set on youtube for free).
+                I went back to school and graduated in the spring of 2022. I liked planetary science, but I was burnt out
+                on school and all the careers were in research and academia and required a graduate degree.
+                I went back to living in my subaru and climbing in july 2022 - this time in lander, wyoming. I was
+                living off my credit card and gas was $5.49/gal I so decided to start studying software engineering at
+                the public library in Lander.
             </p>
-            <p>
-                I went back to school and was set to graduate in spring of 2022.
-                While arguably more interesting and certainly less unethical, the career paths in Planetary are essentially NASA
-                and academia, both requiring a graduate degree and finishing school around the age of 30. I was not particularly
-                interested in this, so had to once again pivot after graduation.
-            </p>
+            <div class="img-container">
+                <ImagePlus src={tetons} alt="tetons" title="driving through the grand tetons" />
+                <ImagePlus src={wildIris} alt="wild iris" title="climbing with friends at wild iris" />
+            </div>
         </div>
         <div>
             <h3>2022 - 2025 JP Morgan</h3>
-            <p>After getting my degree, I spent some time
-                living in my car and rock climbing again. This time was in Lander, WY for about a month.
-                I was unemployed and running out of money, so one morning decided
-                to learn software engineering to work toward something. I studied for
-                all day at libraries and coffee shops and applied to work with a contractor. They hired me and trained me for a few
-                months and by the end of the year I was on a 2 year contract at Chase in Columbus, OH.
+            <p> After studying by myself for a week, a contractor hired me and trained me for a few
+                months. By November, I started interviewing at companies and got a 2 year contract at Chase in Columbus, OH.
             </p>
             <p>
                 They bought me out of the
-                contract by the following October and I stayed there for 2 years. Wanting to get out of Ohio once again,
-                I transferred to another team in the Chicago office in July 2025.
-                This ended up not being a great fit and I quit by November. I spent half a year unemployed until a friend
-                invited me to work with them at a music venue.
+                contract early the following October and I stayed there for 2 years. Wanting to get out of Ohio once again,
+                I transferred to another team in the Chicago office in July 2025. I was working on one of the largest
+                payment systems in the world and was also the worst job I have ever had.
+                I quit in November and went climbing in west virginia for a week with my friends.
+                I spent half a year unemployed until an acquaintance invited me to work with them at a music venue.
             </p>
         </div>
         <div>
-            <h3>Current</h3>
-            <p>Since May 2026 I've been working at the Salt Shed in Chicago. Taking a long break from corporate
-                and making friends in the city has been a good experience.
+            <h3>Present</h3>
+            <p>Since May of 2026 I've been working at the Salt Shed. Taking the time to work a service job
+                and make friends in Chicago has been a much needed reprieve from the AI obsessed corporate world.
+                I planned on returning to corporate, but have decided that I want to care about my work and make
+                things that are impactful for individuals.
             </p>
         </div>
-    </div>
-    <div class="about-right">
-        <div class="embed-container">
-            <iframe width="100%" height="160" title="soundcloud embed" allow="autoplay; encrypted-media" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/soundcloud%253Atracks%253A226041977&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe><div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/arca1000000" title="Arca" target="_blank" style="color: #cccccc; text-decoration: none;">Arca</a> · <a href="https://soundcloud.com/arca1000000/soichiro" title="Soichiro" target="_blank" style="color: #cccccc; text-decoration: none;">Soichiro</a></div>
-        </div>
-        <iframe src={resumePdf} title="resume" class="resume-iframe"></iframe>
     </div>
 
 
@@ -75,41 +75,34 @@
         background-color: hsl(100 5% 33%);
         min-height: calc(100vh - 37px - 2rem);
     }
-    .about-left {
-        flex: 5;
-    }
-    .about-right {
-        flex: 2;
+
+    .img-container {
         display: flex;
-        margin: 0 12px;
-        flex-direction: column;
+        gap: 12px;
     }
+
+    .about-inner {
+        width: 95%;
+        margin: 0 auto;
+    }
+
     .header {
         width: fit-content;
         margin: 0 auto;
         font-size: 32px;
     }
-    .embed-container {
-        width: 100%;
-        margin: 0 auto;
-    }
-    .resume-iframe {
-        width: 100%;
-        flex: 1;
-    }
     p {
-        margin: 0 1rem;
+        margin: 1rem;
+        font-size: 17px;
     }
     h3 {
         font-size: 24px;
+        margin-bottom: 0;
     }
-    p {
-        font-size: 17px;
-    }
-    .link {
-        color: hsl(180 50% 60%);
-    }
-    .link:visited {
-        color: hsl(180 50% 40%);
+
+    @media screen and (min-width: 768px) {
+        .about-inner {
+            width: 50%;
+        }
     }
 </style>

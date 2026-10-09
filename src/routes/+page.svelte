@@ -4,7 +4,7 @@
 	import carplayIcon from '/src/lib/assets/icons/carplay.png'
 	import bunnyIcon from '/src/lib/assets/icons/bunny.gif'
 	import crosshairIcon from '/src/lib/assets/icons/crosshair.png'
-	import {type icon} from "../types.ts/layouts.svelte";
+    import {type icon, type menuOptions} from "../types.ts/layouts.svelte";
     import bgMovie from "/src/lib/assets/images/norge480.mp4"
     import br from "/src/lib/assets/icons/b.png"
     import fi from "/src/lib/assets/icons/f.jpg"
@@ -16,19 +16,22 @@
 	let icons: icon[] = $state([
 		{displayName: "about", imgSrc: resumeIcon, route: "/about", menu: "about"},
 		{displayName: "resume", imgSrc: resumeIcon, route: "/resume", menu: "about"},
-		{displayName: "carplay", imgSrc: carplayIcon, route: "/carplay", menu: "tech"},
-		{displayName: "godot jam", imgSrc: bunnyIcon, route: "/b1tjam", menu: "tech"},
-		{displayName: "crosshair", imgSrc: crosshairIcon, route: "/crosshair", menu: "tech"},
-        {displayName: "this website", imgSrc: svelteImg, route: "/self", menu: "tech"},
-		{displayName: "bradley", imgSrc: br, route: "/sites/bradley", menu: "tech"},
-		{displayName: "fiona", imgSrc: fi, route: "/sites/fiona", menu: "tech"},
+
+        {displayName: "evankel.ch", imgSrc: svelteImg, route: "/sites/self", menu: "websites"},
+        {displayName: "bradley", imgSrc: br, route: "/sites/bradley", menu: "websites"},
+        {displayName: "fiona", imgSrc: fi, route: "/sites/fiona", menu: "websites"},
+
+		{displayName: "carplay", imgSrc: carplayIcon, route: "/carplay", menu: "projects"},
+		{displayName: "godot jam", imgSrc: bunnyIcon, route: "/b1tjam", menu: "projects"},
+		{displayName: "crosshair", imgSrc: crosshairIcon, route: "/crosshair", menu: "projects"},
+
 		{displayName: "inspiration", imgSrc: fi, route: "/inspiration", menu: "other"},
 	])
 
     const shadowLength: number = .1;
     const shadowStrength: number = 8000;
     let textComponent: any = $state()
-    let openedMenu: string = $state('')
+    let openedMenu: menuOptions = $state('')
     let textWidth: number = $state(0)
     let textHeight: number = $state(0)
     let mouseCoords: {x: number, y: number} = $state({x: 0, y: 0})
@@ -48,7 +51,7 @@
         displacement = {x: textCoords.x - mouseCoords.x, y: textCoords.y - mouseCoords.y}
     }
 
-    function handleMenuItemClicked(item: 'about' | 'tech' | 'art' | 'other') {
+    function handleMenuItemClicked(item: menuOptions) {
         if (openedMenu === item) {
             openedMenu = ''
         } else {
@@ -68,10 +71,10 @@
     <div class="wide-box">
         <div class="app-icons">
             <div class="icons-inner">
-                <HomeListButton txt="About" expanded={openedMenu === 'about'} clicked={() => handleMenuItemClicked('about')} />
-                <HomeListButton txt="Tech Projects" expanded={openedMenu === 'tech'} clicked={() => handleMenuItemClicked('tech')} />
-                <HomeListButton txt="Art Projects" expanded={openedMenu === 'art'} clicked={() => handleMenuItemClicked('art')} />
-                <HomeListButton txt="More" expanded={openedMenu === 'other'} clicked={() => handleMenuItemClicked('other')} />
+                <HomeListButton menuOption='about' selected={openedMenu} clicked={() => handleMenuItemClicked('about')} />
+                <HomeListButton menuOption='websites' selected={openedMenu} clicked={() => handleMenuItemClicked('websites')} />
+                <HomeListButton menuOption='projects' selected={openedMenu} clicked={() => handleMenuItemClicked('projects')} />
+                <HomeListButton menuOption='other' selected={openedMenu} clicked={() => handleMenuItemClicked('other')} />
             </div>
         </div>
         <div class="expanded-icons">
@@ -156,17 +159,5 @@
         font-family: "ui-monospace", monospace;
         color: hsl(290 20% 85%);
         user-select: none;
-    }
-
-    .song-container-main {
-        display: flex;
-        position: absolute;
-        right: 4px;
-        top: 6px;
-        width: 440px;
-        height: 100px;
-    }
-    .toggle-song-btn {
-        margin-left: auto;
     }
 </style>

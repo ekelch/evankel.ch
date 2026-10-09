@@ -1,10 +1,12 @@
 <script module lang="ts">
 
+    export type menuOptions = '' | 'about' | 'websites' | 'projects' | 'other'
+
 	export type icon = {
         displayName: string;
         imgSrc: string;
         route: string;
-        menu: 'about' | 'tech' | 'art' | 'other'
+        menu: menuOptions
 	};
 
 	export type SliderRange = {
